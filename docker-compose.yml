@@ -1,0 +1,26 @@
+version: "3.8"
+
+# build inditas
+# docker-compose -f /PATH/docker-base/docker-compose.yml build --no-cache
+# image belemaszas
+# docker run --rm -it icellmobilsoft/base /bin/bash
+# image inditasa
+# docker run --rm icellmobilsoft/base
+# label-ek ellenorzese
+# docker inspect icellmobilsoft/base:1.0.0 | jq -r '.[0].Config.Labels'
+
+services:
+  base-release:
+    build:
+      context: .
+      dockerfile: dockerfile/base/Dockerfile
+      args:
+        BASE_IMAGE: $BASE_IMAGE
+    image: $DOCKER_IMAGE_BASE
+  curl-release:
+    build:
+      context: .
+      dockerfile: dockerfile/curl/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_BASE
+    image: $DOCKER_IMAGE_CURL
