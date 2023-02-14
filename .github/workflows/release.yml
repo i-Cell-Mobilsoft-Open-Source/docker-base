@@ -15,6 +15,23 @@ jobs:
   docker-release:
     runs-on: ubuntu-latest
     steps:
+      - name: Import GPG key
+        env:
+          # GPG privat kulcs, ami armor-al exportalva (kezdete: '-----BEGIN PGP PRIVATE KEY BLOCK-----') ez az egesz tartalom base64 elkodolva, az betoltve a secrets tartalomnak
+          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY_GITHUB_TECHUSER }}
+        # dekodoljuk a base64 elkodolt privat kulcsot es betoltjuk
+        run: |
+          mkdir -p ~/.gnupg/
+          echo "$GPG_SIGNING_KEY" | base64 --decode > ~/.gnupg/private.key
+          gpg --import ~/.gnupg/private.key
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          # A tartalma egy PEM formatumos (kezdete: '-----BEGIN RSA PRIVATE KEY-----') SSH kulcs
+          key: ${{ secrets.SSH_PRIVATE_KEY_GITHUB_TECHUSER }}
+          name: id_rsa # optional
+          known_hosts: ${{ secrets.KNOWN_HOSTS }} # jelenleg ures a tartalma
+          # config: ${{ secrets.CONFIG }} # ssh_config; optional
       - name: Checkout ${{ github.event.ref }}
         uses: actions/checkout@v3
         with:
