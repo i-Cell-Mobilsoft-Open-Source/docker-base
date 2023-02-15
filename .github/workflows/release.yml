@@ -44,8 +44,9 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       # https://github.com/isbang/compose-action
       - name: Run docker-compose
-        uses: isbang/compose-action@v1.4.1
-        with:
-          compose-file: "./docker-compose.yml"
+        run: docker-compose -f ./docker-compose.yml build --no-cache
+#        uses: isbang/compose-action@v1.4.1
+#        with:
+#          compose-file: "./docker-compose.yml"
 #        env:
 #          IMAGE_NAME: hello-world
