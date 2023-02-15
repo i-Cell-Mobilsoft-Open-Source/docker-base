@@ -43,5 +43,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       # https://github.com/isbang/compose-action
       - name: Run docker-compose
-        run: docker-compose -f ./docker-compose.yml build --no-cache
+        run: |
+          docker-compose -f ./docker-compose.yml build --no-cache
+          docker-compose -f ./docker-compose.yml push
 #

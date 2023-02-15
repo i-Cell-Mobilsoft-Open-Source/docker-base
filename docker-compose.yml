@@ -17,10 +17,10 @@ services:
       args:
         BASE_IMAGE: $BASE_IMAGE
     image: $DOCKER_IMAGE_BASE
-  curl-release:
-    build:
-      context: .
-      dockerfile: dockerfile/curl/Dockerfile
-      args:
-        BASE_IMAGE: $DOCKER_IMAGE_BASE
-    image: $DOCKER_IMAGE_CURL
+#  curl-release:
+#    build:
+#      context: .
+#      dockerfile: dockerfile/curl/Dockerfile
+#      args:
+#        BASE_IMAGE: $DOCKER_IMAGE_BASE
+#    image: $DOCKER_IMAGE_CURL
