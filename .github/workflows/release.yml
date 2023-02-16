@@ -62,7 +62,7 @@ jobs:
         id: prepare
         shell: bash
         run: |
-          CURRENT_VERSION=$(sed -rn 's/^VERSION=([^\n]+)$/\1/p' .env)
+          CURRENT_VERSION=$(sed -rn 's/(^VERSION=)([^-]+)(-SNAPSHOT|)$/\2/p' .env)
           echo current version is ${CURRENT_VERSION}
 
           echo "CURRENT_VERSION=${CURRENT_VERSION}" >> $GITHUB_OUTPUT
@@ -75,7 +75,7 @@ jobs:
           echo "GIT_TAG=${GIT_TAG}" >> $GITHUB_OUTPUT
           echo git tag will be $GIT_TAG
 
-          NEXT_VERSION=$(echo $CURRENT_VERSION |  awk -F'.' '{print $1"."$2"."$3+1}' |  sed s/[.]$//)
+          NEXT_VERSION=$(echo $CURRENT_VERSION |  awk -F'.' '{print $1"."$2"."$3+1}' |  sed s/[.]$//)-SNAPSHOT
           echo "NEXT_VERSION=${NEXT_VERSION}" >> $GITHUB_OUTPUT
           echo next version will be $NEXT_VERSION
 
@@ -135,7 +135,7 @@ jobs:
           MR_BRANCH_NAME=feature/${{ env.PROJECT_NAME }}-${{steps.prepare.outputs.CURRENT_VERSION}}-release
           echo "MR_BRANCH_NAME=${MR_BRANCH_NAME}" >> $GITHUB_OUTPUT
 
-          NEXT_VERSION=$(echo ${{steps.prepare.outputs.CURRENT_VERSION}} |  awk -F'.' '{print $1"."$2+1"."0}' |  sed s/[.]$//)
+          NEXT_VERSION=$(echo ${{steps.prepare.outputs.CURRENT_VERSION}} |  awk -F'.' '{print $1"."$2+1"."0}' |  sed s/[.]$//)-SNAPSHOT
           sed -i -r "s/^[#]*\s*VERSION=.*/VERSION=$NEXT_VERSION/" .env
 
 
