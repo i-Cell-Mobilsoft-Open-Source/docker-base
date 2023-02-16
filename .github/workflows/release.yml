@@ -118,7 +118,7 @@ jobs:
         id: createRelease
         shell: bash
         run: |
-          sed -ir "s/^[#]*\s*VERSION=.*/VERSION=${{steps.prepare.outputs.NEXT_VERSION}}/" .env
+          sed -i -r "s/^[#]*\s*VERSION=.*/VERSION=${{steps.prepare.outputs.NEXT_VERSION}}/" .env
           echo ".env file VERSION property successfully updated ('${{steps.prepare.outputs.CURRENT_VERSION}}' -> '${{steps.prepare.outputs.NEXT_VERSION}}')"
 
           git commit -a -m "Bump version to ${{steps.prepare.outputs.NEXT_VERSION}}"
@@ -136,7 +136,7 @@ jobs:
           echo "MR_BRANCH_NAME=${MR_BRANCH_NAME}" >> $GITHUB_OUTPUT
 
           NEXT_VERSION=$(echo ${{steps.prepare.outputs.CURRENT_VERSION}} |  awk -F'.' '{print $1"."$2+1"."0}' |  sed s/[.]$//)
-          sed -ir "s/^[#]*\s*VERSION=.*/VERSION=$NEXT_VERSION/" .env
+          sed -i -r "s/^[#]*\s*VERSION=.*/VERSION=$NEXT_VERSION/" .env
 
 
           TARGET_BRANCH_NEXT_VERSION=$(sed -rn 's/^VERSION=([^\n]+)$/\1/p' .env)
