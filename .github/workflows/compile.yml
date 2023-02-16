@@ -1,0 +1,17 @@
+name: Docker compile
+
+on:
+  pull_request:
+    branches-ignore:
+      - 'gh-pages'
+      - 'dependabot/**'
+
+jobs:
+  docker-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ${{ github.event.ref }}
+        uses: actions/checkout@v3
+      - name: Run docker-compose
+        run: |
+          docker-compose -f ./docker-compose.yml build --no-cache
