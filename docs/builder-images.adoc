@@ -1,0 +1,17 @@
+
+= Minta builder image
+
+* Image: `<< Ide jön a builder image elnevezése >>`
+* Alapja: `<< Ide jön a builder image alap image-e >>`
+* Célja: << Ide jön a builder image célja >>
+* Használt *argumentum*:
+** *<< Ide jön a builder imageben használt argumentum >>* - << Ide jön a builder imageben használt argumentum leírása>> (default `<< Ide jön a builder imageben használt argumentum default értéke >>`)
+* Hozzáadott *ENV*:
+** *<< Ide jön a builder imageben használt env >>* - << Ide jön a builder imageben használt env leírása>> (default `<< Ide jön a builder imageben használt env default értéke >>`)
+* Telepített programok:
+** *<< program neve >>*
+** *git*
+** *openssh*
+** *curl*
+** *libxml2-utils*
+** *jq*

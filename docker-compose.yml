@@ -10,6 +10,8 @@ version: "3.8"
 # docker inspect icellmobilsoft/base:1.0.0 | jq -r '.[0].Config.Labels'
 
 services:
+
+  # icellmobilsoft/base image release
   base-release:
     build:
       context: .
@@ -17,10 +19,41 @@ services:
       args:
         BASE_IMAGE: $BASE_IMAGE
     image: $DOCKER_IMAGE_BASE
-#  curl-release:
-#    build:
-#      context: .
-#      dockerfile: dockerfile/curl/Dockerfile
-#      args:
-#        BASE_IMAGE: $DOCKER_IMAGE_BASE
-#    image: $DOCKER_IMAGE_CURL
+
+  # icellmobilsoft/alpinebase image release
+  alpinebase-release:
+    build:
+      context: .
+      dockerfile: dockerfile/alpinebase/Dockerfile
+      args:
+        ALPINE_BASE_IMAGE: $ALPINE_BASE_IMAGE
+    image: $DOCKER_IMAGE_ALPINE_BASE
+
+  # icellmobilsoft/curl image release
+  curl-release:
+    build:
+      context: .
+      dockerfile: dockerfile/curl/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_BASE
+    image: $DOCKER_IMAGE_CURL
+
+  # icellmobilsoft/java11jre
+  java11jre-release:
+    build:
+      context: .
+      dockerfile: dockerfile/javajre/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_CURL
+        JRE_TEMURIN_IMAGE: $JRE_11_TEMURIN_IMAGE
+    image: $DOCKER_IMAGE_JAVA11JRE
+
+  # icellmobilsoft/java17jre
+  java17jre-release:
+    build:
+      context: .
+      dockerfile: dockerfile/java11jre/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_CURL
+        JRE_TEMURIN_IMAGE: $JRE_17_TEMURIN_IMAGE
+    image: $DOCKER_IMAGE_JAVA17JRE

@@ -1,0 +1,18 @@
+= /dockerfile
+
+Maga a dockerfile-ok gyűjtője.
+Részletes leírása a létrehozott docker image-ről.
+
+== base images
+
+include::base-images.adoc[leveloffset=+2]
+
+== builder images
+
+include::builder-images.adoc[leveloffset=+2]
+
+= /script
+
+Itt gyülekeznek azok a scriptek melyeket a dockerimage-k felhasználnak.
+
+include::scripts.adoc[leveloffset=+2]

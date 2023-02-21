@@ -1,0 +1,3 @@
+= minta-script.sh
+
+<< Minta script leírásának helye >>

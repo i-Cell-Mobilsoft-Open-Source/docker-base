@@ -1,0 +1,10 @@
+= v1.0.0
+
+* Új image:
+** icellmobilsoft/base - Base image az alap beállításokkal
+** icellmobilsoft/alpinebase - Alpine base image toolsetekkel
+** icellmobilsoft/curl - Curl-t tartalmazó base image
+** icellmobilsoft/java11jre - Java 11 LTS verziót kezeli
+** icellmobilsoft/java17jre - Java 17 LTS verziót kezeli
+
+
