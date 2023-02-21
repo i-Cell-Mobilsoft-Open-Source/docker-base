@@ -62,6 +62,7 @@ Az image felhasználja és kibővíti a fenti <<base,base>> imaget `curl`-al.
 * Célja: Java 11 LTS verzión való alaklmazás futtatása
 * Használt *argumentum*:
 ** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
+** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
 * Hozzáadott ENV:
 ** *JAVA_HOME* - Eredeti jre image-ben a java mappájának a helye (default `/opt/java/opejndk`) https://github.com/adoptium/containers/blob/main/11/jre/alpine/Dockerfile.releases.full#L22[Temurin image-be definiált JAVA_HOME]
 ** *PATH* - Path kiegészítése a JAVA_HOM/bin -nel, hogy használható legyen a jre által nyújtott parancsok.
@@ -78,6 +79,7 @@ Az image felhasználja és kibővíti a fenti <<curl,curl>> imaget `jre11`-gyel.
 * Célja: Java 17 LTS verzión való alaklmazás futtatása
 * Használt *argumentum*:
 ** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
+** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
 * Hozzáadott ENV:
 ** *JAVA_HOME* - Eredeti jre image-ben a java mappájának a helye (default `/opt/java/opejndk`) https://github.com/adoptium/containers/blob/main/17/jre/alpine/Dockerfile.releases.full#L22[Temurin image-be definiált JAVA_HOME]
 ** *PATH* - Path kiegészítése a JAVA_HOM/bin -nel, hogy használható legyen a jre által nyújtott parancsok.
@@ -86,3 +88,21 @@ Az image felhasználja és kibővíti a fenti <<curl,curl>> imaget `jre11`-gyel.
 ** *fonts-dejavu*
 
 Az image felhasználja és kibővíti a fenti <<curl,curl>> imaget `jre17`-gyel.
+
+= liquibase
+
+* Image: `icellmobilsoft/liquibase`
+* Alapja: `icellmobilsoft/java11jre`
+* Célja: Liquibase scriptek futtatása jre11-re építve
+* Használt *argumentum*:
+** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
+** *LIQUIBASE_IMAGE* - Liquibase image megadásalybő a liquibase részei vannak kimásolva a végső imagebe.
+* Hozzáadott ENV:
+** *PATH* - Path kiegészítése a $HOME/liquibase -zel, hogy használható legyen a liquibase által nyújtott parancsok.
+* Telepített programok: -
+
+Az image felhasználja és kibővíti a fenti <<java11jre,java11jre>> imaget `liquibase`-zel.
+
+NOTE: Fontos információ hogy a $HOME/liquibase mappa van workdir-nek beállítva, és itt van kialakítva mappa szinten egy $HOME/liquibase/changelog és $HOME/liquibase/classpath mappák a liquibase-hez.
+
+

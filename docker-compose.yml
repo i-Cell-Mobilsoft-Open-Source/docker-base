@@ -52,8 +52,18 @@ services:
   java17jre-release:
     build:
       context: .
-      dockerfile: dockerfile/java11jre/Dockerfile
+      dockerfile: dockerfile/javajre/Dockerfile
       args:
         BASE_IMAGE: $DOCKER_IMAGE_CURL
         JRE_TEMURIN_IMAGE: $JRE_17_TEMURIN_IMAGE
     image: $DOCKER_IMAGE_JAVA17JRE
+
+  # icellmobilsoft/liquibase
+  liquibase-release:
+    build:
+      context: .
+      dockerfile: dockerfile/liquibase/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_JAVA11JRE
+        LIQUIBASE_IMAGE: $LIQUIBASE_IMAGE
+    image: $DOCKER_IMAGE_LIQUIBASE
