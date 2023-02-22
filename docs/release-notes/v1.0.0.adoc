@@ -9,3 +9,5 @@
 ** icellmobilsoft/liquibase - Liquibase futtatásához használható image
 ** icellmobilsoft/builder/java11-maven - Maven buildeléshez használt image jdk 11-gyel
 ** icellmobilsoft/builder/java17-maven - Maven buildeléshez használt image jdk 17-tel
+** icellmobilsoft/builder/java11-galleon - https://docs.wildfly.org/galleon[Galleon] image jdk 11 és maven alapon
+** icellmobilsoft/builder/java17-galleon - https://docs.wildfly.org/galleon[Galleon] image jdk 17 és maven alapon

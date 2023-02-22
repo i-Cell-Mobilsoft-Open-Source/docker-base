@@ -90,3 +90,21 @@ services:
         BASE_IMAGE: $DOCKER_IMAGE_CURL
         JDK_TEMURIN_IMAGE: $JDK_17_TEMURIN_IMAGE
     image: $DOCKER_IMAGE_JAVA17_MAVEN
+
+  # icellmobilsoft/builder/galleon
+  java11-galleon-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/galleon/Dockerfile
+      args:
+        BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA11_MAVEN
+    image: $DOCKER_IMAGE_JAVA11_GALLEON
+
+  # icellmobilsoft/builder/galleon
+  java17-galleon-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/galleon/Dockerfile
+      args:
+        BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA17_MAVEN
+    image: $DOCKER_IMAGE_JAVA17_GALLEON

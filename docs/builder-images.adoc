@@ -37,3 +37,36 @@
 * Telepített programok:
 ** *maven* - $MAVEN_HOME-on belülre került kicsomagolásra.
 ** *jdk* - /opt/java/openjdk belülre került kicsomagolásra.
+
+= builder/java11-galleon
+
+* Image: `icellmobilsoft/builder/java11-galleon`
+* Alapja: `icellmobilsoft/builder/java11-maven`
+* Célja: Java 11 alapokon Maven támogatással Galleonnal wildfly buildelése
+* Használt *argumentum*:
+** *BASE_BUILDER_IMAGE* - Alap image megadása, nincs default értéke.
+** *GALLEON_VERSION* - Galleon verziószáma (default `5.0.1.Final`)
+** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
+* Hozzáadott *ENV*:
+** *GALLEON_HOME* - Galleon mappája (default `$HOME/galleon=/home/icellmobilsoft/galleon`)
+** *GALLEON_VERSION* - scriptekben van felhasználva (default `GALLEON_VERSION` argumentum)
+** *DOWNLOAD_DIR* - Letöltési mappa ahova a galleon le fog töltődni (default `$HOME/download=/home/icellmobilsoft/download`)
+* Telepített programok:
+** *galleon* - $GALLEON_HOME-on belülre került kicsomagolásra.
+
+
+= builder/java17-galleon
+
+* Image: `icellmobilsoft/builder/java17-galleon`
+* Alapja: `icellmobilsoft/builder/java17-maven`
+* Célja: Java 17 alapokon Maven támogatással Galleonnal wildfly buildelése
+* Használt *argumentum*:
+** *BASE_BUILDER_IMAGE* - Alap image megadása, nincs default értéke.
+** *GALLEON_VERSION* - Galleon verziószáma (default `5.0.1.Final`)
+** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
+* Hozzáadott *ENV*:
+** *GALLEON_HOME* - Galleon mappája (default `$HOME/galleon=/home/icellmobilsoft/galleon`)
+** *GALLEON_VERSION* - scriptekben van felhasználva (default `GALLEON_VERSION` argumentum)
+** *DOWNLOAD_DIR* - Letöltési mappa ahova a galleon le fog töltődni (default `$HOME/download=/home/icellmobilsoft/download`)
+* Telepített programok:
+** *galleon* - $GALLEON_HOME-on belülre került kicsomagolásra.
