@@ -20,13 +20,13 @@ ENV MAVEN_CONFIG=$HOME/.m2
 
 # SHA key to validate the maven download
 ARG SHA=89ab8ece99292476447ef6a6800d9842bbb60787b9b8a45c103aa61d2f205a971d8c3ddfb8b03e514455b4173602bd015e82958c0b3ddc1728a57126f773c743
-ARG BASE_URL=https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries
+ARG MAVEN_DOWNLOAD_URL=https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries
 
 USER root
 #  Create the dirs, download, validate, install, remove downloaded file and set links
 RUN set -x; \
     mkdir -m u=rwx,g=rwx,o=rx -p $DOWNLOAD_DIR $MAVEN_HOME $MAVEN_HOME/ref && \
-    curl -L -X GET ${BASE_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz --output $DOWNLOAD_DIR/apache-maven.tar.gz && \
+    curl -L -X GET ${MAVEN_DOWNLOAD_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz --output $DOWNLOAD_DIR/apache-maven.tar.gz && \
     echo "Checking download hash" && \
     echo "${SHA}  $DOWNLOAD_DIR/apache-maven.tar.gz" | sha512sum -c - && \
     tar -xzf $DOWNLOAD_DIR/apache-maven.tar.gz -C $MAVEN_HOME --strip-components=1 && \

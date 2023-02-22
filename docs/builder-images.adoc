@@ -1,17 +1,39 @@
+= builder/java11-maven
 
-= Minta builder image
-
-* Image: `<< Ide jön a builder image elnevezése >>`
-* Alapja: `<< Ide jön a builder image alap image-e >>`
-* Célja: << Ide jön a builder image célja >>
+* Image: `icellmobilsoft/builder/java11-maven`
+* Alapja: `icellmobilsoft/curl`
+* Célja: Java 11 alapokon Maven segítségével projekt buildelés
 * Használt *argumentum*:
-** *<< Ide jön a builder imageben használt argumentum >>* - << Ide jön a builder imageben használt argumentum leírása>> (default `<< Ide jön a builder imageben használt argumentum default értéke >>`)
+** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
+** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
+** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
+** *SHA* - Letöltendő maven fájl sha-ja (default: `aktuális verzió sha-ja weboldalról`)
+** *MAVEN_DOWNLOAD_URL* -Maven letöltési urlje(default: `https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries`)
 * Hozzáadott *ENV*:
-** *<< Ide jön a builder imageben használt env >>* - << Ide jön a builder imageben használt env leírása>> (default `<< Ide jön a builder imageben használt env default értéke >>`)
+** *MAVEN_VERSION* - Használt maven verziószáma (default `3.8.5`)
+** *DOWNLOAD_DIR* - scriptekben van felhasználva (default `$DOWNLOAD_DIR_DEFAULT$`)
+** *MAVEN_HOME* - Maven MAVEN_HOME környezeti változója (default `$HOME/maven=/home/icellmobilsoft/maven`)
+** *MAVEN_CONFIG* - Maven configuráció (default `$HOME/.m2=/home/icellmobilsoft/.m2`)
 * Telepített programok:
-** *<< program neve >>*
-** *git*
-** *openssh*
-** *curl*
-** *libxml2-utils*
-** *jq*
+** *maven* - $MAVEN_HOME-on belülre került kicsomagolásra.
+** *jdk* - /opt/java/openjdk belülre került kicsomagolásra.
+
+= builder/java17-maven
+
+* Image: `icellmobilsoft/builder/java17-maven`
+* Alapja: `icellmobilsoft/curl`
+* Célja: Java 17 alapokon Maven segítségével projekt buildelés
+* Használt *argumentum*:
+** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
+** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
+** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
+** *SHA* - Letöltendő maven fájl sha-ja (default: `aktuális verzió sha-ja weboldalról`)
+** *MAVEN_DOWNLOAD_URL* -Maven letöltési urlje(default: `https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries`)
+* Hozzáadott *ENV*:
+** *MAVEN_VERSION* - Használt maven verziószáma (default `3.8.5`)
+** *DOWNLOAD_DIR* - scriptekben van felhasználva (default `$DOWNLOAD_DIR_DEFAULT$`)
+** *MAVEN_HOME* - Maven MAVEN_HOME környezeti változója (default `$HOME/maven=/home/icellmobilsoft/maven`)
+** *MAVEN_CONFIG* - Maven configuráció (default `$HOME/.m2=/home/icellmobilsoft/.m2`)
+* Telepített programok:
+** *maven* - $MAVEN_HOME-on belülre került kicsomagolásra.
+** *jdk* - /opt/java/openjdk belülre került kicsomagolásra.
