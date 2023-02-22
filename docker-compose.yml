@@ -15,7 +15,7 @@ services:
   base-release:
     build:
       context: .
-      dockerfile: dockerfile/base/Dockerfile
+      dockerfile: dockerfile/bases/base/Dockerfile
       args:
         BASE_IMAGE: $BASE_IMAGE
     image: $DOCKER_IMAGE_BASE
@@ -24,7 +24,7 @@ services:
   alpinebase-release:
     build:
       context: .
-      dockerfile: dockerfile/alpinebase/Dockerfile
+      dockerfile: dockerfile/bases/alpinebase/Dockerfile
       args:
         ALPINE_BASE_IMAGE: $ALPINE_BASE_IMAGE
     image: $DOCKER_IMAGE_ALPINE_BASE
@@ -33,7 +33,7 @@ services:
   curl-release:
     build:
       context: .
-      dockerfile: dockerfile/curl/Dockerfile
+      dockerfile: dockerfile/bases/curl/Dockerfile
       args:
         BASE_IMAGE: $DOCKER_IMAGE_BASE
     image: $DOCKER_IMAGE_CURL
@@ -42,7 +42,7 @@ services:
   java11jre-release:
     build:
       context: .
-      dockerfile: dockerfile/javajre/Dockerfile
+      dockerfile: dockerfile/bases/javajre/Dockerfile
       args:
         BASE_IMAGE: $DOCKER_IMAGE_CURL
         JRE_TEMURIN_IMAGE: $JRE_11_TEMURIN_IMAGE
@@ -52,7 +52,7 @@ services:
   java17jre-release:
     build:
       context: .
-      dockerfile: dockerfile/javajre/Dockerfile
+      dockerfile: dockerfile/bases/javajre/Dockerfile
       args:
         BASE_IMAGE: $DOCKER_IMAGE_CURL
         JRE_TEMURIN_IMAGE: $JRE_17_TEMURIN_IMAGE
@@ -62,7 +62,7 @@ services:
   liquibase-release:
     build:
       context: .
-      dockerfile: dockerfile/liquibase/Dockerfile
+      dockerfile: dockerfile/bases/liquibase/Dockerfile
       args:
         BASE_IMAGE: $DOCKER_IMAGE_JAVA11JRE
         LIQUIBASE_IMAGE: $LIQUIBASE_IMAGE
