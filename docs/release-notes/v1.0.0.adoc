@@ -6,5 +6,6 @@
 ** icellmobilsoft/curl - Curl-t tartalmazó base image
 ** icellmobilsoft/java11jre - Java 11 LTS verziót kezeli
 ** icellmobilsoft/java17jre - Java 17 LTS verziót kezeli
-
-
+** icellmobilsoft/liquibase - Liquibase futtatásához használható image
+** icellmobilsoft/builder/java11-maven - Maven buildeléshez használt image jdk 11-gyel
+** icellmobilsoft/builder/java17-maven - Maven buildeléshez használt image jdk 17-tel
