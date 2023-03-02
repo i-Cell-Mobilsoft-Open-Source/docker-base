@@ -108,3 +108,12 @@ services:
       args:
         BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA17_MAVEN
     image: $DOCKER_IMAGE_JAVA17_GALLEON
+
+  # icellmobilsoft/builder/nexus-download
+  nexus-download-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/nexus-download/Dockerfile
+      args:
+        BASE_BUILDER_IMAGE: $DOCKER_IMAGE_CURL
+    image: $DOCKER_IMAGE_NEXUS_DOWNLOAD

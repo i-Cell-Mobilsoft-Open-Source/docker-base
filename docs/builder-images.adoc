@@ -54,7 +54,6 @@
 * Telepített programok:
 ** *galleon* - $GALLEON_HOME-on belülre került kicsomagolásra.
 
-
 = builder/java17-galleon
 
 * Image: `icellmobilsoft/builder/java17-galleon`
@@ -70,3 +69,40 @@
 ** *DOWNLOAD_DIR* - Letöltési mappa ahova a galleon le fog töltődni (default `$HOME/download=/home/icellmobilsoft/download`)
 * Telepített programok:
 ** *galleon* - $GALLEON_HOME-on belülre került kicsomagolásra.
+
+= builder/nexus-download
+
+* Image: `icellmobilsoft/builder/nexus-download`
+* Alapja: `icellmobilsoft/curl`
+* Célja: Céges nexusból artifact letöltés megoldása
+* Használt *argumentum*:
+** *BASE_BUILDER_IMAGE* - Alap image megadása, nincs default értéke.
+** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
+** *NEXUS_USER* - Nexus felhasználó
+** *NEXUS_PASSWORD* - Nexus felhasználó jelszava (plain text)
+** *NEXUS_REPOSITORY_URL* - Nexus repository url
+** *NEXUS_REPOSITORY* - Nexus repository a nexuson belül (pl.: public)
+** *NEXUS_OBJECT_GROUP_ID* - Artifact objektum groupId-ja
+** *NEXUS_OBJECT_ARTIFACT_ID* - Artifact objektum artifact-ja
+** *NEXUS_OBJECT_EXTENSION* - Artifact objektum extension-je (pl.: jar)
+** *NEXUS_OBJECT_VERSION* -Artifact objektum version-je
+** *NEXUS_OBJECT_CLASSIFIER* - Artifacet objektum classifier
+** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME* - Letöltendő fájl output neve
+** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1* - Letöltendő fájl sha1 lenyomata
+* Hozzáadott *ENV*:
+** *DOWNLOAD_DIR* - Letöltési mappa ahova a galleon le fog töltődni (default `$HOME/download=/home/icellmobilsoft/download`)
+** *NEXUS_USER* - Nexus felhasználó argumentumból (default `$NEXUS_USER`)
+** *NEXUS_PASSWORD* - Nexus felhasználó jelszava argumentumból (default `$NEXUS_PASSWORD`)
+** *NEXUS_REPOSITORY_URL* - Nexus repository url argumentumból (default `$NEXUS_REPOSITORY_URL`)
+** *NEXUS_REPOSITORY* - Nexus repository a nexuson belül argumentumból (default `$NEXUS_REPOSITORY`)
+** *NEXUS_OBJECT_GROUP_ID* - Artifact objektum groupId-ja argumentumból (default `$NEXUS_OBJECT_GROUP_ID`)
+** *NEXUS_OBJECT_ARTIFACT_ID* - Artifact objektum artifact-ja argumentumból (default `$NEXUS_OBJECT_ARTIFACT_ID`)
+** *NEXUS_OBJECT_EXTENSION* - Artifact objektum extension-je argumentumból (default `$NEXUS_OBJECT_EXTENSION`)
+** *NEXUS_OBJECT_VERSION* - Artifact objektum version-je argumentumból (default `$NEXUS_OBJECT_VERSION`)
+** *NEXUS_OBJECT_CLASSIFIER* - Artifacet objektum classifier argumentumból (default `$NEXUS_OBJECT_CLASSIFIER`)
+** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME* - Letöltendő fájl output neve argumentumból (default `$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME`)
+** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1* - Letöltendő fájl sha1 lenyomata argumentumból (default `$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1`)
+* Telepített programok: -
+
+NOTE: A letöltött artifact a DOWNLOAD_DIR-ben található majd meg.
+
