@@ -50,10 +50,3 @@ Alapvetően 2 esetet kezelünk:
 
 A hozzátartozó CI csak a megfelelő brancheknél jelenik meg.
 
-A Gitlab CI lépései:
-
-. docker-compose.yml build parancs futtatása
-. `ci/release/release.sh` script futása, ami a következőket műveli:
-.. `.env` fájl importja
-.. `:latest` tag létrehozása
-.. `docker push` minden image és tag-re

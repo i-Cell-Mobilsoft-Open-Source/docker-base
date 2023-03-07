@@ -11,7 +11,7 @@ FROM ${JDK_TEMURIN_IMAGE} as jdk-build
 ################################################################################
 FROM ${BASE_IMAGE} as base
 
-ENV MAVEN_VERSION=3.8.5
+ENV MAVEN_VERSION=3.8.7
 
 ARG DOWNLOAD_DIR_DEFAULT=$HOME/download
 ENV DOWNLOAD_DIR=$DOWNLOAD_DIR_DEFAULT

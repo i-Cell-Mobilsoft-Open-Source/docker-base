@@ -10,7 +10,7 @@
 ** *SHA* - Letöltendő maven fájl sha-ja (default: `aktuális verzió sha-ja weboldalról`)
 ** *MAVEN_DOWNLOAD_URL* -Maven letöltési urlje(default: `https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries`)
 * Hozzáadott *ENV*:
-** *MAVEN_VERSION* - Használt maven verziószáma (default `3.8.5`)
+** *MAVEN_VERSION* - Használt maven verziószáma (default `3.8.7`)
 ** *DOWNLOAD_DIR* - scriptekben van felhasználva (default `$DOWNLOAD_DIR_DEFAULT$`)
 ** *MAVEN_HOME* - Maven MAVEN_HOME környezeti változója (default `$HOME/maven=/home/icellmobilsoft/maven`)
 ** *MAVEN_CONFIG* - Maven configuráció (default `$HOME/.m2=/home/icellmobilsoft/.m2`)
@@ -30,7 +30,7 @@
 ** *SHA* - Letöltendő maven fájl sha-ja (default: `aktuális verzió sha-ja weboldalról`)
 ** *MAVEN_DOWNLOAD_URL* -Maven letöltési urlje(default: `https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries`)
 * Hozzáadott *ENV*:
-** *MAVEN_VERSION* - Használt maven verziószáma (default `3.8.5`)
+** *MAVEN_VERSION* - Használt maven verziószáma (default `3.8.7`)
 ** *DOWNLOAD_DIR* - scriptekben van felhasználva (default `$DOWNLOAD_DIR_DEFAULT$`)
 ** *MAVEN_HOME* - Maven MAVEN_HOME környezeti változója (default `$HOME/maven=/home/icellmobilsoft/maven`)
 ** *MAVEN_CONFIG* - Maven configuráció (default `$HOME/.m2=/home/icellmobilsoft/.m2`)
@@ -45,7 +45,7 @@
 * Célja: Java 11 alapokon Maven támogatással Galleonnal wildfly buildelése
 * Használt *argumentum*:
 ** *BASE_BUILDER_IMAGE* - Alap image megadása, nincs default értéke.
-** *GALLEON_VERSION* - Galleon verziószáma (default `5.0.1.Final`)
+** *GALLEON_VERSION* - Galleon verziószáma (default `5.0.8.Final`)
 ** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
 * Hozzáadott *ENV*:
 ** *GALLEON_HOME* - Galleon mappája (default `$HOME/galleon=/home/icellmobilsoft/galleon`)
@@ -61,7 +61,7 @@
 * Célja: Java 17 alapokon Maven támogatással Galleonnal wildfly buildelése
 * Használt *argumentum*:
 ** *BASE_BUILDER_IMAGE* - Alap image megadása, nincs default értéke.
-** *GALLEON_VERSION* - Galleon verziószáma (default `5.0.1.Final`)
+** *GALLEON_VERSION* - Galleon verziószáma (default `5.0.8.Final`)
 ** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
 * Hozzáadott *ENV*:
 ** *GALLEON_HOME* - Galleon mappája (default `$HOME/galleon=/home/icellmobilsoft/galleon`)

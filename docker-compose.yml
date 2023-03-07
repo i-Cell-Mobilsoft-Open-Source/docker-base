@@ -91,7 +91,7 @@ services:
         JDK_TEMURIN_IMAGE: $JDK_17_TEMURIN_IMAGE
     image: $DOCKER_IMAGE_JAVA17_MAVEN
 
-  # icellmobilsoft/builder/galleon
+  # icellmobilsoft/builder/java11-galleon-builder
   java11-galleon-builder:
     build:
       context: .
@@ -100,7 +100,7 @@ services:
         BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA11_MAVEN
     image: $DOCKER_IMAGE_JAVA11_GALLEON
 
-  # icellmobilsoft/builder/galleon
+  # icellmobilsoft/builder/java17-galleon-builder
   java17-galleon-builder:
     build:
       context: .
