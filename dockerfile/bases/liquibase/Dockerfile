@@ -1,21 +1,30 @@
 ARG BASE_IMAGE
 ARG LIQUIBASE_IMAGE
-################################################################################
-# Create liquibase copy image
-# https://hub.docker.com/r/liquibase/liquibase
-################################################################################
+
 FROM ${LIQUIBASE_IMAGE} as liqui
 
 FROM ${BASE_IMAGE} as base
 
-COPY --from=liqui --chown=$SYSTEM_USER:$SYSTEM_USER_GROUP /liquibase $HOME/liquibase
+ARG LIQUIBASE_IMAGE
 
-ENV PATH="$HOME/liquibase:${PATH}"
+ARG LIQUIBASE_HOME_DEFAULT=$HOME/liquibase
+ENV LIQUIBASE_HOME=$LIQUIBASE_HOME_DEFAULT
 
-RUN mkdir $HOME/liquibase/changelog&& \
-    mkdir $HOME/liquibase/classpath
+COPY --from=liqui --chown=$SYSTEM_USER:$SYSTEM_USER_GROUP /liquibase $LIQUIBASE_HOME
+COPY --chown=$SYSTEM_USER:$SYSTEM_USER_GROUP dockerfile/liquibase/docker-entrypoint.sh $LIQUIBASE_HOME/docker-entrypoint.sh
+COPY --chown=$SYSTEM_USER:$SYSTEM_USER_GROUP dockerfile/liquibase/liquibase.docker.properties $LIQUIBASE_HOME/liquibase.docker.properties
 
-WORKDIR $HOME/liquibase
+ENV PATH="$LIQUIBASE_HOME:${PATH}"
+
+ARG CHANGELOG_DIR_NAME=changelog
+ENV DOCKER_LIQUIBASE_CHANGELOG=$LIQUIBASE_HOME_DEFAULT/$CHANGELOG_DIR_NAME
+ARG CLASSPATH_DIR_NAME=classpath
+ENV DOCKER_LIQUIBASE_CLASSPATH=$LIQUIBASE_HOME_DEFAULT/$CLASSPATH_DIR_NAME
+
+RUN mkdir $DOCKER_LIQUIBASE_CHANGELOG && \
+    mkdir $DOCKER_LIQUIBASE_CLASSPATH
+
+WORKDIR $LIQUIBASE_HOME
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
 
@@ -23,4 +32,6 @@ ARG BASE_IMAGE
 LABEL base.image=$BASE_IMAGE
 LABEL image.usage=release
 LABEL install=liquibase
-LABEL liquibase.version=$LIQUIBASE_VERSION
+LABEL liquibase.image=$LIQUIBASE_IMAGE
+LABEL liquibase.home=$LIQUIBASE_HOME
+LABEL liquibase.env=DOCKER_LIQUIBASE_CHANGELOG=$DOCKER_LIQUIBASE_CHANGELOG,DOCKER_LIQUIBASE_CLASSPATH=$DOCKER_LIQUIBASE_CLASSPATH
