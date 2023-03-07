@@ -1,0 +1,29 @@
+= /script
+
+Itt gyülekeznek azok a scriptek melyeket a dockerimage-k felhasználnak.
+
+== Artifact download
+Maven central/Sonatype artifact lehúzására szolgáló scriptek
+
+=== artifact/maven-search-download.sh
+Célja a központi maven public repository-ból (https://search.maven.org/ az oldala)
+artifact lehúzása API-n keresztül (https://central.sonatype.org/search/example-urls/)
+Az objektum útvonalának van egy standardizált képzési algoritmusa,
+ami a maven package rendszere állít elő.
+
+=== artifact/sonatype-download.sh (Nexus 2)
+A Sonatype Nexus 2 szervernek (public vagy privát) van saját API-ja,
+ahol szintén le lehet kérdezni az artifactokat.
+Így nem szükséges a maven dependency plugin használata (önmagában kell hozzá java és sok maven dependency)
+és közvetlen, gyorsan, egyszerű http hívásokkal lehúzható az a artifact ami kell.
+A struktúra a maven G-A-V alapon működik.
+
+=== artifact/common-nexus-download.sh (Nexus 3)
+A Sonatype Nexus 3 új API-ja (https://stackoverflow.com/questions/47653338/sonatype-nexus-3-rest-api-backward-compatibility),
+ahol többek között le is lehet kérdezni az artifactokat.
+Így nem szükséges a maven dependency plugin használata (önmagában kell hozzá java és sok maven dependency)
+és közvetlen, gyorsan, egyszerű http hívásokkal lehúzható az a artifact ami kell.
+A struktúra a maven G-A-V alapon működik.
+A script konkrétan a
+https://help.sonatype.com/repomanager3/integrations/rest-and-integration-api/search-api#SearchAPI-SearchandDownloadAsset
+leírást implementálja.

@@ -2,7 +2,7 @@
 :toclevels: 4
 :sectnums:
 
-= docker-base dockerimages
+= Icellmobilsoft base dockerimage
 
 [#index]
 == Általános
@@ -10,29 +10,28 @@
 A repository az icellmobilsoft-ban használt base docker image-k gyűjtését szolgálja,
 hogy azonos alapon működjenek a projektek és azok buildjei.
 
-A projekt részeit több részre osztható,
+A projekt több részre osztható,
 egymást kiegészítik.
-Alapvetően 2 csoportja oszthatóak az image-k:
+Alapvetően 2 csoportra oszthatóak az image-k:
 
 * *parent (base image)* - ezek azok az docker imagek,
 melyeket a cél termékeknél base image-nek használunk.
 Csak a feltétlenül szükséges funkció és tartalom lehet bennük.
-* *builder* - tartalom hordozásra használjuk őket,
+* *builder* - tartalom hordozásra használjuk őket,ű
 sosem szabad base image-re használni.
 A funkciója a multi-stage dockerfile-ban van,
 ahol például driver tárhelyként van felhasználva.
 
-[#architecture]
-== Architecture
+include::architecture.adoc[leveloffset=+1]
 
-include::architecture.adoc[leveloffset=+2]
-
-[#project-structure]
-== Projekt struktúra
-
-include::project-structure.adoc[leveloffset=+2]
+include::project-structure.adoc[leveloffset=+1]
 
 [#release-notes]
 == Release notes
 
 include::release-notes/v1.0.0.adoc[leveloffset=+2]
+
+== Migrációs leírás
+
+include::migration/to_1_0_0.adoc[leveloffset=+1]
+

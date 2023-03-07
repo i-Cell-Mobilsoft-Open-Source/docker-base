@@ -1,18 +1,6 @@
-= /dockerfile
+[#project-structure]
+= Projekt struktúra
 
-Maga a dockerfile-ok gyűjtője.
-Részletes leírása a létrehozott docker image-ről.
+include::dockerfiles/index.adoc[leveloffset=+1]
 
-== base images - /dockerfile/bases
-
-include::base-images.adoc[leveloffset=+2]
-
-== builder images - /dockerfile/builder
-
-include::builder-images.adoc[leveloffset=+2]
-
-= /script
-
-Itt gyülekeznek azok a scriptek melyeket a dockerimage-k felhasználnak.
-
-include::scripts.adoc[leveloffset=+2]
+include::scripts/index.adoc[leveloffset=+1]

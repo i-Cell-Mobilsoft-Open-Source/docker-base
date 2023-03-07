@@ -1,5 +1,21 @@
 = v1.0.0
 
+A projekt kiköltözött a belső repositoryból,
+frissítéseket leszámolva 1:1 kompatibilis a 0.7.0 verzióval.
+
+.Változások a belső verzióhoz képest
+
+* bump base image debian:11.2-slim -> debian:11.6-slim
+* Java 11:
+** 11.0.14.1_1-jre -> 11.0.18_10-jre
+** 11.0.14.1_1-jdk -> 11.0.18_10-jdk
+** 17.0.2_8-jre -> 17.0.6_10-jre
+** 17.0.2_8-jdk -> 17.0.6_10-jdk
+* Maven 3.8.5 -> 3.8.7
+* Galleon 5.0.1.Final ->  5.0.8.Final
+* Liquibase 4.7 -> 4.19
+
+.Újdondonságok
 * Új image:
 ** icellmobilsoft/base - Base image az alap beállításokkal
 ** icellmobilsoft/alpinebase - Alpine base image toolsetekkel

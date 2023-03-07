@@ -1,3 +1,6 @@
+[#architecture]
+= Architecture
+
 [ditaa]
 ----
 Base images

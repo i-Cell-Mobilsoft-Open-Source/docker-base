@@ -40,7 +40,7 @@ ENV NEXUS_OBJECT_CLASSIFIER=$NEXUS_OBJECT_CLASSIFIER
 ENV NEXUS_DOWNLOAD_OUTPUT_FILE_NAME=$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME
 ENV NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1=$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1
 
-COPY script/common-nexus-download.sh $HOME/script/common-nexus-download.sh
+COPY script/artifact/common-nexus-download.sh $HOME/script/common-nexus-download.sh
 
 CMD ["sh", "-c", "$HOME/script/common-nexus-download.sh" ]
 

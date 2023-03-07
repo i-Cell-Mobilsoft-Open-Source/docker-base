@@ -1,0 +1,9 @@
+= /dockerfile
+
+Részletes leírása a létrehozott docker image-ről.
+
+== base images - /dockerfile/bases
+include::base-images.adoc[leveloffset=+2]
+
+== builder images - /dockerfile/builder
+include::builder-images.adoc[leveloffset=+2]
