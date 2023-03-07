@@ -79,6 +79,8 @@ services:
       args:
         BASE_IMAGE: $DOCKER_IMAGE_CURL
         JDK_TEMURIN_IMAGE: $JDK_11_TEMURIN_IMAGE
+        MAVEN_VERSION: $MAVEN_VERSION
+        MAVEN_SHA: $MAVEN_SHA
     image: $DOCKER_IMAGE_JAVA11_MAVEN
 
   # icellmobilsoft/builder/java17-maven
@@ -89,6 +91,8 @@ services:
       args:
         BASE_IMAGE: $DOCKER_IMAGE_CURL
         JDK_TEMURIN_IMAGE: $JDK_17_TEMURIN_IMAGE
+        MAVEN_VERSION: $MAVEN_VERSION
+        MAVEN_SHA: $MAVEN_SHA
     image: $DOCKER_IMAGE_JAVA17_MAVEN
 
   # icellmobilsoft/builder/java11-galleon-builder
@@ -98,6 +102,7 @@ services:
       dockerfile: dockerfile/builder/galleon/Dockerfile
       args:
         BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA11_MAVEN
+        GALLEON_VERSION: $GALLEON_VERSION
     image: $DOCKER_IMAGE_JAVA11_GALLEON
 
   # icellmobilsoft/builder/java17-galleon-builder
@@ -107,6 +112,7 @@ services:
       dockerfile: dockerfile/builder/galleon/Dockerfile
       args:
         BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA17_MAVEN
+        GALLEON_VERSION: $GALLEON_VERSION
     image: $DOCKER_IMAGE_JAVA17_GALLEON
 
   # icellmobilsoft/builder/nexus-download
