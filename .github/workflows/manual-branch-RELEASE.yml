@@ -66,10 +66,6 @@ jobs:
           echo current version is ${CURRENT_VERSION}
 
           echo "CURRENT_VERSION=${CURRENT_VERSION}" >> $GITHUB_OUTPUT
-#          RELEASE_BRANCH_NAME=release/${{ env.PROJECT_NAME }}-${CURRENT_VERSION%.*}.x
-#          echo new release branch name is $RELEASE_BRANCH_NAME
-
-#          echo "RELEASE_BRANCH_NAME=${RELEASE_BRANCH_NAME}" >> $GITHUB_OUTPUT
 
           GIT_TAG=${{ env.PROJECT_NAME }}-${CURRENT_VERSION}
           echo "GIT_TAG=${GIT_TAG}" >> $GITHUB_OUTPUT
