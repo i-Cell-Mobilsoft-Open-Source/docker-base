@@ -1,0 +1,135 @@
+version: "3.8"
+
+# build inditas
+# docker-compose -f /PATH/docker-base/docker-compose.yml build --no-cache
+# image belemaszas
+# docker run --rm -it icellmobilsoft/base /bin/bash
+# image inditasa
+# docker run --rm icellmobilsoft/base
+# label-ek ellenorzese
+# docker inspect icellmobilsoft/base:1.0.0 | jq -r '.[0].Config.Labels'
+
+services:
+
+  # icellmobilsoft/base image release
+  base-release:
+    build:
+      context: .
+      dockerfile: dockerfile/bases/base/Dockerfile
+      args:
+        BASE_IMAGE: $BASE_IMAGE
+    image: $DOCKER_IMAGE_BASE
+
+  # icellmobilsoft/base-alpine image release
+  base-alpine-release:
+    build:
+      context: .
+      dockerfile: dockerfile/bases/base-alpine/Dockerfile
+      args:
+        ALPINE_BASE_IMAGE: $ALPINE_BASE_IMAGE
+    image: $DOCKER_IMAGE_BASE_ALPINE
+
+  # icellmobilsoft/curl image release
+  curl-release:
+    build:
+      context: .
+      dockerfile: dockerfile/bases/curl/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_BASE
+    image: $DOCKER_IMAGE_CURL
+
+  # icellmobilsoft/java11jre
+  java11jre-release:
+    build:
+      context: .
+      dockerfile: dockerfile/bases/javajre/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_CURL
+        JRE_TEMURIN_IMAGE: $JRE_11_TEMURIN_IMAGE
+    image: $DOCKER_IMAGE_JAVA11JRE
+
+  # icellmobilsoft/java17jre
+  java17jre-release:
+    build:
+      context: .
+      dockerfile: dockerfile/bases/javajre/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_CURL
+        JRE_TEMURIN_IMAGE: $JRE_17_TEMURIN_IMAGE
+    image: $DOCKER_IMAGE_JAVA17JRE
+
+  # icellmobilsoft/liquibase
+  liquibase-release:
+    build:
+      context: .
+      dockerfile: dockerfile/bases/liquibase/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_JAVA11JRE
+        LIQUIBASE_IMAGE: $LIQUIBASE_IMAGE
+    image: $DOCKER_IMAGE_LIQUIBASE
+
+##################################
+  # builder images
+##################################
+
+  # icellmobilsoft/builder/alpine-runner image release
+  alpine-runner-release:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/alpine-runner/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_BASE_ALPINE
+    image: $DOCKER_IMAGE_ALPINE_RUNNER
+
+  # icellmobilsoft/builder/java11-maven
+  java11-maven-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/javamaven/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_CURL
+        JDK_TEMURIN_IMAGE: $JDK_11_TEMURIN_IMAGE
+        MAVEN_VERSION: $MAVEN_VERSION
+        MAVEN_SHA: $MAVEN_SHA
+    image: $DOCKER_IMAGE_JAVA11_MAVEN
+
+  # icellmobilsoft/builder/java17-maven
+  java17-maven-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/javamaven/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_CURL
+        JDK_TEMURIN_IMAGE: $JDK_17_TEMURIN_IMAGE
+        MAVEN_VERSION: $MAVEN_VERSION
+        MAVEN_SHA: $MAVEN_SHA
+    image: $DOCKER_IMAGE_JAVA17_MAVEN
+
+  # icellmobilsoft/builder/java11-galleon-builder
+  java11-galleon-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/galleon/Dockerfile
+      args:
+        BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA11_MAVEN
+        GALLEON_VERSION: $GALLEON_VERSION
+    image: $DOCKER_IMAGE_JAVA11_GALLEON
+
+  # icellmobilsoft/builder/java17-galleon-builder
+  java17-galleon-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/galleon/Dockerfile
+      args:
+        BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA17_MAVEN
+        GALLEON_VERSION: $GALLEON_VERSION
+    image: $DOCKER_IMAGE_JAVA17_GALLEON
+
+  # icellmobilsoft/builder/nexus-download
+  nexus-download-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/nexus-download/Dockerfile
+      args:
+        BASE_BUILDER_IMAGE: $DOCKER_IMAGE_CURL
+    image: $DOCKER_IMAGE_NEXUS_DOWNLOAD

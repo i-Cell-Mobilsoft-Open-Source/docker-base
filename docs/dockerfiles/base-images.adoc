@@ -1,0 +1,101 @@
+= base
+
+* Image: `icellmobilsoft/base`
+* Alapja: https://hub.docker.com/_/debian official LTS release
+* Célja: Éles alkalmazások futtatása
+* Használt *argumentum*:
+** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
+** *USER_GID* - Létrehozott user groupjának gid-je (default `101`)
+** *USER_UID* - Létrehozott user uid-je (default `101`)
+** *SYSTEM_USER_DEFAULT* - Létrehozott user neve (default `icellmobilsoft`)
+** *SYSTEM_USER_GROUP_DEFAULT* - Létrehozott user groupjának neve (default `icellmobilsoft`)
+* Hozzáadott *ENV*:
+** *$SYSTEM_USER* - Nem `root` user, akivel fut az image (default: `icellmobilsoft`)
+** *$SYSTEM_USER_GROUP* - SYSTEM_USER linux csoportja (default: `icellmobilsoft`)
+** *$HOME* - SYSTEM_USER home könytára (WORKDIR $HOME)
+* Telepített programok: -
+
+A image célja hogy létrehozzon egy system user-t akivel default fut az image.
+
+= base-alpine
+
+* Image: `icellmobilsoft/base-alpine`
+* Alapja: https://hub.docker.com/_/alpine official release
+* Célja: Fejlesztés különböző fázisaihoz egy toolsetet tartalmazó base image
+* Használt *argumentum*:
+** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
+** *USER_GID* - Létrehozott user groupjának gid-je (default `101`)
+** *USER_UID* - Létrehozott user uid-je (default `101`)
+** *SYSTEM_USER_DEFAULT* - Létrehozott user neve (default `icellmobilsoft`)
+** *SYSTEM_USER_GROUP_DEFAULT* - Létrehozott user groupjának neve (default `icellmobilsoft`)
+* Hozzáadott *ENV*:
+** *$SYSTEM_USER* - Nem `root` user, akivel fut az image (default: `icellmobilsoft`)
+** *$SYSTEM_USER_GROUP* - SYSTEM_USER linux csoportja (default: `icellmobilsoft`)
+** *$HOME* - SYSTEM_USER home könytára (WORKDIR $HOME)
+
+A image célja hogy létrehozzon egy system user-t akivel default fut az image.
+
+= curl
+
+* Image: `icellmobilsoft/curl`
+* Alapja: `icellmobilsoft/base`
+* Célja: éles alkalmazások futtatása
+* Használt *argumentum*:
+** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
+* Hozzáadott ENV: -
+* Telepített programok:
+** *curl*
+
+Az image felhasználja és kibővíti a fenti <<base,base>> imaget `curl`-al.
+
+= java11jre
+
+* Image: `icellmobilsoft/curl`
+* Alapja: `icellmobilsoft/java11jre`
+* Célja: Java 11 LTS verzión való alaklmazás futtatása
+* Használt *argumentum*:
+** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
+** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
+* Hozzáadott ENV:
+** *JAVA_HOME* - Eredeti jre image-ben a java mappájának a helye (default `/opt/java/opejndk`) https://github.com/adoptium/containers/blob/main/11/jre/alpine/Dockerfile.releases.full#L22[Temurin image-be definiált JAVA_HOME]
+** *PATH* - Path kiegészítése a JAVA_HOM/bin -nel, hogy használható legyen a jre által nyújtott parancsok.
+* Telepített programok:
+** *fontconfig*
+** *fonts-dejavu*
+
+Az image felhasználja és kibővíti a fenti <<curl,curl>> imaget `jre11`-gyel.
+
+= java17jre
+
+* Image: `icellmobilsoft/curl`
+* Alapja: `icellmobilsoft/java17jre`
+* Célja: Java 17 LTS verzión való alaklmazás futtatása
+* Használt *argumentum*:
+** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
+** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
+* Hozzáadott ENV:
+** *JAVA_HOME* - Eredeti jre image-ben a java mappájának a helye (default `/opt/java/opejndk`) https://github.com/adoptium/containers/blob/main/17/jre/alpine/Dockerfile.releases.full#L22[Temurin image-be definiált JAVA_HOME]
+** *PATH* - Path kiegészítése a JAVA_HOM/bin -nel, hogy használható legyen a jre által nyújtott parancsok.
+* Telepített programok:
+** *fontconfig*
+** *fonts-dejavu*
+
+Az image felhasználja és kibővíti a fenti <<curl,curl>> imaget `jre17`-gyel.
+
+= liquibase
+
+* Image: `icellmobilsoft/liquibase`
+* Alapja: `icellmobilsoft/java11jre`
+* Célja: Liquibase scriptek futtatása jre11-re építve
+* Használt *argumentum*:
+** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
+** *LIQUIBASE_IMAGE* - Liquibase image megadásalybő a liquibase részei vannak kimásolva a végső imagebe.
+* Hozzáadott ENV:
+** *PATH* - Path kiegészítése a $HOME/liquibase -zel, hogy használható legyen a liquibase által nyújtott parancsok.
+* Telepített programok: -
+
+Az image felhasználja és kibővíti a fenti <<java11jre,java11jre>> imaget `liquibase`-zel.
+
+NOTE: Fontos információ hogy a $HOME/liquibase mappa van workdir-nek beállítva, és itt van kialakítva mappa szinten egy $HOME/liquibase/changelog és $HOME/liquibase/classpath mappák a liquibase-hez.
+
+

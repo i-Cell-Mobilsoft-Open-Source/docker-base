@@ -1,0 +1,6 @@
+[#project-structure]
+= Projekt struktúra
+
+include::dockerfiles/index.adoc[leveloffset=+1]
+
+include::scripts/index.adoc[leveloffset=+1]
