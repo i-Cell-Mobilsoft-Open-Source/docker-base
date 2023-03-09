@@ -11,8 +11,8 @@ ARG LIQUIBASE_HOME_DEFAULT=$HOME/liquibase
 ENV LIQUIBASE_HOME=$LIQUIBASE_HOME_DEFAULT
 
 COPY --from=liqui --chown=$SYSTEM_USER:$SYSTEM_USER_GROUP /liquibase $LIQUIBASE_HOME
-COPY --chown=$SYSTEM_USER:$SYSTEM_USER_GROUP dockerfile/liquibase/docker-entrypoint.sh $LIQUIBASE_HOME/docker-entrypoint.sh
-COPY --chown=$SYSTEM_USER:$SYSTEM_USER_GROUP dockerfile/liquibase/liquibase.docker.properties $LIQUIBASE_HOME/liquibase.docker.properties
+COPY --chown=$SYSTEM_USER:$SYSTEM_USER_GROUP dockerfile/bases/liquibase/docker-entrypoint.sh $LIQUIBASE_HOME/docker-entrypoint.sh
+COPY --chown=$SYSTEM_USER:$SYSTEM_USER_GROUP dockerfile/bases/liquibase/liquibase.docker.properties $LIQUIBASE_HOME/liquibase.docker.properties
 
 ENV PATH="$LIQUIBASE_HOME:${PATH}"
 

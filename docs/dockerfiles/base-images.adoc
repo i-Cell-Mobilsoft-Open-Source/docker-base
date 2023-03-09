@@ -1,7 +1,7 @@
 = base
 
 * Image: `icellmobilsoft/base`
-* Alapja: `dockerhub-dockerio.icellmobilsoft.hu/debian:11.2-slim`
+* Alapja: https://hub.docker.com/_/debian official LTS release
 * Célja: Éles alkalmazások futtatása
 * Használt *argumentum*:
 ** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
@@ -17,10 +17,10 @@
 
 A image célja hogy létrehozzon egy system user-t akivel default fut az image.
 
-= alpinebase
+= base-alpine
 
-* Image: `icellmobilsoft/alpinebase`
-* Alapja: `alpine:3.17`
+* Image: `icellmobilsoft/base-alpine`
+* Alapja: https://hub.docker.com/_/alpine official release
 * Célja: Fejlesztés különböző fázisaihoz egy toolsetet tartalmazó base image
 * Használt *argumentum*:
 ** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
@@ -32,15 +32,8 @@ A image célja hogy létrehozzon egy system user-t akivel default fut az image.
 ** *$SYSTEM_USER* - Nem `root` user, akivel fut az image (default: `icellmobilsoft`)
 ** *$SYSTEM_USER_GROUP* - SYSTEM_USER linux csoportja (default: `icellmobilsoft`)
 ** *$HOME* - SYSTEM_USER home könytára (WORKDIR $HOME)
-* Telepített programok:
-** *bash*
-** *git*
-** *openssh*
-** *curl*
-** *libxml2-utils*
-** *jq*
 
-A image célja hogy létrehozzon egy system user-t akivel default fut az image, és telepítse a különböző toolokat a további használatokhoz.
+A image célja hogy létrehozzon egy system user-t akivel default fut az image.
 
 = curl
 

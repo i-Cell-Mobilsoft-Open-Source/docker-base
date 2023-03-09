@@ -11,13 +11,13 @@ A projekt részeit több részre osztható,
 egymást kiegészítik.
 Alapvetően 2 csoportja oszthatóak az image-k:
 
-* *parent (base image)* - ezek azok az docker imagek,
+* *bases* - ezek azok az docker imagek,
 melyeket a cél termékeknél base image-nek használunk.
 Csak a feltétlenül szükséges funkció és tartalom lehet bennük.
 * *builder* - tartalom hordozásra használjuk őket,
-sosem szabad base image-re használni.
-A funkciója a multi-stage dockerfile-ban van,
-ahol például driver tárhelyként van felhasználva.
+nem szabad base image-re használni.
+A funkciója a buildelés, kompilálás, multi-stage dockerfile-ban van,
+vagy akár gitlab runner használatban.
 
 == Projekt struktúra
 
@@ -45,8 +45,8 @@ A release és docker push parancsot kizárólag a Github Actions-re kell bízni!
 A release készítése Github Actions végzi.
 Alapvetően 2 esetet kezelünk:
 
-. *Major verzió* - Fő verzió release, csak a *master branchből* keletkezhet.
-. *Minor verzió* - Bugfix verzió, csak *release branchből* keletkezhet.
+. *Major, Minor verzió* - fő verzió release, csak a *master branchből* keletkezhet.
+. *Bugfix verzió* - csak *release branchből* keletkezhet.
 
 A hozzátartozó CI csak a megfelelő brancheknél jelenik meg.
 

@@ -1,3 +1,25 @@
+= alpine-runner
+
+* Image: `icellmobilsoft/builder/alpine-runner`
+* Alapja: `icellmobilsoft/base-alpine`
+* Célja: Fejlesztés különböző fázisaihoz egy toolsetet tartalmazó base image
+* Használt *argumentum*:
+** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
+** *USER_GID* - Létrehozott user groupjának gid-je (default `101`)
+** *USER_UID* - Létrehozott user uid-je (default `101`)
+** *SYSTEM_USER_DEFAULT* - Létrehozott user neve (default `icellmobilsoft`)
+** *SYSTEM_USER_GROUP_DEFAULT* - Létrehozott user groupjának neve (default `icellmobilsoft`)
+** *$SYSTEM_USER* - Nem `root` user, akivel fut az image (default: `icellmobilsoft`)
+** *$SYSTEM_USER_GROUP* - SYSTEM_USER linux csoportja (default: `icellmobilsoft`)
+** *$HOME* - SYSTEM_USER home könytára (WORKDIR $HOME)
+* Telepített programok:
+** *bash*
+** *git*
+** *openssh*
+** *curl*
+** *libxml2-utils*
+** *jq*
+
 = builder/java11-maven
 
 * Image: `icellmobilsoft/builder/java11-maven`

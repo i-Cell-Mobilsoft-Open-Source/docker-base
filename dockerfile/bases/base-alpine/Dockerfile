@@ -22,17 +22,9 @@ RUN addgroup --gid $USER_GID $SYSTEM_USER_GROUP
 #     -u --uid UID            User id
 RUN adduser --gecos ${SYSTEM_USER} --ingroup ${SYSTEM_USER_GROUP} --system --disabled-password --uid ${USER_UID}  ${SYSTEM_USER_GROUP}
 
-RUN apk update --purge --no-cache; \
-    apk add --update --purge --no-cache bash; \
-    apk add --update --purge --no-cache git openssh; \
-    apk add --update --purge --no-cache curl; \
-    apk add --update --purge --no-cache libxml2-utils; \
-    apk add --update --purge --no-cache jq;
-
 USER $SYSTEM_USER
 WORKDIR $HOME
 
 ARG ALPINE_BASE_IMAGE
 LABEL base.image=$ALPINE_BASE_IMAGE
 LABEL image.usage=release
-LABEL apt-get.install=bash,git,openssh,curl,libxml2-utils,jq

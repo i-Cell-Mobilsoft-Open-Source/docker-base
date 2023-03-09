@@ -20,14 +20,14 @@ services:
         BASE_IMAGE: $BASE_IMAGE
     image: $DOCKER_IMAGE_BASE
 
-  # icellmobilsoft/alpinebase image release
-  alpinebase-release:
+  # icellmobilsoft/base-alpine image release
+  base-alpine-release:
     build:
       context: .
-      dockerfile: dockerfile/bases/alpinebase/Dockerfile
+      dockerfile: dockerfile/bases/base-alpine/Dockerfile
       args:
         ALPINE_BASE_IMAGE: $ALPINE_BASE_IMAGE
-    image: $DOCKER_IMAGE_ALPINE_BASE
+    image: $DOCKER_IMAGE_BASE_ALPINE
 
   # icellmobilsoft/curl image release
   curl-release:
@@ -68,8 +68,18 @@ services:
         LIQUIBASE_IMAGE: $LIQUIBASE_IMAGE
     image: $DOCKER_IMAGE_LIQUIBASE
 
-
+##################################
   # builder images
+##################################
+
+  # icellmobilsoft/builder/alpine-runner image release
+  alpine-runner-release:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/alpine-runner/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_BASE_ALPINE
+    image: $DOCKER_IMAGE_ALPINE_RUNNER
 
   # icellmobilsoft/builder/java11-maven
   java11-maven-builder:
