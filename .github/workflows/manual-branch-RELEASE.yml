@@ -1,4 +1,4 @@
-name: manual-main-RELEASE
+name: manual-branch-RELEASE
 
 env:
   GPG_KEY_ID_GITHUB_TECHUSER: '${{ secrets.GPG_KEY_ID_GITHUB_TECHUSER }}'
@@ -13,15 +13,15 @@ on:
         # Friendly description to be shown in the UI instead of 'name'
         description: 'Comment for release'
         # Default value if no value is explicitly provided
-        default: 'Start MAIN release from WEB UI'
+        default: 'Start BRANCH release from WEB UI'
         # Input has to be provided for the workflow to run
         required: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  manual-main-RELEASE:
-    name: Manual main release
+  manual-branch-RELEASE:
+    name: Manual branch release
 
     runs-on: ubuntu-latest
 
@@ -55,8 +55,8 @@ jobs:
           git config --global tag.gpgSign true
       - name: Checkout main
         uses: actions/checkout@v3
-        with:
-          ref: main
+#        with:
+#          ref: main
 
       - name: Get current version from .env
         id: prepare
@@ -66,10 +66,10 @@ jobs:
           echo current version is ${CURRENT_VERSION}
 
           echo "CURRENT_VERSION=${CURRENT_VERSION}" >> $GITHUB_OUTPUT
-          RELEASE_BRANCH_NAME=release/${{ env.PROJECT_NAME }}-${CURRENT_VERSION%.*}.x
-          echo new release branch name is $RELEASE_BRANCH_NAME
+#          RELEASE_BRANCH_NAME=release/${{ env.PROJECT_NAME }}-${CURRENT_VERSION%.*}.x
+#          echo new release branch name is $RELEASE_BRANCH_NAME
 
-          echo "RELEASE_BRANCH_NAME=${RELEASE_BRANCH_NAME}" >> $GITHUB_OUTPUT
+#          echo "RELEASE_BRANCH_NAME=${RELEASE_BRANCH_NAME}" >> $GITHUB_OUTPUT
 
           GIT_TAG=${{ env.PROJECT_NAME }}-${CURRENT_VERSION}
           echo "GIT_TAG=${GIT_TAG}" >> $GITHUB_OUTPUT
@@ -79,17 +79,18 @@ jobs:
           echo "NEXT_VERSION=${NEXT_VERSION}" >> $GITHUB_OUTPUT
           echo next version will be $NEXT_VERSION
 
-      - name: Create release branch
-        id: createReleaseBranch
-        shell: bash
-        run: |
-          git checkout -b ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}} refs/remotes/origin/main
-          git push --set-upstream origin ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}}
-          echo "${{steps.prepare.outputs.RELEASE_BRANCH_NAME}} branch created."
-      - name: Checkout release branch
-        uses: actions/checkout@v3
-        with:
-          ref: ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}}
+#      - name: Create release branch
+#        id: createReleaseBranch
+#        shell: bash
+#        run: |
+#          git checkout -b ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}} refs/remotes/origin/main
+#          git push --set-upstream origin ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}}
+#          echo "${{steps.prepare.outputs.RELEASE_BRANCH_NAME}} branch created."
+#      - name: Checkout release branch
+#        uses: actions/checkout@v3
+#        with:
+#          ref: ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}}
+
 
 ###############
 ## release
@@ -99,10 +100,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-#      - name: Run docker-compose
-#        run: |
-#          docker-compose -f ./docker-compose.yml build --no-cache
-#          docker-compose -f ./docker-compose.yml push
+      - name: Run docker-compose
+        run: |
+          docker-compose -f ./docker-compose.yml build --no-cache
+          docker-compose -f ./docker-compose.yml push
 
 ###############
 ## post release
@@ -114,7 +115,7 @@ jobs:
           git tag -a ${{steps.prepare.outputs.GIT_TAG}} -m "Release  ${{steps.prepare.outputs.GIT_TAG}}"
           echo "${{steps.prepare.outputs.GIT_TAG}} tag created."
 
-      - name: Bump next MINOR version and commit/push it to release branch
+      - name: Bump next BUGFIX version and commit/push it to release branch
         id: createRelease
         shell: bash
         run: |
@@ -128,33 +129,33 @@ jobs:
         with:
           ref: main
 
-      - name: Create bump MAJOR version branch
-        id: bumpbranch
-        shell: bash
-        run: |
-          MR_BRANCH_NAME=feature/${{ env.PROJECT_NAME }}-${{steps.prepare.outputs.CURRENT_VERSION}}-release
-          echo "MR_BRANCH_NAME=${MR_BRANCH_NAME}" >> $GITHUB_OUTPUT
-
-          NEXT_VERSION=$(echo ${{steps.prepare.outputs.CURRENT_VERSION}} |  awk -F'.' '{print $1"."$2+1"."0}' |  sed s/[.]$//)-SNAPSHOT
-          sed -i -r "s/^[#]*\s*VERSION=.*/VERSION=$NEXT_VERSION/" .env
-
-
-          TARGET_BRANCH_NEXT_VERSION=$(sed -rn 's/^VERSION=([^\n]+)$/\1/p' .env)
-          COMMIT_MESSAGE="Bump version to $TARGET_BRANCH_NEXT_VERSION"
-          echo "COMMIT_MESSAGE=${COMMIT_MESSAGE}" >> $GITHUB_OUTPUT
-
-          git add .
-          git commit -a -m "${COMMIT_MESSAGE}"
-          echo next master branch version is $TARGET_BRANCH_NEXT_VERSION
-      # Ez a step az előzőeket pusholja a branch-be megadott branchre, és az mr-t a base-re írja ki.
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4.2.3
-        with:
-          commit-message: ${{steps.bumpbranch.outputs.COMMIT_MESSAGE}}
-          branch:  ${{steps.bumpbranch.outputs.MR_BRANCH_NAME}}
-          title: ${{steps.bumpbranch.outputs.COMMIT_MESSAGE}}
-          base: main
-          delete-branch: true
+#      - name: Create bump MAJOR version branch
+#        id: bumpbranch
+#        shell: bash
+#        run: |
+#          MR_BRANCH_NAME=feature/${{ env.PROJECT_NAME }}-${{steps.prepare.outputs.CURRENT_VERSION}}-release
+#          echo "MR_BRANCH_NAME=${MR_BRANCH_NAME}" >> $GITHUB_OUTPUT
+#
+#          NEXT_VERSION=$(echo ${{steps.prepare.outputs.CURRENT_VERSION}} |  awk -F'.' '{print $1"."$2+1"."0}' |  sed s/[.]$//)-SNAPSHOT
+#          sed -i -r "s/^[#]*\s*VERSION=.*/VERSION=$NEXT_VERSION/" .env
+#
+#
+#          TARGET_BRANCH_NEXT_VERSION=$(sed -rn 's/^VERSION=([^\n]+)$/\1/p' .env)
+#          COMMIT_MESSAGE="Bump version to $TARGET_BRANCH_NEXT_VERSION"
+#          echo "COMMIT_MESSAGE=${COMMIT_MESSAGE}" >> $GITHUB_OUTPUT
+#
+#          git add .
+#          git commit -a -m "${COMMIT_MESSAGE}"
+#          echo next master branch version is $TARGET_BRANCH_NEXT_VERSION
+#      # Ez a step az előzőeket pusholja a branch-be megadott branchre, és az mr-t a base-re írja ki.
+#      - name: Create Pull Request
+#        uses: peter-evans/create-pull-request@v4.2.3
+#        with:
+#          commit-message: ${{steps.bumpbranch.outputs.COMMIT_MESSAGE}}
+#          branch:  ${{steps.bumpbranch.outputs.MR_BRANCH_NAME}}
+#          title: ${{steps.bumpbranch.outputs.COMMIT_MESSAGE}}
+#          base: main
+#          delete-branch: true
 
       - name: Create Release
         uses: mikepenz/action-gh-release@v0.2.0-a03
