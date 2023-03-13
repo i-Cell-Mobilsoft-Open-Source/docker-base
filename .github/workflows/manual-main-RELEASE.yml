@@ -133,7 +133,7 @@ jobs:
           echo "${{steps.prepare.outputs.GIT_TAG}} tag created."
 
       - name: Bump next MINOR version and commit/push it to release branch
-        id: createRelease
+        id: bumpRelease
         shell: bash
         run: |
           sed -i -r "s/^[#]*\s*VERSION=.*/VERSION=${{steps.prepare.outputs.NEXT_VERSION}}/" .env

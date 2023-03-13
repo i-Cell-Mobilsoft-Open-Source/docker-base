@@ -23,6 +23,9 @@ jobs:
   manual-branch-RELEASE:
     name: Manual branch release
 
+    # run only on release branch
+    if: contains(github.ref_name, 'release')
+
     runs-on: ubuntu-latest
 
     steps:
@@ -62,9 +65,12 @@ jobs:
         id: prepare
         shell: bash
         run: |
+          CURRENT_SNAPSHOT=$(sed -rn 's/(^VERSION=)([^-]+)/\2/p' .env)
+          echo current snapshot is ${CURRENT_SNAPSHOT}
+          echo "CURRENT_SNAPSHOT=${CURRENT_SNAPSHOT}" >> $GITHUB_OUTPUT
+
           CURRENT_VERSION=$(sed -rn 's/(^VERSION=)([^-]+)(-SNAPSHOT|)$/\2/p' .env)
           echo current version is ${CURRENT_VERSION}
-
           echo "CURRENT_VERSION=${CURRENT_VERSION}" >> $GITHUB_OUTPUT
 
           GIT_TAG=${{ env.PROJECT_NAME }}-${CURRENT_VERSION}
@@ -87,6 +93,15 @@ jobs:
 #        with:
 #          ref: ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}}
 
+      - name: Remove SNAPSHOT postfix from version and commit/push it to release branch
+        id: removeSnapshot
+        shell: bash
+        run: |
+          sed -i -r "s/^[#]*\s*VERSION=.*/VERSION=${{steps.prepare.outputs.CURRENT_VERSION}}/" .env
+          echo ".env file VERSION property successfully updated ('${{steps.prepare.outputs.CURRENT_SNAPSHOT}}' -> '${{steps.prepare.outputs.CURRENT_VERSION}}')"
+
+          git commit -a -m "Bump version to ${{steps.prepare.outputs.CURRENT_VERSION}}"
+          git push --atomic origin ${{github.ref}}
 
 ###############
 ## release
@@ -112,19 +127,19 @@ jobs:
           echo "${{steps.prepare.outputs.GIT_TAG}} tag created."
 
       - name: Bump next BUGFIX version and commit/push it to release branch
-        id: createRelease
+        id: bumpRelease
         shell: bash
         run: |
           sed -i -r "s/^[#]*\s*VERSION=.*/VERSION=${{steps.prepare.outputs.NEXT_VERSION}}/" .env
           echo ".env file VERSION property successfully updated ('${{steps.prepare.outputs.CURRENT_VERSION}}' -> '${{steps.prepare.outputs.NEXT_VERSION}}')"
 
           git commit -a -m "Bump version to ${{steps.prepare.outputs.NEXT_VERSION}}"
-          git push --atomic origin ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}} ${{steps.prepare.outputs.GIT_TAG}}
-      - name: Checkout main
-        uses: actions/checkout@v3
-        with:
-          ref: main
-
+          git push --atomic origin ${{github.ref_name}} ${{steps.prepare.outputs.GIT_TAG}}
+#      - name: Checkout main
+#        uses: actions/checkout@v3
+#        with:
+#          ref: main
+#
 #      - name: Create bump MAJOR version branch
 #        id: bumpbranch
 #        shell: bash
@@ -152,10 +167,10 @@ jobs:
 #          title: ${{steps.bumpbranch.outputs.COMMIT_MESSAGE}}
 #          base: main
 #          delete-branch: true
-
-      - name: Create Release
-        uses: mikepenz/action-gh-release@v0.2.0-a03
-        with:
-          tag_name: ${{steps.preset.createRelease.GIT_TAG}}
-          draft: true
-          prerelease: false
+#
+#      - name: Create Release
+#        uses: mikepenz/action-gh-release@v0.2.0-a03
+#        with:
+#          tag_name: ${{steps.preset.createRelease.GIT_TAG}}
+#          draft: true
+#          prerelease: false
