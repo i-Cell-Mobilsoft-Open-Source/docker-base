@@ -104,7 +104,7 @@ jobs:
           echo ".env file VERSION property successfully updated ('${{steps.prepare.outputs.CURRENT_SNAPSHOT}}' -> '${{steps.prepare.outputs.CURRENT_VERSION}}')"
 
           git commit -a -m "Bump version to ${{steps.prepare.outputs.CURRENT_VERSION}}"
-          git push --atomic origin ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}} ${{steps.prepare.outputs.GIT_TAG}}
+          git push --atomic origin ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}}
 
 ###############
 ## release
