@@ -33,6 +33,7 @@ jobs:
           # asciidoctor_params: --attribute=nofooter
           # adoc_file_ext: .ascii # default is .adoc
           source_dir: docs/ # default is .
+          ebook_main_adoc_file: index
           # slides_build: true
           # pre_build:
           # post_build:

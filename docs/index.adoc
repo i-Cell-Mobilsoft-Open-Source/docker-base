@@ -30,8 +30,3 @@ include::project-structure.adoc[leveloffset=+1]
 == Release notes
 
 include::release-notes/v1.0.0.adoc[leveloffset=+2]
-
-== Migrációs leírás
-
-include::migration/to_1_0_0.adoc[leveloffset=+1]
-
