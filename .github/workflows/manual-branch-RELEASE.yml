@@ -58,8 +58,6 @@ jobs:
           git config --global tag.gpgSign true
       - name: Checkout main
         uses: actions/checkout@v3
-#        with:
-#          ref: main
 
       - name: Get current version from .env
         id: prepare
@@ -80,18 +78,6 @@ jobs:
           NEXT_VERSION=$(echo $CURRENT_VERSION |  awk -F'.' '{print $1"."$2"."$3+1}' |  sed s/[.]$//)-SNAPSHOT
           echo "NEXT_VERSION=${NEXT_VERSION}" >> $GITHUB_OUTPUT
           echo next version will be $NEXT_VERSION
-
-#      - name: Create release branch
-#        id: createReleaseBranch
-#        shell: bash
-#        run: |
-#          git checkout -b ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}} refs/remotes/origin/main
-#          git push --set-upstream origin ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}}
-#          echo "${{steps.prepare.outputs.RELEASE_BRANCH_NAME}} branch created."
-#      - name: Checkout release branch
-#        uses: actions/checkout@v3
-#        with:
-#          ref: ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}}
 
       - name: Remove SNAPSHOT postfix from version and commit/push it to release branch
         id: removeSnapshot
@@ -135,42 +121,3 @@ jobs:
 
           git commit -a -m "Bump version to ${{steps.prepare.outputs.NEXT_VERSION}}"
           git push --atomic origin ${{github.ref_name}} ${{steps.prepare.outputs.GIT_TAG}}
-#      - name: Checkout main
-#        uses: actions/checkout@v3
-#        with:
-#          ref: main
-#
-#      - name: Create bump MAJOR version branch
-#        id: bumpbranch
-#        shell: bash
-#        run: |
-#          MR_BRANCH_NAME=feature/${{ env.PROJECT_NAME }}-${{steps.prepare.outputs.CURRENT_VERSION}}-release
-#          echo "MR_BRANCH_NAME=${MR_BRANCH_NAME}" >> $GITHUB_OUTPUT
-#
-#          NEXT_VERSION=$(echo ${{steps.prepare.outputs.CURRENT_VERSION}} |  awk -F'.' '{print $1"."$2+1"."0}' |  sed s/[.]$//)-SNAPSHOT
-#          sed -i -r "s/^[#]*\s*VERSION=.*/VERSION=$NEXT_VERSION/" .env
-#
-#
-#          TARGET_BRANCH_NEXT_VERSION=$(sed -rn 's/^VERSION=([^\n]+)$/\1/p' .env)
-#          COMMIT_MESSAGE="Bump version to $TARGET_BRANCH_NEXT_VERSION"
-#          echo "COMMIT_MESSAGE=${COMMIT_MESSAGE}" >> $GITHUB_OUTPUT
-#
-#          git add .
-#          git commit -a -m "${COMMIT_MESSAGE}"
-#          echo next master branch version is $TARGET_BRANCH_NEXT_VERSION
-#      # Ez a step az előzőeket pusholja a branch-be megadott branchre, és az mr-t a base-re írja ki.
-#      - name: Create Pull Request
-#        uses: peter-evans/create-pull-request@v4.2.3
-#        with:
-#          commit-message: ${{steps.bumpbranch.outputs.COMMIT_MESSAGE}}
-#          branch:  ${{steps.bumpbranch.outputs.MR_BRANCH_NAME}}
-#          title: ${{steps.bumpbranch.outputs.COMMIT_MESSAGE}}
-#          base: main
-#          delete-branch: true
-#
-#      - name: Create Release
-#        uses: mikepenz/action-gh-release@v0.2.0-a03
-#        with:
-#          tag_name: ${{steps.preset.createRelease.GIT_TAG}}
-#          draft: true
-#          prerelease: false

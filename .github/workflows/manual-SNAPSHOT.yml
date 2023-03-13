@@ -1,0 +1,70 @@
+name: manual-SNAPSHOT
+
+env:
+  GPG_KEY_ID_GITHUB_TECHUSER: '${{ secrets.GPG_KEY_ID_GITHUB_TECHUSER }}'
+  TECH_USER_USERNAME: ${{ vars.TECH_USER_USERNAME }}
+  TECH_USER_EMAIL: ${{ vars.TECH_USER_EMAIL }}
+  PROJECT_NAME: ${GITHUB_REPOSITORY#*/}
+
+on:
+  workflow_dispatch:
+    inputs:
+      comment:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Comment for snapshot'
+        # Default value if no value is explicitly provided
+        default: 'Start SNAPSHOT from WEB UI'
+        # Input has to be provided for the workflow to run
+        required: true
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  manual-SNAPSHOT:
+    name: Manual snapshot release
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+###############
+# pre release
+###############
+      - name: Import GPG key
+        # GPG privat kulcs, ami armor-al exportalva (kezdete: '-----BEGIN PGP PRIVATE KEY BLOCK-----') ez az egesz tartalom base64 elkodolva, az betoltve a secrets tartalomnak
+        # dekodoljuk a base64 elkodolt privat kulcsot es betoltjuk
+        run: |
+          mkdir -p ~/.gnupg/
+          echo "${{ secrets.GPG_SIGNING_KEY_GITHUB_TECHUSER }}" | base64 --decode > ~/.gnupg/private.key
+          gpg --import ~/.gnupg/private.key
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          # A tartalma egy PEM formatumos (kezdete: '-----BEGIN RSA PRIVATE KEY-----') SSH kulcs
+          key: ${{ secrets.SSH_PRIVATE_KEY_GITHUB_TECHUSER }}
+          name: id_rsa # optional
+          known_hosts: ${{ secrets.KNOWN_HOSTS }} # jelenleg ures a tartalma
+          # config: ${{ secrets.CONFIG }} # ssh_config; optional
+
+      - name: Configure GIT for signed commit
+        run: |
+          git config --global user.name "${{ env.TECH_USER_USERNAME }}"
+          git config --global user.email "${{ env.TECH_USER_EMAIL }}"
+          git config --global user.signingkey "${{ secrets.GPG_KEY_ID_GITHUB_TECHUSER }}"
+          git config --global commit.gpgsign true
+          git config --global tag.gpgSign true
+      - name: Checkout main
+        uses: actions/checkout@v3
+
+###############
+## release
+###############
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Run docker-compose
+        run: |
+          docker-compose -f ./docker-compose.yml build --no-cache
+          docker-compose -f ./docker-compose.yml push
