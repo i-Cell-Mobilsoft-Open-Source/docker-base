@@ -25,15 +25,26 @@ jobs:
         with:
           java-version: 11
           distribution: 'temurin'
-      - name: Generate docs with Maven
-        run: |
-          mvn org.asciidoctor:asciidoctor-maven-plugin:2.2.2:process-asciidoc \
-          -Dasciidoctor.sourceDirectory=./docs \
-          -Dasciidoctor.outputDirectory=. \
-          -Dasciidoctor.preserveDirectories=true \
-          -Dasciidoctor.sourceHighlighter=coderay \
-          -Dasciidoctor.backend=html5 \
-          -Dasciidoctor.requires=asciidoctor-diagram
+      # Includes the AsciiDoctor GitHub Pages Action to convert adoc files to html and publish to gh-pages branch
+      - name: Generate with asciidoctor image
+        uses: manoelcampos/asciidoctor-ghpages-action@v2
+        with:
+          pdf_build: true
+          # asciidoctor_params: --attribute=nofooter
+          # adoc_file_ext: .ascii # default is .adoc
+          source_dir: docs/ # default is .
+          # slides_build: true
+          # pre_build:
+          # post_build:
+#      - name: Generate docs with Maven
+#        run: |
+#          mvn org.asciidoctor:asciidoctor-maven-plugin:2.2.2:process-asciidoc \
+#          -Dasciidoctor.sourceDirectory=./docs \
+#          -Dasciidoctor.outputDirectory=. \
+#          -Dasciidoctor.preserveDirectories=true \
+#          -Dasciidoctor.sourceHighlighter=coderay \
+#          -Dasciidoctor.backend=html5 \
+#          -Dasciidoctor.requires=asciidoctor-diagram
       - name: Commit and push to [gh-pages]
         shell: bash
         run: |
