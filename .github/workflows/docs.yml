@@ -15,7 +15,7 @@ jobs:
           ref: main
       - name: Push [main] to [gh-pages]
         shell: bash
-        run: git push origin master:gh-pages --force
+        run: git push origin main:gh-pages --force
       - name: Checkout [gh-pages]
         uses: actions/checkout@v3
         with:
