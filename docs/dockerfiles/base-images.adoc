@@ -50,8 +50,8 @@ Az image felhasználja és kibővíti a fenti <<base,base>> imaget `curl`-al.
 
 = java11jre
 
-* Image: `icellmobilsoft/curl`
-* Alapja: `icellmobilsoft/java11jre`
+* Image: `icellmobilsoft/java11jre`
+* Alapja: `icellmobilsoft/curl`
 * Célja: Java 11 LTS verzión való alaklmazás futtatása
 * Használt *argumentum*:
 ** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
@@ -67,8 +67,8 @@ Az image felhasználja és kibővíti a fenti <<curl,curl>> imaget `jre11`-gyel.
 
 = java17jre
 
-* Image: `icellmobilsoft/curl`
-* Alapja: `icellmobilsoft/java17jre`
+* Image: `icellmobilsoft/java17jre`
+* Alapja: `icellmobilsoft/curl`
 * Célja: Java 17 LTS verzión való alaklmazás futtatása
 * Használt *argumentum*:
 ** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
