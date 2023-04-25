@@ -81,21 +81,3 @@ Az image felhasználja és kibővíti a fenti <<curl,curl>> imaget `jre11`-gyel.
 ** *fonts-dejavu*
 
 Az image felhasználja és kibővíti a fenti <<curl,curl>> imaget `jre17`-gyel.
-
-= liquibase
-
-* Image: `icellmobilsoft/liquibase`
-* Alapja: `icellmobilsoft/java11jre`
-* Célja: Liquibase scriptek futtatása jre11-re építve
-* Használt *argumentum*:
-** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
-** *LIQUIBASE_IMAGE* - Liquibase image megadásalybő a liquibase részei vannak kimásolva a végső imagebe.
-* Hozzáadott ENV:
-** *PATH* - Path kiegészítése a $HOME/liquibase -zel, hogy használható legyen a liquibase által nyújtott parancsok.
-* Telepített programok: -
-
-Az image felhasználja és kibővíti a fenti <<java11jre,java11jre>> imaget `liquibase`-zel.
-
-NOTE: Fontos információ hogy a $HOME/liquibase mappa van workdir-nek beállítva, és itt van kialakítva mappa szinten egy $HOME/liquibase/changelog és $HOME/liquibase/classpath mappák a liquibase-hez.
-
-
