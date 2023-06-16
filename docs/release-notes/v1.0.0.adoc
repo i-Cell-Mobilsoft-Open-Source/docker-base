@@ -5,13 +5,13 @@ frissítéseket leszámolva 1:1 kompatibilis a 0.7.0 verzióval.
 
 .Változások a belső verzióhoz képest
 
-* bump base image debian:11.2-slim -> debian:11.6-slim
+* bump base image debian:11.2-slim -> debian:11.7-slim
 * Komponens upgrade:
-** Java 11.0.14.1_1-jre -> 11.0.18_10-jre
-** Java 11.0.14.1_1-jdk -> 11.0.18_10-jdk
-** Java 17.0.2_8-jre -> 17.0.6_10-jre
-** Java 17.0.2_8-jdk -> 17.0.6_10-jdk
-** Maven 3.8.5 -> 3.8.7
+** Java 11.0.14.1_1-jre -> 11.0.19_7-jre
+** Java 11.0.14.1_1-jdk -> 11.0.19_7-jdk
+** Java 17.0.2_8-jre -> 17.0.7_7-jre
+** Java 17.0.2_8-jdk -> 17.0.7_7-jdk
+** Maven 3.8.5 -> 3.8.8
 * Dockerimage átnevezés:
 ** base -> icellmobilsoft/base
 ** curl -> icellmobilsoft/base-curl
