@@ -6,7 +6,9 @@ USER root
 
 RUN set -x; \
     apt-get update && \
-    apt-get -y install curl
+    apt-get -y install curl && \
+    rm -Rf /var/lib/apt/lists/* && \
+    rm -Rf /usr/share/doc && rm -Rf /usr/share/man && rm -Rf /usr/share/locale
 
 USER $SYSTEM_USER
 
