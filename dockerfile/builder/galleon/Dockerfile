@@ -10,6 +10,7 @@ ARG DOWNLOAD_DIR=$HOME/download
 
 USER root
 RUN set -x; \
+    apt-get update && \
     apt-get -y install unzip && \
     rm -Rf /var/lib/apt/lists/* && \
     rm -Rf /usr/share/doc && rm -Rf /usr/share/man && rm -Rf /usr/share/locale && \
