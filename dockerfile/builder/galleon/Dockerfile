@@ -10,7 +10,10 @@ ARG DOWNLOAD_DIR=$HOME/download
 
 USER root
 RUN set -x; \
+    apt-get update && \
     apt-get -y install unzip && \
+    rm -Rf /var/lib/apt/lists/* && \
+    rm -Rf /usr/share/doc/* && rm -Rf /usr/share/doc-base/* && rm -Rf /usr/share/man/* && \
     mkdir -m u=rwx,g=rwx,o=rx -p $DOWNLOAD_DIR $GALLEON_HOME && \
     chown -R $SYSTEM_USER:$SYSTEM_USER_GROUP $DOWNLOAD_DIR $GALLEON_HOME
 

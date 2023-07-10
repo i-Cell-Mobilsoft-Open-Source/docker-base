@@ -30,3 +30,4 @@ include::project-structure.adoc[leveloffset=+1]
 == Release notes
 
 include::release-notes/v1.0.0.adoc[leveloffset=+2]
+include::release-notes/v1.1.0.adoc[leveloffset=+2]

@@ -27,7 +27,10 @@ USER root
 
 # Required font packages for Excel generation (fontconfig, fonts-dejavu)
 RUN set -x; \
-    apt-get -y install fontconfig fonts-dejavu
+    apt-get update && \
+    apt-get -y install fontconfig fonts-dejavu && \
+    rm -Rf /var/lib/apt/lists/* && \
+    rm -Rf /usr/share/doc/* && rm -Rf /usr/share/doc-base/* && rm -Rf /usr/share/man/*
 
 COPY --from=jre-build --chown=$SYSTEM_USER:$SYSTEM_USER_GROUP $JAVA_HOME $JAVA_HOME
 
