@@ -16,6 +16,10 @@ on:
         default: 'Start MAIN release from WEB UI'
         # Input has to be provided for the workflow to run
         required: true
+      milestone:
+        description: 'Milestone ID for release notes generation'
+        required: true
+        type: number
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -174,9 +178,8 @@ jobs:
           base: main
           delete-branch: true
 
-      - name: Create Release
-        uses: mikepenz/action-gh-release@v0.2.0-a03
+      - name: Create Release and Release Notes
+        uses: i-Cell-Mobilsoft-Open-Source/milestone-notes@master
         with:
-          tag_name: ${{steps.preset.createRelease.GIT_TAG}}
-          draft: true
-          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          milestone: ${{ github.event.inputs.milestone }}
