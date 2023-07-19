@@ -7,3 +7,11 @@
 * apt csomagkezelő cache ürítése (csomagtelepítés előtt kell apt update parancsot futatni!)
 * csomagok dokumentációjának törlése (/usr/share/doc és /usr/share/doc-base)
 * manuál oldalak törlése (/usr/share/man)
+
+.icellmobilsoft/builder-nexus-download
+
+* Image-be belekerült az összes artifact letöltő script
+* Összes script ezentúl loggolja a paramétereket és letöltött fájlok méreteit
+* Egységesítve lett a letöltött fájlok ENV neve a `common-nexus-download.sh` szerint:
+** `$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME` (korábban `$OUTPUT_FILE` a `sonatype-download.sh` és `maven-search-download.sh` scriptekben)
+** `$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1` (korábban `$OUTPUT_FILE.sha1`)
