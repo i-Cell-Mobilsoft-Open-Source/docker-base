@@ -41,6 +41,8 @@ ENV NEXUS_DOWNLOAD_OUTPUT_FILE_NAME=$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME
 ENV NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1=$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1
 
 COPY script/artifact/common-nexus-download.sh $HOME/script/common-nexus-download.sh
+COPY script/artifact/maven-search-download.sh $HOME/script/maven-search-download.sh
+COPY script/artifact/sonatype-download.sh $HOME/script/sonatype-download.sh
 
 CMD ["sh", "-c", "$HOME/script/common-nexus-download.sh" ]
 
