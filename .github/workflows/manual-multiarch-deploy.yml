@@ -71,8 +71,9 @@ jobs:
         #platforms: linux/amd64,linux/arm/v8
         set: |
           *.platform=linux/amd64,linux/arm64,linux/arm/v7
-        push: ${{ github.event_name != 'pull_request' }}
+        #push: ${{ github.event_name != 'pull_request' }}
         no-cache: true
+        push: true
         #tags: ${{ steps.base_image.outputs.tags }}
         #labels: ${{ steps.base_image.outputs.labels }}
         #file: dockerfile/bases/base/Dockerfile
@@ -83,13 +84,14 @@ jobs:
         #platforms: linux/amd64,linux/arm/v8
         set: |
           *.platform=linux/amd64,linux/arm64,linux/arm/v7
-        push: ${{ github.event_name != 'pull_request' }}
+        #push: ${{ github.event_name != 'pull_request' }}
+        push: true
         no-cache: true
         #tags: ${{ steps.base_image.outputs.tags }}
         #labels: ${{ steps.base_image.outputs.labels }}
         #file: dockerfile/bases/base-alpine/Dockerfile
-    - name: Run docker-compose
-      run: |
-        docker-compose -f ./docker-compose.yml push
+    #- name: Run docker-compose
+    #  run: |
+    #    docker-compose -f ./docker-compose.yml push
         
         
