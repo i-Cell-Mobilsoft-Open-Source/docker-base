@@ -73,7 +73,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and Push base
+      - name: Build and Push with docker-compose
         uses: docker/bake-action@v4
         with:
           set: |
