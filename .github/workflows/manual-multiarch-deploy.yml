@@ -70,7 +70,7 @@ jobs:
         #context: .
         #platforms: linux/amd64,linux/arm/v8
         set: |
-          *.platform=linux/amd64,linux/arm64,linux/arm/v7
+          *.platform=linux/amd64,linux/arm64
         #push: ${{ github.event_name != 'pull_request' }}
         no-cache: true
         push: true
@@ -83,7 +83,7 @@ jobs:
         #context: .
         #platforms: linux/amd64,linux/arm/v8
         set: |
-          *.platform=linux/amd64,linux/arm64,linux/arm/v7
+          *.platform=linux/amd64,linux/arm64
         #push: ${{ github.event_name != 'pull_request' }}
         push: true
         no-cache: true
