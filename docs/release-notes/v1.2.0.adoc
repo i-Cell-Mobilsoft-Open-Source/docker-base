@@ -1,0 +1,7 @@
+= v1.2.0
+
+Összes image 1:1 kompatibilis az 1.1.0 verzióval.
+
+.Multiarch build
+
+A linux/amd64 image-ek mellett ezentúl linux/arm64 image-ek is készülnek. 

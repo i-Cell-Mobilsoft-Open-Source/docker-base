@@ -19,7 +19,7 @@ services:
       args:
         BASE_IMAGE: $BASE_IMAGE
     image: $DOCKER_IMAGE_BASE
-
+  
   # icellmobilsoft/base-alpine image release
   base-alpine-release:
     build:
@@ -37,7 +37,10 @@ services:
       args:
         BASE_IMAGE: $DOCKER_IMAGE_BASE
     image: $DOCKER_IMAGE_CURL
-
+    depends_on:
+      base-release: 
+        condition: service_completed_successfully
+        
   # icellmobilsoft/java11jre
   java11jre-release:
     build:
@@ -47,7 +50,10 @@ services:
         BASE_IMAGE: $DOCKER_IMAGE_CURL
         JRE_TEMURIN_IMAGE: $JRE_11_TEMURIN_IMAGE
     image: $DOCKER_IMAGE_JAVA11JRE
-
+    depends_on:
+      curl-release: 
+        condition: service_completed_successfully
+  
   # icellmobilsoft/java17jre
   java17jre-release:
     build:
@@ -57,7 +63,9 @@ services:
         BASE_IMAGE: $DOCKER_IMAGE_CURL
         JRE_TEMURIN_IMAGE: $JRE_17_TEMURIN_IMAGE
     image: $DOCKER_IMAGE_JAVA17JRE
-
+    depends_on:
+      curl-release: 
+        condition: service_completed_successfully
 ##################################
   # builder images
 ##################################
@@ -70,6 +78,9 @@ services:
       args:
         BASE_IMAGE: $DOCKER_IMAGE_BASE_ALPINE
     image: $DOCKER_IMAGE_ALPINE_RUNNER
+    depends_on:
+      base-alpine-release: 
+        condition: service_completed_successfully
 
   # icellmobilsoft/builder/java11-maven
   java11-maven-builder:
@@ -82,6 +93,9 @@ services:
         MAVEN_VERSION: $MAVEN_VERSION
         MAVEN_SHA: $MAVEN_SHA
     image: $DOCKER_IMAGE_JAVA11_MAVEN
+    depends_on:
+      curl-release: 
+        condition: service_completed_successfully
 
   # icellmobilsoft/builder/java17-maven
   java17-maven-builder:
@@ -94,6 +108,9 @@ services:
         MAVEN_VERSION: $MAVEN_VERSION
         MAVEN_SHA: $MAVEN_SHA
     image: $DOCKER_IMAGE_JAVA17_MAVEN
+    depends_on:
+      curl-release: 
+        condition: service_completed_successfully
 
   # icellmobilsoft/builder/java11-galleon-builder
   java11-galleon-builder:
@@ -104,6 +121,9 @@ services:
         BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA11_MAVEN
         GALLEON_VERSION: $GALLEON_VERSION
     image: $DOCKER_IMAGE_JAVA11_GALLEON
+    depends_on:
+      java11-maven-builder: 
+        condition: service_completed_successfully
 
   # icellmobilsoft/builder/java17-galleon-builder
   java17-galleon-builder:
@@ -114,6 +134,9 @@ services:
         BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA17_MAVEN
         GALLEON_VERSION: $GALLEON_VERSION
     image: $DOCKER_IMAGE_JAVA17_GALLEON
+    depends_on:
+      java17-maven-builder: 
+        condition: service_completed_successfully
 
   # icellmobilsoft/builder/nexus-download
   nexus-download-builder:
@@ -123,3 +146,6 @@ services:
       args:
         BASE_BUILDER_IMAGE: $DOCKER_IMAGE_CURL
     image: $DOCKER_IMAGE_NEXUS_DOWNLOAD
+    depends_on:
+      curl-release: 
+        condition: service_completed_successfully
