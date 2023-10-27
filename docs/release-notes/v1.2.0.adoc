@@ -2,6 +2,18 @@
 
 Összes image 1:1 kompatibilis az 1.1.0 verzióval.
 
-.Multiarch build
+* bump base image debian:11.7-slim -> debian:11.8-slim
+* bump base image alpine:3.18.? -> alpine:3.18.4
+* Komponens upgrade:
+** Java 11.0.19_7-jre -> 11.0.20.1_1-jre
+** Java 11.0.19_7-jdk -> 11.0.20.1_1-jdk
+** Java 17.0.7_7-jre -> 17.0.8.1_1-jre
+** Java 17.0.7_7-jdk -> 17.0.8.1_1-jdk
+** Galleon 5.1.0.Final -> 5.2.1.Final
 
-A linux/amd64 image-ek mellett ezentúl linux/arm64 image-ek is készülnek. 
+.Újdondonságok
+* *Multiarch build* - A linux/amd64 image-ek mellett ezentúl linux/arm64 image-ek is készülnek. 
+* Új image:
+** icellmobilsoft/base-java21jre - Java 21 LTS verziót kezeli
+** icellmobilsoft/builder-java21-maven - Maven buildeléshez használt image jdk 21-el
+** icellmobilsoft/builder-java21-galleon - https://docs.wildfly.org/galleon[Galleon] image jdk 21 és maven alapon

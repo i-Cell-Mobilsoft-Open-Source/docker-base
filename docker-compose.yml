@@ -1,7 +1,7 @@
 version: "3.8"
 
 # build inditas
-# docker-compose -f /PATH/docker-base/docker-compose.yml build --no-cache
+# docker compose -f /PATH/docker-base/docker-compose.yml build --no-cache
 # image belemaszas
 # docker run --rm -it icellmobilsoft/base /bin/bash
 # image inditasa
@@ -11,7 +11,7 @@ version: "3.8"
 
 services:
 
-  # icellmobilsoft/base image release
+  # icellmobilsoft/base
   base-release:
     build:
       context: .
@@ -19,8 +19,8 @@ services:
       args:
         BASE_IMAGE: $BASE_IMAGE
     image: $DOCKER_IMAGE_BASE
-  
-  # icellmobilsoft/base-alpine image release
+
+  # icellmobilsoft/base-alpine
   base-alpine-release:
     build:
       context: .
@@ -29,7 +29,7 @@ services:
         ALPINE_BASE_IMAGE: $ALPINE_BASE_IMAGE
     image: $DOCKER_IMAGE_BASE_ALPINE
 
-  # icellmobilsoft/curl image release
+  # icellmobilsoft/base-curl
   curl-release:
     build:
       context: .
@@ -41,7 +41,7 @@ services:
       base-release: 
         condition: service_completed_successfully
         
-  # icellmobilsoft/java11jre
+  # icellmobilsoft/base-java11jre
   java11jre-release:
     build:
       context: .
@@ -54,7 +54,7 @@ services:
       curl-release: 
         condition: service_completed_successfully
   
-  # icellmobilsoft/java17jre
+  # icellmobilsoft/base-java17jre
   java17jre-release:
     build:
       context: .
@@ -66,11 +66,25 @@ services:
     depends_on:
       curl-release: 
         condition: service_completed_successfully
+
+  # icellmobilsoft/base-java21jre
+  java21jre-release:
+    build:
+      context: .
+      dockerfile: dockerfile/bases/javajre/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_CURL
+        JRE_TEMURIN_IMAGE: $JRE_21_TEMURIN_IMAGE
+    image: $DOCKER_IMAGE_JAVA21JRE
+    depends_on:
+      curl-release: 
+        condition: service_completed_successfully
+
 ##################################
   # builder images
 ##################################
 
-  # icellmobilsoft/builder/alpine-runner image release
+  # icellmobilsoft/builder-alpine-runner
   alpine-runner-release:
     build:
       context: .
@@ -82,7 +96,7 @@ services:
       base-alpine-release: 
         condition: service_completed_successfully
 
-  # icellmobilsoft/builder/java11-maven
+  # icellmobilsoft/builder-java11-maven
   java11-maven-builder:
     build:
       context: .
@@ -97,7 +111,7 @@ services:
       curl-release: 
         condition: service_completed_successfully
 
-  # icellmobilsoft/builder/java17-maven
+  # icellmobilsoft/builder-java17-maven
   java17-maven-builder:
     build:
       context: .
@@ -112,7 +126,22 @@ services:
       curl-release: 
         condition: service_completed_successfully
 
-  # icellmobilsoft/builder/java11-galleon-builder
+  # icellmobilsoft/builder-java21-maven
+  java21-maven-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/javamaven/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_CURL
+        JDK_TEMURIN_IMAGE: $JDK_21_TEMURIN_IMAGE
+        MAVEN_VERSION: $MAVEN_VERSION
+        MAVEN_SHA: $MAVEN_SHA
+    image: $DOCKER_IMAGE_JAVA21_MAVEN
+    depends_on:
+      curl-release: 
+        condition: service_completed_successfully
+
+  # icellmobilsoft/builder-java11-galleon
   java11-galleon-builder:
     build:
       context: .
@@ -125,7 +154,7 @@ services:
       java11-maven-builder: 
         condition: service_completed_successfully
 
-  # icellmobilsoft/builder/java17-galleon-builder
+  # icellmobilsoft/builder-java17-galleon
   java17-galleon-builder:
     build:
       context: .
@@ -138,7 +167,20 @@ services:
       java17-maven-builder: 
         condition: service_completed_successfully
 
-  # icellmobilsoft/builder/nexus-download
+  # icellmobilsoft/builder-java21-galleon
+  java21-galleon-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/galleon/Dockerfile
+      args:
+        BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA21_MAVEN
+        GALLEON_VERSION: $GALLEON_VERSION
+    image: $DOCKER_IMAGE_JAVA21_GALLEON
+    depends_on:
+      java21-maven-builder: 
+        condition: service_completed_successfully
+
+  # icellmobilsoft/builder-nexus-download
   nexus-download-builder:
     build:
       context: .
