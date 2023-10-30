@@ -78,7 +78,8 @@ jobs:
         with:
           set: |
             *.platform=linux/amd64,linux/arm64
-          push: true
+#          push: true
           no-cache: true
           files: |
             docker-compose.yml
+          targets: base-release,curl-release,base-alpine-release,alpine-runner-release,nexus-download-builder,java11jre-release,java11-maven-builder,java11-galleon-builder,java17jre-release,java17-maven-builder,java17-galleon-builder,java21jre-release,java21-maven-builder,java21-galleon-builder
