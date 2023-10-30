@@ -37,7 +37,7 @@ A image célja hogy létrehozzon egy system user-t akivel default fut az image.
 
 = curl
 
-* Image: `icellmobilsoft/curl`
+* Image: `icellmobilsoft/base-curl`
 * Alapja: `icellmobilsoft/base`
 * Célja: éles alkalmazások futtatása
 * Használt *argumentum*:
@@ -50,14 +50,14 @@ Az image felhasználja és kibővíti a fenti <<base,base>> imaget `curl`-al.
 
 = java11jre
 
-* Image: `icellmobilsoft/java11jre`
-* Alapja: `icellmobilsoft/curl`
+* Image: `icellmobilsoft/base-java11jre`
+* Alapja: `icellmobilsoft/base-curl`
 * Célja: Java 11 LTS verzión való alaklmazás futtatása
 * Használt *argumentum*:
 ** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
 ** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
 * Hozzáadott ENV:
-** *JAVA_HOME* - Eredeti jre image-ben a java mappájának a helye (default `/opt/java/opejndk`) https://github.com/adoptium/containers/blob/main/11/jre/alpine/Dockerfile.releases.full#L22[Temurin image-be definiált JAVA_HOME]
+** *JAVA_HOME* - Eredeti jre image-ben a java mappájának a helye (default `/opt/java/openjdk`) https://github.com/adoptium/containers/blob/main/11/jre/alpine/Dockerfile#L22[Temurin image-be definiált JAVA_HOME]
 ** *PATH* - Path kiegészítése a JAVA_HOM/bin -nel, hogy használható legyen a jre által nyújtott parancsok.
 * Telepített programok:
 ** *fontconfig*
@@ -67,17 +67,34 @@ Az image felhasználja és kibővíti a fenti <<curl,curl>> imaget `jre11`-gyel.
 
 = java17jre
 
-* Image: `icellmobilsoft/java17jre`
-* Alapja: `icellmobilsoft/curl`
+* Image: `icellmobilsoft/base-java17jre`
+* Alapja: `icellmobilsoft/base-curl`
 * Célja: Java 17 LTS verzión való alaklmazás futtatása
 * Használt *argumentum*:
 ** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
 ** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
 * Hozzáadott ENV:
-** *JAVA_HOME* - Eredeti jre image-ben a java mappájának a helye (default `/opt/java/opejndk`) https://github.com/adoptium/containers/blob/main/17/jre/alpine/Dockerfile.releases.full#L22[Temurin image-be definiált JAVA_HOME]
+** *JAVA_HOME* - Eredeti jre image-ben a java mappájának a helye (default `/opt/java/openjdk`) https://github.com/adoptium/containers/blob/main/17/jre/alpine/Dockerfile#L22[Temurin image-be definiált JAVA_HOME]
 ** *PATH* - Path kiegészítése a JAVA_HOM/bin -nel, hogy használható legyen a jre által nyújtott parancsok.
 * Telepített programok:
 ** *fontconfig*
 ** *fonts-dejavu*
 
 Az image felhasználja és kibővíti a fenti <<curl,curl>> imaget `jre17`-gyel.
+
+= java21jre
+
+* Image: `icellmobilsoft/base-java21jre`
+* Alapja: `icellmobilsoft/base-curl`
+* Célja: Java 21 LTS verzión való alaklmazás futtatása
+* Használt *argumentum*:
+** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
+** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
+* Hozzáadott ENV:
+** *JAVA_HOME* - Eredeti jre image-ben a java mappájának a helye (default `/opt/java/openjdk`) https://github.com/adoptium/containers/blob/main/21/jre/alpine/Dockerfile#L22[Temurin image-be definiált JAVA_HOME]
+** *PATH* - Path kiegészítése a JAVA_HOM/bin -nel, hogy használható legyen a jre által nyújtott parancsok.
+* Telepített programok:
+** *fontconfig*
+** *fonts-dejavu*
+
+Az image felhasználja és kibővíti a fenti <<curl,curl>> imaget `jre21`-gyel.
