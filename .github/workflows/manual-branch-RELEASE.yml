@@ -5,6 +5,7 @@ env:
   TECH_USER_USERNAME: ${{ vars.TECH_USER_USERNAME }}
   TECH_USER_EMAIL: ${{ vars.TECH_USER_EMAIL }}
   PROJECT_NAME: ${GITHUB_REPOSITORY#*/}
+  DOCKER_BAKE_PLATFORM: linux/amd64,linux/arm64
 
 on:
   workflow_dispatch:
@@ -105,15 +106,51 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and Push with docker-compose
+      - name: docker buildx bake "#1"
         uses: docker/bake-action@v4
         with:
           set: |
-            *.platform=linux/amd64,linux/arm64
+            *.platform=${{ env.DOCKER_BAKE_PLATFORM }}
           push: true
-          no-cache: true
           files: |
             docker-compose.yml
+          targets: base-release,base-alpine-release
+      - name: docker buildx bake "#2"
+        uses: docker/bake-action@v4
+        with:
+          set: |
+            *.platform=${{ env.DOCKER_BAKE_PLATFORM }}
+          push: true
+          files: |
+            docker-compose.yml
+          targets: curl-release,alpine-runner-release
+      - name: docker buildx bake "#3"
+        uses: docker/bake-action@v4
+        with:
+          set: |
+            *.platform=${{ env.DOCKER_BAKE_PLATFORM }}
+          push: true
+          files: |
+            docker-compose.yml
+          targets: nexus-download-builder,java11jre-release,java17jre-release,java21jre-release
+      - name: docker buildx bake "#4"
+        uses: docker/bake-action@v4
+        with:
+          set: |
+            *.platform=${{ env.DOCKER_BAKE_PLATFORM }}
+          push: true
+          files: |
+            docker-compose.yml
+          targets: java11-maven-builder,java17-maven-builder,java21-maven-builder
+      - name: docker buildx bake "#5"
+        uses: docker/bake-action@v4
+        with:
+          set: |
+            *.platform=${{ env.DOCKER_BAKE_PLATFORM }}
+          push: true
+          files: |
+            docker-compose.yml
+          targets: java11-galleon-builder,java17-galleon-builder,java21-galleon-builder
 
 ###############
 ## post release
