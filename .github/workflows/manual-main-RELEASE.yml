@@ -229,7 +229,7 @@ jobs:
           delete-branch: true
 
       - name: Create Release and Release Notes
-        uses: i-Cell-Mobilsoft-Open-Source/milestone-notes@v1.2
+        uses: i-Cell-Mobilsoft-Open-Source/milestone-notes@v1.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           milestone: ${{ github.event.inputs.milestone }}

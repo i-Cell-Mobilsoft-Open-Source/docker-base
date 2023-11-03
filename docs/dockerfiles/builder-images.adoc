@@ -39,6 +39,9 @@
 * Telepített programok:
 ** *maven* - $MAVEN_HOME-on belülre került kicsomagolásra.
 ** *jdk* - /opt/java/openjdk belülre került kicsomagolásra.
+** *git*
+** *libxml2-utils*
+** *jq*
 
 = builder/java17-maven
 
@@ -59,6 +62,9 @@
 * Telepített programok:
 ** *maven* - $MAVEN_HOME-on belülre került kicsomagolásra.
 ** *jdk* - /opt/java/openjdk belülre került kicsomagolásra.
+** *git*
+** *libxml2-utils*
+** *jq*
 
 = builder/java21-maven
 
@@ -79,6 +85,9 @@
 * Telepített programok:
 ** *maven* - $MAVEN_HOME-on belülre került kicsomagolásra.
 ** *jdk* - /opt/java/openjdk belülre került kicsomagolásra.
+** *git*
+** *libxml2-utils*
+** *jq*
 
 = builder/java11-galleon
 
