@@ -26,6 +26,10 @@ ARG MAVEN_DOWNLOAD_URL=https://archive.apache.org/dist/maven/maven-3/${MAVEN_VER
 USER root
 #  Create the dirs, download, validate, install, remove downloaded file and set links
 RUN set -x; \
+    apt-get update && \
+    apt-get -y install libxml2-utils git jq && \
+    rm -Rf /var/lib/apt/lists/* && \
+    rm -Rf /usr/share/doc/* && rm -Rf /usr/share/doc-base/* && rm -Rf /usr/share/man/* && \
     mkdir -m u=rwx,g=rwx,o=rx -p $DOWNLOAD_DIR $MAVEN_HOME $MAVEN_HOME/ref && \
     curl -L -X GET ${MAVEN_DOWNLOAD_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz --output $DOWNLOAD_DIR/apache-maven.tar.gz && \
     echo "Checking download hash" && \
@@ -34,7 +38,8 @@ RUN set -x; \
     chown -R $SYSTEM_USER:$SYSTEM_USER_GROUP $DOWNLOAD_DIR $MAVEN_HOME && \
     rm -f $DOWNLOAD_DIR/apache-maven.tar.gz && \
     ln -s $MAVEN_HOME/bin/mvn /usr/bin/mvn
-USER $SYSTEM_USER
+# This is a builder and root needed for future installations
+#USER $SYSTEM_USER
 
 ENV JAVA_HOME=/opt/java/openjdk
 ENV PATH "$JAVA_HOME/bin:${PATH}"
