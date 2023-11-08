@@ -1,0 +1,8 @@
+= v1.3.0
+
+Összes image 1:1 kompatibilis az 1.2.0 verzióval.
+
+.Módosítások
+* icellmobilsoft/builder-java*-maven builder imagek ki lettek egészítve:
+** apk install libxml2-utils git jq
+** user változás: $SYSTEM_USER -> root
