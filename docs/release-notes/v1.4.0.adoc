@@ -6,4 +6,5 @@
 * Az icellmobilsoft/builder-nexus-download builder image-ek változtak:
 ** Ettől a verziótól kezdődően a NEXUS_OBJECT_CLASSIFIER környezeti változót is használják az image-ek
 ** NEXUS_OBJECT_GROUP feloldás javitása, ha `.` -ot is tartalmazott az artifact groupId 
+* A base-alpine-runner image-be bekerült az unzip csomag is. `apk install unzip`
 
