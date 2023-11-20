@@ -15,4 +15,4 @@ USER $SYSTEM_USER
 ARG BASE_IMAGE
 LABEL base.image=$BASE_IMAGE
 LABEL image.usage=release
-LABEL apt-get.install=curl
+LABEL apt-get.install=curl,unzip

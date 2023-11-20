@@ -42,4 +42,4 @@ LABEL base.image=$BASE_IMAGE
 LABEL image.usage=release
 LABEL builder.images=$JRE_TEMURIN_IMAGE
 LABEL java.image=$JRE_TEMURIN_IMAGE
-LABEL apt-get.install=fontconfig,fonts-dejavu
+LABEL apt-get.install=fontconfig,fonts-dejavu,jq
