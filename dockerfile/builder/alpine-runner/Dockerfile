@@ -4,7 +4,7 @@ FROM ${BASE_IMAGE} as base
 
 USER root
 
-RUN apk update && apk add --purge --no-cache --no-interactive --no-progress bash git openssh curl libxml2-utils jq unzip
+RUN apk add --purge --no-cache --no-interactive --no-progress bash git openssh curl libxml2-utils jq
 
 # This is a builder and root needed for future installations
 #USER $SYSTEM_USER
@@ -12,4 +12,4 @@ RUN apk update && apk add --purge --no-cache --no-interactive --no-progress bash
 ARG BASE_IMAGE
 LABEL base.image=$BASE_IMAGE
 LABEL image.usage=release
-LABEL apt-get.install=bash,git,openssh,curl,libxml2-utils,jq,unzip
+LABEL apt-get.install=bash,git,openssh,curl,libxml2-utils,jq
