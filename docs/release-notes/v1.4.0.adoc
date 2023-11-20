@@ -1,0 +1,9 @@
+= v1.4.0
+
+Összes image 1:1 kompatibilis az 1.3.0 verzióval.
+
+.Módosítások
+* Az icellmobilsoft/builder-nexus-download builder image-ek változtak:
+** Ettől a verziótól kezdődően a NEXUS_OBJECT_CLASSIFIER környezeti változót is használják az image-ek
+** NEXUS_OBJECT_GROUP feloldás javitása, ha `.` -ot is tartalmazott az artifact groupId 
+
