@@ -28,7 +28,7 @@ USER root
 # Required font packages for Excel generation (fontconfig, fonts-dejavu)
 RUN set -x; \
     apt-get update && \
-    apt-get -y install fontconfig fonts-dejavu jq && \
+    apt-get -y install fontconfig fonts-dejavu && \
     rm -Rf /var/lib/apt/lists/* && \
     rm -Rf /usr/share/doc/* && rm -Rf /usr/share/doc-base/* && rm -Rf /usr/share/man/*
 
@@ -42,4 +42,4 @@ LABEL base.image=$BASE_IMAGE
 LABEL image.usage=release
 LABEL builder.images=$JRE_TEMURIN_IMAGE
 LABEL java.image=$JRE_TEMURIN_IMAGE
-LABEL apt-get.install=fontconfig,fonts-dejavu,jq
+LABEL apt-get.install=fontconfig,fonts-dejavu
