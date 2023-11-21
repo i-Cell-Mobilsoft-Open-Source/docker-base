@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x;
+
 set -e;
 
 echo "NEXUS_OBJECT_GROUP_ID=$NEXUS_OBJECT_GROUP_ID"
