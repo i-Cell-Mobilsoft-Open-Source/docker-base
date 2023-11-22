@@ -6,4 +6,4 @@
 * Az *icellmobilsoft/builder-nexus-download* builder image változott:
 ** Ettől a verziótól kezdődően a NEXUS_OBJECT_CLASSIFIER környezeti változót is használják az image-ek
 ** NEXUS_OBJECT_GROUP feloldás javitása, ha `.` -ot is tartalmazott az artifact groupId 
-
+** sonatype-download.sh script okosítása SONATYPE_URL és SONATYPE_REPOSITORY környezeti változók kezelésével 
