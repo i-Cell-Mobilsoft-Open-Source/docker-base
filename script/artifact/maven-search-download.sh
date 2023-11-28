@@ -10,7 +10,7 @@ NEXUS_OBJECT_EXTENSION=${NEXUS_OBJECT_EXTENSION:-jar}
 echo "NEXUS_OBJECT_EXTENSION=$NEXUS_OBJECT_EXTENSION"
 
 if [ -z "$NEXUS_OBJECT_CLASSIFIER" ]; then
-    # alapbol a jeloletlen "classifier" nelkulieket keressuk
+    # we are looking for empty classifiers by default
     PATH_PARAM_CLASSIFIER=""
 else
     PATH_PARAM_CLASSIFIER="-$NEXUS_OBJECT_CLASSIFIER"
@@ -34,7 +34,7 @@ SHA1_FILE_SIZE=$(stat -c%s "$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1")
 echo "$PWD/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME file downloaded, size: $FILE_SIZE bytes."
 echo "$PWD/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1 file downloaded, size: $SHA1_FILE_SIZE bytes."
 
-# checksum ellenorzes
+# checksum
 SHA1_ORIGINAL=$(cat $DOWNLOAD_DIR/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1);
 SHA1_FILE=$(sha1sum $DOWNLOAD_DIR/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME | awk '{print $1}')
 if [ "$SHA1_ORIGINAL" = "$SHA1_FILE" ]; then

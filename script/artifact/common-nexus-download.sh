@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
 set -e;
-# Minta hasznalat:
+# Sample usage:
 # NEXUS_USER=username NEXUS_PASSWORD=password NEXUS_OBJECT_GROUP_ID=hu.icellmobilsoft.doc.client NEXUS_OBJECT_ARTIFACT_ID=document-client NEXUS_DOWNLOAD_OUTPUT_FILE=document-client.test.jar common-nexus-download.sh
 #
-# Parameterek:
-# NEXUS_USER # nem kotelezo
+# Parameters:
+# NEXUS_USER # optional
 # NEXUS_PASSWORD
 NEXUS_REPOSITORY_URL=${NEXUS_REPOSITORY_URL:-"https://nexus.icellmobilsoft.hu"}
 NEXUS_REPOSITORY=${NEXUS_REPOSITORY:-public}
 NEXUS_OBJECT_GROUP_ID=${NEXUS_OBJECT_GROUP_ID:-test}
 NEXUS_OBJECT_ARTIFACT_ID=${NEXUS_OBJECT_ARTIFACT_ID:-none}
 NEXUS_OBJECT_EXTENSION=${NEXUS_OBJECT_EXTENSION:-jar}
-# NEXUS_OBJECT_VERSION="1.21.0" # ez lehet ures is
-# NEXUS_OBJECT_CLASSIFIER # ez altalaban ures, altalaban a classifier nelkuli cucc kell nekunk
+# NEXUS_OBJECT_VERSION="1.21.0" # can be empty
+# NEXUS_OBJECT_CLASSIFIER # empty at most because we dont need classified dependency usually
 # DOWNLOAD_DIR
 NEXUS_DOWNLOAD_OUTPUT_FILE_NAME=${NEXUS_DOWNLOAD_OUTPUT_FILE_NAME:-"$NEXUS_OBJECT_ARTIFACT_ID-$NEXUS_OBJECT_VERSION.$NEXUS_OBJECT_EXTENSION"}
 NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1=${NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1:-"$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME.sha1"}
@@ -28,7 +28,7 @@ echo "NEXUS_OBJECT_EXTENSION=$NEXUS_OBJECT_EXTENSION"
 echo "NEXUS_DOWNLOAD_OUTPUT_FILE_NAME=$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME"
 echo "NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1=$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1"
 
-# Nexus API osszeallitasa
+# create the nexus API call
 # https://help.sonatype.com/repomanager3/integrations/rest-and-integration-api/search-api#SearchAPI-SearchandDownloadAsset
 API_DOWNLOAD_PATH="service/rest/v1/search/assets/download?sort=version"
 PATH_PARAM_REPO="repository=$NEXUS_REPOSITORY"
@@ -39,7 +39,7 @@ PATH_PARAM_E_SHA1="maven.extension=$NEXUS_OBJECT_EXTENSION.sha1"
 PATH_PARAM_V="maven.baseVersion=$NEXUS_OBJECT_VERSION"
 # NEXUS_OBJECT_CLASSIFIER null check
 if [ -z "$NEXUS_OBJECT_CLASSIFIER" ]; then
-    # alapbol a jeloletlen "classifier" nelkulieket keressuk
+    # we are looking for empty classifiers by default
     PATH_PARAM_C="maven.classifier"
 else
     PATH_PARAM_C="maven.classifier=$NEXUS_OBJECT_CLASSIFIER"
@@ -49,10 +49,10 @@ NEXUS_API_DOWNLOAD_FILE_LAST_SHA1="$API_DOWNLOAD_PATH&$PATH_PARAM_REPO&$PATH_PAR
 
 # NEXUS_USER null check
 if [ ! -z "$NEXUS_USER" ]; then
-    # ha megvan adva a user akkor aktivlajuk
+    # activate the basic auth if parameters has been set
     CURL_USER="-u $NEXUS_USER:$NEXUS_PASSWORD "
 fi
-# curl osszeallitasa
+# create curl call
 CURL_OBJECT_LAST_DOWNLOAD="curl -L $CURL_USER -X GET $NEXUS_REPOSITORY_URL/$NEXUS_API_DOWNLOAD_FILE_LAST --output $DOWNLOAD_DIR/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME"
 CURL_OBJECT_LAST_DOWNLOAD_SHA1="curl -L $CURL_USER -X GET $NEXUS_REPOSITORY_URL/$NEXUS_API_DOWNLOAD_FILE_LAST_SHA1 --output $DOWNLOAD_DIR/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1"
 CURL_OBJECT_VERSION_DOWNLOAD="curl -L $CURL_USER -X GET $NEXUS_REPOSITORY_URL/$NEXUS_API_DOWNLOAD_FILE_LAST&$PATH_PARAM_V --output $DOWNLOAD_DIR/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME"
@@ -60,11 +60,11 @@ CURL_OBJECT_VERSION_DOWNLOAD_SHA1="curl -L $CURL_USER -X GET $NEXUS_REPOSITORY_U
 
 # NEXUS_OBJECT_VERSION null check
 if [ -z "$NEXUS_OBJECT_VERSION" ]; then
-    # lehuzzuk az utolso versiot (pl *-SNAPSHOT)
+    # get the last version (*-SNAPSHOT as usual)
     $CURL_OBJECT_LAST_DOWNLOAD
     $CURL_OBJECT_LAST_DOWNLOAD_SHA1
 else
-    # lehuzzuk a konkret verziot
+    # get the given version we need
     $CURL_OBJECT_VERSION_DOWNLOAD;
     $CURL_OBJECT_VERSION_DOWNLOAD_SHA1;
 fi
@@ -74,7 +74,7 @@ SHA1_FILE_SIZE=$(stat -c%s "$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1")
 echo "$PWD/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME file downloaded, size: $FILE_SIZE bytes."
 echo "$PWD/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1 file downloaded, size: $SHA1_FILE_SIZE bytes."
 
-# checksum ellenorzes
+# checksum
 SHA1_ORIGINAL=$(cat $DOWNLOAD_DIR/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1);
 SHA1_FILE=$(sha1sum $DOWNLOAD_DIR/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME | awk '{print $1}')
 if [ "$SHA1_ORIGINAL" = "$SHA1_FILE" ]; then

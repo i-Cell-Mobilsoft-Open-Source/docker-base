@@ -141,7 +141,7 @@
 
 * Image: `icellmobilsoft/builder-nexus-download`
 * Alapja: `icellmobilsoft/base-curl`
-* Célja: Céges nexusból artifact letöltés megoldása
+* Célja: Céges nexusból / central repositoryból artifact letöltés megoldása
 * Használt *argumentum*:
 ** *BASE_BUILDER_IMAGE* - Alap image megadása, nincs default értéke.
 ** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
@@ -156,6 +156,8 @@
 ** *NEXUS_OBJECT_CLASSIFIER* - Artifacet objektum classifier
 ** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME* - Letöltendő fájl output neve
 ** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1* - Letöltendő fájl sha1 lenyomata
+** *SONATYPE_URL* - Sonatype base url (default `https://oss.sonatype.org`) 
+** *SONATYPE_REPOSITORY* - A repository neve, ahonnan le akarjuk tölteni a fájlt (default `releases`) 
 * Hozzáadott *ENV*:
 ** *DOWNLOAD_DIR* - Letöltési mappa ahova a galleon le fog töltődni (default `$HOME/download=/home/icellmobilsoft/download`)
 ** *NEXUS_USER* - Nexus felhasználó argumentumból (default `$NEXUS_USER`)
@@ -169,6 +171,8 @@
 ** *NEXUS_OBJECT_CLASSIFIER* - Artifacet objektum classifier argumentumból (default `$NEXUS_OBJECT_CLASSIFIER`)
 ** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME* - Letöltendő fájl output neve argumentumból (default `$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME`)
 ** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1* - Letöltendő fájl sha1 lenyomata argumentumból (default `$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1`)
+** *SONATYPE_URL* - Sonatype base url (default `https://oss.sonatype.org`) 
+** *SONATYPE_REPOSITORY* - A repository neve, ahonnan le akarjuk tölteni a fájlt (default `releases`) 
 * Telepített programok: -
 
 NOTE: A letöltött artifact a DOWNLOAD_DIR-ben található majd meg.
