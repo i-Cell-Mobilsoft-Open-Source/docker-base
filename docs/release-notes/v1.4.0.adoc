@@ -10,3 +10,13 @@
 
 * Az *icellmobilsoft/builder-nexus-download* builder image változott:
 * Curl esetén a `"` közé kerültek az url-ek elkerülve, hogy kiértékelni akarja a futtató környezet a letöltési címet, ezért minden sh scriptbe ez a javítás bekerült.
+
+* bump base image alpine:3.18.4 -> alpine:3.18.5
+* Komponens upgrade:
+** Java 11.0.20.1_1-jre -> 11.0.21_9-jre
+** Java 11.0.20.1_1-jdk -> 11.0.21_9-jdk
+** Java 17.0.8.1_1-jre -> 17.0.9_9-jre
+** Java 17.0.8.1_1-jdk -> 17.0.9_9-jdk
+** Java 21_35-jre -> 21.0.1_12-jre
+** Java 21_35-jdk -> 21.0.1_12-jdk
+** Galleon 5.1.0.Final -> 5.2.1.Final
