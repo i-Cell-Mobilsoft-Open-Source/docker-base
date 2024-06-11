@@ -5,3 +5,4 @@
 .Módosítások
 * Az *icellmobilsoft/builder-nexus-download* builder image:
 ** `sonatype-download.sh` script-ben az alapértelmezett SONATYPE_REPOSITORY környezeti változó értéke `public`-ra változott, így a sonatype API a `-SNAPSHOT` verziókat is meg kell találja.
+** Hozzáadásra került egy `DEBUG` környezeti változó, ami `true` esetén kiírja a kiadott parancsokat a terminálra a könnyebb hibakeresés végett.  

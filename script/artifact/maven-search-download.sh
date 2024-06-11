@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+[ "$DEBUG" == 'true' ] && set -x
+
 set -e;
 
 echo "NEXUS_OBJECT_GROUP_ID=$NEXUS_OBJECT_GROUP_ID"
@@ -40,6 +42,9 @@ SHA1_FILE=$(sha1sum $DOWNLOAD_DIR/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME | awk '{print
 if [ "$SHA1_ORIGINAL" = "$SHA1_FILE" ]; then
     echo "Checksum OK"
 else
+    [ "$DEBUG" == 'true' ] && set +x
     echo "Corrupted file!"
     exit 1
 fi
+
+[ "$DEBUG" == 'true' ] && set +x

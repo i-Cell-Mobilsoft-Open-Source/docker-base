@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+[ "$DEBUG" == 'true' ] && set -x
+
 set -e;
 # Sample usage:
 # NEXUS_USER=username NEXUS_PASSWORD=password NEXUS_OBJECT_GROUP_ID=hu.icellmobilsoft.doc.client NEXUS_OBJECT_ARTIFACT_ID=document-client NEXUS_DOWNLOAD_OUTPUT_FILE=document-client.test.jar common-nexus-download.sh
@@ -80,6 +82,9 @@ SHA1_FILE=$(sha1sum $DOWNLOAD_DIR/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME | awk '{print
 if [ "$SHA1_ORIGINAL" = "$SHA1_FILE" ]; then
     echo "Checksum OK"
 else
+    [ "$DEBUG" == 'true' ] && set +x
     echo "Corrupted file!"
     exit 1
 fi
+
+[ "$DEBUG" == 'true' ] && set +x
