@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+[ "$DEBUG" == 'true' ] && set -x
 set -e;
 
 echo "NEXUS_USER=$NEXUS_USER"
@@ -54,5 +55,8 @@ if [ "$SHA1_ORIGINAL" = "$SHA1_FILE" ]; then
     echo "Checksum OK"
 else
     echo "Corrupted file!"
+    [ "$DEBUG" == 'true' ] && set +x
     exit 1
 fi
+
+[ "$DEBUG" == 'true' ] && set +x
