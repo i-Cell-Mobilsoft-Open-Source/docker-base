@@ -35,8 +35,8 @@ jobs:
 # pre release
 ###############
       - name: Import GPG key
-        # GPG privat kulcs, ami armor-al exportalva (kezdete: '-----BEGIN PGP PRIVATE KEY BLOCK-----') ez az egesz tartalom base64 elkodolva, az betoltve a secrets tartalomnak
-        # dekodoljuk a base64 elkodolt privat kulcsot es betoltjuk
+        # GPG private key, which is exported with armor (beginning: '-----BEGIN PGP PRIVATE KEY BLOCK-----') this entire content is encoded in base64, and it is loaded into the secrets content
+        # we decode the base64 encoded private key and load it
         run: |
           mkdir -p ~/.gnupg/
           echo "${{ secrets.GPG_SIGNING_KEY_GITHUB_TECHUSER }}" | base64 --decode > ~/.gnupg/private.key
@@ -44,10 +44,10 @@ jobs:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
-          # A tartalma egy PEM formatumos (kezdete: '-----BEGIN RSA PRIVATE KEY-----') SSH kulcs
+          # The content is an SSH key in PEM format (beginning: '-----BEGIN RSA PRIVATE KEY-----')
           key: ${{ secrets.SSH_PRIVATE_KEY_GITHUB_TECHUSER }}
           name: id_rsa # optional
-          known_hosts: ${{ secrets.KNOWN_HOSTS }} # jelenleg ures a tartalma
+          known_hosts: ${{ secrets.KNOWN_HOSTS }} # currently, its content is empty
           # config: ${{ secrets.CONFIG }} # ssh_config; optional
 
       # https://github.com/docker/setup-qemu-action

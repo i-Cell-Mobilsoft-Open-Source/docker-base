@@ -1,18 +1,18 @@
 = v1.4.0
 
-Összes image 1:1 kompatibilis az 1.3.0 verzióval.
+All images are 1:1 compatible with version 1.3.0.
 
-.Módosítások
-* Az *icellmobilsoft/builder-nexus-download* builder image változott:
-** Ettől a verziótól kezdődően a NEXUS_OBJECT_CLASSIFIER környezeti változót is használják az image-ek
-** NEXUS_OBJECT_GROUP feloldás javitása, ha `.` -ot is tartalmazott az artifact groupId 
-** sonatype-download.sh script okosítása SONATYPE_URL és SONATYPE_REPOSITORY környezeti változók kezelésével
+.Changes
+* The *icellmobilsoft/builder-nexus-download* builder image has changed:
+** Starting from this version, the environment variable NEXUS_OBJECT_CLASSIFIER is also used by the images.
+** Improvement in resolving NEXUS_OBJECT_GROUP if it contains a dot (`.`) in the artifact groupId
+** Enhancing sonatype-download.sh script with handling of SONATYPE_URL and SONATYPE_REPOSITORY environment variables
 
-* Az *icellmobilsoft/builder-nexus-download* builder image változott:
-* Curl esetén a `"` közé kerültek az url-ek elkerülve, hogy kiértékelni akarja a futtató környezet a letöltési címet, ezért minden sh scriptbe ez a javítás bekerült.
+* The *icellmobilsoft/builder-nexus-download* builder image has changed:
+* In the case of Curl, URLs are now enclosed in double quotes to prevent the runtime environment from attempting to evaluate the download address. This fix has been added to all shell scripts.
 
 * bump base image alpine:3.18.4 -> alpine:3.18.5
-* Komponens upgrade:
+* Component upgrade:
 ** Java 11.0.20.1_1-jre -> 11.0.21_9-jre
 ** Java 11.0.20.1_1-jdk -> 11.0.21_9-jdk
 ** Java 17.0.8.1_1-jre -> 17.0.9_9-jre

@@ -1,7 +1,7 @@
 = v1.5.0
 
-Összes image 1:1 kompatibilis az 1.4.0 verzióval.
+All images are 1:1 compatible with version 1.4.0.
 
-.Módosítások
-* Az *icellmobilsoft/builder-nexus-download* builder image:
-** `sonatype-download.sh` script-ben az alapértelmezett SONATYPE_REPOSITORY környezeti változó értéke `public`-ra változott, így a sonatype API a `-SNAPSHOT` verziókat is meg kell találja.
+.Changes
+*The *icellmobilsoft/builder-nexus-download* builder image:
+** In the `sonatype-download.sh` script, the default value of the SONATYPE_REPOSITORY environment variable has been changed to `public`, allowing the Sonatype API to also find `-SNAPSHOT` versions.

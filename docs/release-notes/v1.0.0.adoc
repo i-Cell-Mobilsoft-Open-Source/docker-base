@@ -1,18 +1,17 @@
 = v1.0.0
 
-A projekt kiköltözött a belső repositoryból,
-frissítéseket leszámolva 1:1 kompatibilis a 0.7.0 verzióval.
+The project has moved out of the internal repository and, excluding updates, it is 1:1 compatible with version 0.7.0.
 
-.Változások a belső verzióhoz képest
+.Changes compared to the internal version
 
 * bump base image debian:11.2-slim -> debian:11.7-slim
-* Komponens upgrade:
+* Component upgrade:
 ** Java 11.0.14.1_1-jre -> 11.0.19_7-jre
 ** Java 11.0.14.1_1-jdk -> 11.0.19_7-jdk
 ** Java 17.0.2_8-jre -> 17.0.7_7-jre
 ** Java 17.0.2_8-jdk -> 17.0.7_7-jdk
 ** Maven 3.8.5 -> 3.8.8
-* Dockerimage átnevezés:
+* Docker image renaming:
 ** base -> icellmobilsoft/base
 ** curl -> icellmobilsoft/base-curl
 ** java11jre -> icellmobilsoft/base-java11jre
@@ -24,15 +23,15 @@ frissítéseket leszámolva 1:1 kompatibilis a 0.7.0 verzióval.
 ** builder/nexus-download -> icellmobilsoft/builder-nexus-download
 
 
-.Újdondonságok
-* Új image:
-** icellmobilsoft/base - Base image az alap beállításokkal
-** icellmobilsoft/base-alpine - Alpine base image toolsetekkel
-** icellmobilsoft/base-curl - Curl-t tartalmazó base image
-** icellmobilsoft/base-java11jre - Java 11 LTS verziót kezeli
-** icellmobilsoft/base-java17jre - Java 17 LTS verziót kezeli
-** icellmobilsoft/builder-java11-maven - Maven buildeléshez használt image jdk 11-gyel
-** icellmobilsoft/builder-java17-maven - Maven buildeléshez használt image jdk 17-tel
-** icellmobilsoft/builder-java11-galleon - https://docs.wildfly.org/galleon[Galleon] image jdk 11 és maven alapon
-** icellmobilsoft/builder-java17-galleon - https://docs.wildfly.org/galleon[Galleon] image jdk 17 és maven alapon
-** icellmobilsoft/builder-nexus-download - Nexus artifact letöltő builder image
+.What's new
+* New image:
+** icellmobilsoft/base - Base image with default settings
+** icellmobilsoft/base-alpine - Alpine base image with toolsets
+** icellmobilsoft/base-curl - Base image containing curl
+** icellmobilsoft/base-java11jre - Handles Java 11 LTS version
+** icellmobilsoft/base-java17jre - Handles Java 17 LTS version
+** icellmobilsoft/builder-java11-maven - Image used for Maven building with jdk 11
+** icellmobilsoft/builder-java17-maven - Image used for Maven building with jdk 17
+** icellmobilsoft/builder-java11-galleon - https://docs.wildfly.org/galleon[Galleon] Image based on JDK 11 and Maven
+** icellmobilsoft/builder-java17-galleon - https://docs.wildfly.org/galleon[Galleon] Image based on JDK 17 and Maven
+** icellmobilsoft/builder-nexus-download - Builder image for downloading Nexus artifacts

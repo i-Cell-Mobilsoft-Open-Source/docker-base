@@ -4,33 +4,25 @@
 
 = docker-base dockerimages
 
-A repository az icellmobilsoft-ban használt base docker image-k gyűjtését szolgálja,
-hogy azonos alapon működjenek a projektek és azok buildjei. 
+The repository serves to collect the base Docker images used in icellmobilsoft so that the projects and their builds operate on a common basis.
 
-A projekt részeit több részre osztható,
-egymást kiegészítik.
-Alapvetően 2 csoportja oszthatóak az image-k:
+he parts of the project can be divided into multiple sections, complementing each other.
+The images can basically be divided into 2 groups:
 
-* *bases* - ezek azok az docker imagek,
-melyeket a cél termékeknél base image-nek használunk.
-Csak a feltétlenül szükséges funkció és tartalom lehet bennük.
-* *builder* - tartalom hordozásra használjuk őket,
-nem szabad base image-re használni.
-A funkciója a buildelés, kompilálás, multi-stage dockerfile-ban van,
-vagy akár gitlab runner használatban.
+* *bases* - These are the Docker images we use as base images for the target products. They can only contain the absolutely necessary functions and content.
+* *builder* - We use them for content delivery, and they should not be used as base images. Their function is for building, compiling, in multi-stage Dockerfiles, or even for GitLab runner usage.
 
-== Projekt struktúra
+== Project Structure
 
 === /dockerfile
-Maga a dockerfile-ok gyűjtője.
-Részletes leírása a létrehozott docker image-ről a FIXME[Docker Base Images] címen olvasható.
+It serves as a collector of Dockerfiles.
+The detailed description of the created Docker image can be found under the title FIXME[Docker Base Images].
 
 === /script
-Általános scriptek, melyeket a dockerimage-k is felhasználnak,
-de használhatóak önmagukban is.
+General scripts used by Docker images, but also usable standalone.
 
-== Fejlesztés
-Mindent amit ehhez tudni kell az a következő parancs:
+== Development
+All you need to know for this is the following command:
 
 [source,bash]
 ----
@@ -38,15 +30,15 @@ docker-compose -f <PATH>/docker-base/docker-compose.yml build
 ----
 [IMPORTANT]
 ====
-A release és docker push parancsot kizárólag a Github Actions-re kell bízni! 
+The release and docker push commands should be exclusively handled by GitHub Actions!
 ====
 
 == Release
-A release készítése Github Actions végzi.
-Alapvetően 2 esetet kezelünk:
+Creating releases is handled by GitHub Actions.
+We basically handle 2 cases:
 
-. *Major, Minor verzió* - fő verzió release, csak a *master branchből* keletkezhet.
-. *Bugfix verzió* - csak *release branchből* keletkezhet.
+. *Major, Minor version* - main version release, can only originate from the *master branch*.
+. *Bugfix version* - can only originate from a *release branch*.
 
-A hozzátartozó CI csak a megfelelő brancheknél jelenik meg.
+The corresponding CI appears only on the appropriate branches.
 

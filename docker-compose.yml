@@ -1,12 +1,12 @@
 version: "3.8"
 
-# build inditas
+# start build
 # docker compose -f /PATH/docker-base/docker-compose.yml build --no-cache
-# image belemaszas
+# running Docker in interactive mode
 # docker run --rm -it icellmobilsoft/base /bin/bash
-# image inditasa
+# start image
 # docker run --rm icellmobilsoft/base
-# label-ek ellenorzese
+# checking labels
 # docker inspect icellmobilsoft/base:1.0.0 | jq -r '.[0].Config.Labels'
 
 services:
