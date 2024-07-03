@@ -6,7 +6,7 @@
 
 The repository serves to collect the base Docker images used in icellmobilsoft so that the projects and their builds operate on a common basis.
 
-he parts of the project can be divided into multiple sections, complementing each other.
+The parts of the project can be divided into multiple sections, complementing each other.
 The images can basically be divided into 2 groups:
 
 * *bases* - These are the Docker images we use as base images for the target products. They can only contain the absolutely necessary functions and content.
