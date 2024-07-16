@@ -32,8 +32,8 @@ jobs:
 # pre release
 ###############
       - name: Import GPG key
-        # GPG privat kulcs, ami armor-al exportalva (kezdete: '-----BEGIN PGP PRIVATE KEY BLOCK-----') ez az egesz tartalom base64 elkodolva, az betoltve a secrets tartalomnak
-        # dekodoljuk a base64 elkodolt privat kulcsot es betoltjuk
+        # GPG private key, which is exported with armor (beginning: '-----BEGIN PGP PRIVATE KEY BLOCK-----') this entire content is encoded in base64, and it is loaded into the secrets content
+        # we decode the base64 encoded private key and load it
         run: |
           mkdir -p ~/.gnupg/
           echo "${{ secrets.GPG_SIGNING_KEY_GITHUB_TECHUSER }}" | base64 --decode > ~/.gnupg/private.key
@@ -41,10 +41,10 @@ jobs:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
-          # A tartalma egy PEM formatumos (kezdete: '-----BEGIN RSA PRIVATE KEY-----') SSH kulcs
+          # The content is an SSH key in PEM format (beginning: '-----BEGIN RSA PRIVATE KEY-----')
           key: ${{ secrets.SSH_PRIVATE_KEY_GITHUB_TECHUSER }}
           name: id_rsa # optional
-          known_hosts: ${{ secrets.KNOWN_HOSTS }} # jelenleg ures a tartalma
+          known_hosts: ${{ secrets.KNOWN_HOSTS }} # currently, its content is empty
           # config: ${{ secrets.CONFIG }} # ssh_config; optional
 
       - name: Configure GIT for signed commit
@@ -83,7 +83,7 @@ jobs:
 #          no-cache: true
 #          files: |
 #            docker-compose.yml
-# sorrendet nem tartja be
+# does not maintain the order
 #          targets: base-release,curl-release,base-alpine-release,alpine-runner-release,nexus-download-builder,java11jre-release,java11-maven-builder,java11-galleon-builder,java17jre-release,java17-maven-builder,java17-galleon-builder,java21jre-release,java21-maven-builder,java21-galleon-builder
       - name: docker buildx bake "#1"
         uses: docker/bake-action@v4
