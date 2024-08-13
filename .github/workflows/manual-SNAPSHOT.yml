@@ -84,7 +84,7 @@ jobs:
 #          files: |
 #            docker-compose.yml
 # does not maintain the order
-#          targets: base-release,curl-release,base-alpine-release,alpine-runner-release,nexus-download-builder,java11jre-release,java11-maven-builder,java11-galleon-builder,java17jre-release,java17-maven-builder,java17-galleon-builder,java21jre-release,java21-maven-builder,java21-galleon-builder
+#          targets: base-release,curl-release,base-alpine-release,alpine-runner-release,nexus-download-builder,java8jre-release,java11jre-release,java11-maven-builder,java11-galleon-builder,java17jre-release,java17-maven-builder,java17-galleon-builder,java21jre-release,java21-maven-builder,java21-galleon-builder
       - name: docker buildx bake "#1"
         uses: docker/bake-action@v4
         with:
@@ -120,7 +120,7 @@ jobs:
           push: true
           files: |
             docker-compose.yml
-          targets: java11-maven-builder,java17-maven-builder,java21-maven-builder
+          targets: java8-maven-builder,java11-maven-builder,java17-maven-builder,java21-maven-builder
       - name: docker buildx bake "#5"
         uses: docker/bake-action@v4
         with:

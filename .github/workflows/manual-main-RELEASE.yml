@@ -152,7 +152,7 @@ jobs:
           push: true
           files: |
             docker-compose.yml
-          targets: nexus-download-builder,java11jre-release,java17jre-release,java21jre-release
+          targets: nexus-download-builder,java8jre-release,java11jre-release,java17jre-release,java21jre-release
       - name: docker buildx bake "#4"
         uses: docker/bake-action@v4
         with:
@@ -161,7 +161,7 @@ jobs:
           push: true
           files: |
             docker-compose.yml
-          targets: java11-maven-builder,java17-maven-builder,java21-maven-builder
+          targets: java8-maven-builder,java11-maven-builder,java17-maven-builder,java21-maven-builder
       - name: docker buildx bake "#5"
         uses: docker/bake-action@v4
         with:
@@ -170,7 +170,7 @@ jobs:
           push: true
           files: |
             docker-compose.yml
-          targets: java11-galleon-builder,java17-galleon-builder,java21-galleon-builder
+          targets: java8-galleon-builder,java11-galleon-builder,java17-galleon-builder,java21-galleon-builder
 
 ###############
 ## post release

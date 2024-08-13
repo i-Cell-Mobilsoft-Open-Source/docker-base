@@ -20,6 +20,29 @@
 ** *libxml2-utils*
 ** *jq*
 
+= builder/java8-maven
+
+* Image: `icellmobilsoft/builder-java8-maven`
+* Base: `icellmobilsoft/base-curl`
+* Purpose: Building a project with Maven based on Java 8 foundations
+* Used *argument*:
+** *BASE_IMAGE* - Specifies the base image, it has no default value
+** *JRE_TEMURIN_IMAGE* - A Temurin Java image, from which the JRE parts are copied into the final image
+** *DOWNLOAD_DIR_DEFAULT* - Default download directory (where the Maven tar.gz is downloaded) (default: `$HOME/download = /home/icellmobilsoft/download`)
+** *SHA* - SHA of the Maven file to be downloaded (default: `SHA of the current version from the website`)
+** *MAVEN_DOWNLOAD_URL* - Donwload URl of Maven (default: `https://archive.apache.org/dist/maven/maven-3/${MAVEN_OLD_VERSION}/binaries`)
+* Added *ENV*:
+** *MAVEN_VERSION* - Version number of the Maven used
+** *DOWNLOAD_DIR* - Used in scripts (default `$DOWNLOAD_DIR_DEFAULT$`)
+** *MAVEN_HOME* - Environment variable of MAVEN_HOME for Maven (default `$HOME/maven=/home/icellmobilsoft/maven`)
+** *MAVEN_CONFIG* - Maven configuration (default `$HOME/.m2=/home/icellmobilsoft/.m2`)
+* Installed programs:
+** *maven* - Extracted into $MAVEN_HOME
+** *jdk* - Extracted into /opt/java/openjdk
+** *git*
+** *libxml2-utils*
+** *jq*
+
 = builder/java11-maven
 
 * Image: `icellmobilsoft/builder-java11-maven`
@@ -88,6 +111,22 @@
 ** *git*
 ** *libxml2-utils*
 ** *jq*
+
+= builder/java8-galleon
+
+* Image: `icellmobilsoft/builder-java8-galleon`
+* Base: `icellmobilsoft/builder-java8-maven`
+* Purpose: Building WildFly with Galleon using Maven support on Java 8 foundations
+* Used *argument*:
+** *BASE_BUILDER_IMAGE* - Specifies the base image, it has no default value
+** *GALLEON_VERSION* - Version number of Galleon
+** *DOWNLOAD_DIR_DEFAULT* - Default download directory (where the Maven tar.gz is downloaded) (default: `$HOME/download = /home/icellmobilsoft/download`)
+* Added *ENV*:
+** *GALLEON_HOME* - Directory of Galleon (default `$HOME/galleon=/home/icellmobilsoft/galleon`)
+** *GALLEON_VERSION* - Used in scripts (default `GALLEON_VERSION` argumentum)
+** *DOWNLOAD_DIR* - Download directory where Galleon will be downloaded (default `$HOME/download=/home/icellmobilsoft/download`)
+* Installed programs:
+** *galleon* - Extracted into $GALLEON_HOME
 
 = builder/java11-galleon
 

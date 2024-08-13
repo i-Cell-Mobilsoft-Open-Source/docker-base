@@ -40,7 +40,20 @@ services:
     depends_on:
       base-release: 
         condition: service_completed_successfully
-        
+
+  # icellmobilsoft/base-java8jre
+  java8jre-release:
+    build:
+      context: .
+      dockerfile: dockerfile/bases/javajre/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_CURL
+        JRE_TEMURIN_IMAGE: $JRE_8_TEMURIN_IMAGE
+    image: $DOCKER_IMAGE_JAVA8JRE
+    depends_on:
+      curl-release:
+        condition: service_completed_successfully
+
   # icellmobilsoft/base-java11jre
   java11jre-release:
     build:
@@ -96,6 +109,21 @@ services:
       base-alpine-release: 
         condition: service_completed_successfully
 
+  # icellmobilsoft/builder-java8-maven
+  java8-maven-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/javamaven/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_CURL
+        JDK_TEMURIN_IMAGE: $JDK_8_TEMURIN_IMAGE
+        MAVEN_VERSION: $MAVEN_OLD_VERSION
+        MAVEN_SHA: $MAVEN_OLD_SHA
+    image: $DOCKER_IMAGE_JAVA8_MAVEN
+    depends_on:
+      curl-release:
+        condition: service_completed_successfully
+
   # icellmobilsoft/builder-java11-maven
   java11-maven-builder:
     build:
@@ -139,6 +167,19 @@ services:
     image: $DOCKER_IMAGE_JAVA21_MAVEN
     depends_on:
       curl-release: 
+        condition: service_completed_successfully
+
+  # icellmobilsoft/builder-java8-galleon
+  java8-galleon-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/galleon/Dockerfile
+      args:
+        BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA8_MAVEN
+        GALLEON_VERSION: $GALLEON_VERSION
+    image: $DOCKER_IMAGE_JAVA8_GALLEON
+    depends_on:
+      java8-maven-builder:
         condition: service_completed_successfully
 
   # icellmobilsoft/builder-java11-galleon
