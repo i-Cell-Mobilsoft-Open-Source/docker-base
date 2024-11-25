@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-[ "$DEBUG" == 'true' ] && set -x
 set -e;
 
 echo "NEXUS_USER=$NEXUS_USER"
@@ -40,6 +39,10 @@ if [ ! -z "$NEXUS_USER" ]; then
     CURL_USER="-u $NEXUS_USER:$NEXUS_PASSWORD "
 fi
 
+if [ -n "$DEBUG" ]; then
+  set -x
+fi
+
 curl -L $CURL_USER -X GET "$SONATYPE_URL/$SONATYPE_API" --output $NEXUS_DOWNLOAD_OUTPUT_FILE_NAME;
 curl -L $CURL_USER -X GET "$SONATYPE_URL/$SONATYPE_API_SHA1" --output $NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1;
 
@@ -55,8 +58,12 @@ if [ "$SHA1_ORIGINAL" = "$SHA1_FILE" ]; then
     echo "Checksum OK"
 else
     echo "Corrupted file!"
-    [ "$DEBUG" == 'true' ] && set +x
+    if [ -n "$DEBUG" ]; then
+      set +x
+    fi
     exit 1
 fi
 
-[ "$DEBUG" == 'true' ] && set +x
+if [ -n "$DEBUG" ]; then
+  set +x
+fi

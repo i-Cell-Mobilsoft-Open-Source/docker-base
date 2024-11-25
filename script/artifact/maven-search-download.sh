@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-[ "$DEBUG" == 'true' ] && set -x
-
 set -e;
 
 echo "NEXUS_OBJECT_GROUP_ID=$NEXUS_OBJECT_GROUP_ID"
@@ -29,6 +27,10 @@ OBJECT_PATH_SHA1="$GROUP_PATH/$NEXUS_OBJECT_ARTIFACT_ID/$NEXUS_OBJECT_VERSION/$N
 #https://central.sonatype.org/search/example-urls/
 MAVEN_SEARCH_API="https://search.maven.org/remotecontent?filepath="
 
+if [ -n "$DEBUG" ]; then
+  set -x
+fi
+
 curl -L -X GET "$MAVEN_SEARCH_API$OBJECT_PATH" --output $NEXUS_DOWNLOAD_OUTPUT_FILE_NAME;
 curl -L -X GET "$MAVEN_SEARCH_API$OBJECT_PATH_SHA1" --output $NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1;
 FILE_SIZE=$(stat -c%s "$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME")
@@ -42,9 +44,13 @@ SHA1_FILE=$(sha1sum $DOWNLOAD_DIR/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME | awk '{print
 if [ "$SHA1_ORIGINAL" = "$SHA1_FILE" ]; then
     echo "Checksum OK"
 else
-    [ "$DEBUG" == 'true' ] && set +x
+    if [ -n "$DEBUG" ]; then
+      set +x
+    fi
     echo "Corrupted file!"
     exit 1
 fi
 
-[ "$DEBUG" == 'true' ] && set +x
+if [ -n "$DEBUG" ]; then
+  set +x
+fi

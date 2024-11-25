@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-[ "$DEBUG" == 'true' ] && set -x
-
 set -e;
 # Sample usage:
 # NEXUS_USER=username NEXUS_PASSWORD=password NEXUS_OBJECT_GROUP_ID=hu.icellmobilsoft.doc.client NEXUS_OBJECT_ARTIFACT_ID=document-client NEXUS_DOWNLOAD_OUTPUT_FILE=document-client.test.jar common-nexus-download.sh
@@ -60,6 +58,11 @@ CURL_OBJECT_LAST_DOWNLOAD_SHA1="curl -L $CURL_USER -X GET ""$NEXUS_REPOSITORY_UR
 CURL_OBJECT_VERSION_DOWNLOAD="curl -L $CURL_USER -X GET ""$NEXUS_REPOSITORY_URL/$NEXUS_API_DOWNLOAD_FILE_LAST&$PATH_PARAM_V"" --output $DOWNLOAD_DIR/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME"
 CURL_OBJECT_VERSION_DOWNLOAD_SHA1="curl -L $CURL_USER -X GET ""$NEXUS_REPOSITORY_URL/$NEXUS_API_DOWNLOAD_FILE_LAST_SHA1&$PATH_PARAM_V"" --output $DOWNLOAD_DIR/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1"
 
+if [ -n "$DEBUG" ]; then
+  set -x
+fi
+
+
 # NEXUS_OBJECT_VERSION null check
 if [ -z "$NEXUS_OBJECT_VERSION" ]; then
     # get the last version (*-SNAPSHOT as usual)
@@ -82,9 +85,13 @@ SHA1_FILE=$(sha1sum $DOWNLOAD_DIR/$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME | awk '{print
 if [ "$SHA1_ORIGINAL" = "$SHA1_FILE" ]; then
     echo "Checksum OK"
 else
-    [ "$DEBUG" == 'true' ] && set +x
+    if [ -n "$DEBUG" ]; then
+      set +x
+    fi
     echo "Corrupted file!"
     exit 1
 fi
 
-[ "$DEBUG" == 'true' ] && set +x
+if [ -n "$DEBUG" ]; then
+  set +x
+fi
