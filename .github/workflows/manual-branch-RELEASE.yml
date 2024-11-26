@@ -66,7 +66,7 @@ jobs:
           git config --global commit.gpgsign true
           git config --global tag.gpgSign true
       - name: Checkout main
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Get current version from .env
         id: prepare

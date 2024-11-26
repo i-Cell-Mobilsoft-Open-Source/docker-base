@@ -104,7 +104,7 @@ jobs:
           echo "${{steps.prepare.outputs.RELEASE_BRANCH_NAME}} branch created."
 
       - name: Checkout release branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}}
 
@@ -192,7 +192,7 @@ jobs:
           git commit -a -m "Bump version to ${{steps.prepare.outputs.NEXT_VERSION}}"
           git push --atomic origin ${{steps.prepare.outputs.RELEASE_BRANCH_NAME}} ${{steps.prepare.outputs.GIT_TAG}}
       - name: Checkout main
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: main
 
