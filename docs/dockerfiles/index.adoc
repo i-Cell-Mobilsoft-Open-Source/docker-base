@@ -1,6 +1,6 @@
 = /dockerfile
 
-Részletes leírása a létrehozott docker image-ről.
+Detailed description of the created Docker image.
 
 == base images - /dockerfile/bases
 include::base-images.adoc[leveloffset=+2]

@@ -1,18 +1,18 @@
 = alpine-runner
 
 * Image: `icellmobilsoft/builder-alpine-runner`
-* Alapja: `icellmobilsoft/base-alpine`
-* Célja: Fejlesztés különböző fázisaihoz egy toolsetet tartalmazó base image
-* Használt *argumentum*:
-** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
-** *USER_GID* - Létrehozott user groupjának gid-je (default `101`)
-** *USER_UID* - Létrehozott user uid-je (default `101`)
-** *SYSTEM_USER_DEFAULT* - Létrehozott user neve (default `icellmobilsoft`)
-** *SYSTEM_USER_GROUP_DEFAULT* - Létrehozott user groupjának neve (default `icellmobilsoft`)
-** *$SYSTEM_USER* - Nem `root` user, akivel fut az image (default: `icellmobilsoft`)
-** *$SYSTEM_USER_GROUP* - SYSTEM_USER linux csoportja (default: `icellmobilsoft`)
-** *$HOME* - SYSTEM_USER home könytára (WORKDIR $HOME)
-* Telepített programok:
+* Base: `icellmobilsoft/base-alpine`
+* Purpose: A base image containing a toolset for various stages of development
+* Used *argument*:
+** *BASE_IMAGE* - Specifies the base image, it has no default value
+** *USER_GID* - The GID (Group ID) of the created user group (default `101`)
+** *USER_UID* - The UID (User ID) of the created user (default `101`)
+** *SYSTEM_USER_DEFAULT* - The name of the created user (default `icellmobilsoft`)
+** *SYSTEM_USER_GROUP_DEFAULT* - The name of the created user group (default `icellmobilsoft`)
+** *$SYSTEM_USER* - Non 'root' user with which the image runs (default: `icellmobilsoft`)
+** *$SYSTEM_USER_GROUP* - The Linux group of the SYSTEM_USER (default: `icellmobilsoft`)
+** *$HOME* - The home directory of the SYSTEM_USER (WORKDIR $HOME)
+* Installed programs:
 ** *bash*
 ** *git*
 ** *openssh*
@@ -23,22 +23,22 @@
 = builder/java11-maven
 
 * Image: `icellmobilsoft/builder-java11-maven`
-* Alapja: `icellmobilsoft/base-curl`
-* Célja: Java 11 alapokon Maven segítségével projekt buildelés
-* Használt *argumentum*:
-** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
-** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
-** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
-** *SHA* - Letöltendő maven fájl sha-ja (default: `aktuális verzió sha-ja weboldalról`)
-** *MAVEN_DOWNLOAD_URL* -Maven letöltési urlje(default: `https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries`)
-* Hozzáadott *ENV*:
-** *MAVEN_VERSION* - Használt maven verziószáma
-** *DOWNLOAD_DIR* - scriptekben van felhasználva (default `$DOWNLOAD_DIR_DEFAULT$`)
-** *MAVEN_HOME* - Maven MAVEN_HOME környezeti változója (default `$HOME/maven=/home/icellmobilsoft/maven`)
-** *MAVEN_CONFIG* - Maven configuráció (default `$HOME/.m2=/home/icellmobilsoft/.m2`)
-* Telepített programok:
-** *maven* - $MAVEN_HOME-on belülre került kicsomagolásra.
-** *jdk* - /opt/java/openjdk belülre került kicsomagolásra.
+* Base: `icellmobilsoft/base-curl`
+* Purpose: Building a project with Maven based on Java 11 foundations
+* Used *argument*:
+** *BASE_IMAGE* - Specifies the base image, it has no default value
+** *JRE_TEMURIN_IMAGE* - A Temurin Java image, from which the JRE parts are copied into the final image
+** *DOWNLOAD_DIR_DEFAULT* - Default download directory (where the Maven tar.gz is downloaded) (default: `$HOME/download = /home/icellmobilsoft/download`)
+** *SHA* - SHA of the Maven file to be downloaded (default: `SHA of the current version from the website`)
+** *MAVEN_DOWNLOAD_URL* - Donwload URl of Maven (default: `https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries`)
+* Added *ENV*:
+** *MAVEN_VERSION* - Version number of the Maven used
+** *DOWNLOAD_DIR* - Used in scripts (default `$DOWNLOAD_DIR_DEFAULT$`)
+** *MAVEN_HOME* - Environment variable of MAVEN_HOME for Maven (default `$HOME/maven=/home/icellmobilsoft/maven`)
+** *MAVEN_CONFIG* - Maven configuration (default `$HOME/.m2=/home/icellmobilsoft/.m2`)
+* Installed programs:
+** *maven* - Extracted into $MAVEN_HOME
+** *jdk* - Extracted into /opt/java/openjdk 
 ** *git*
 ** *libxml2-utils*
 ** *jq*
@@ -46,22 +46,22 @@
 = builder/java17-maven
 
 * Image: `icellmobilsoft/builder-java17-maven`
-* Alapja: `icellmobilsoft/base-curl`
-* Célja: Java 17 alapokon Maven segítségével projekt buildelés
-* Használt *argumentum*:
-** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
-** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
-** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
-** *SHA* - Letöltendő maven fájl sha-ja (default: `aktuális verzió sha-ja weboldalról`)
-** *MAVEN_DOWNLOAD_URL* -Maven letöltési urlje(default: `https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries`)
-* Hozzáadott *ENV*:
-** *MAVEN_VERSION* - Használt maven verziószáma
-** *DOWNLOAD_DIR* - scriptekben van felhasználva (default `$DOWNLOAD_DIR_DEFAULT$`)
-** *MAVEN_HOME* - Maven MAVEN_HOME környezeti változója (default `$HOME/maven=/home/icellmobilsoft/maven`)
-** *MAVEN_CONFIG* - Maven configuráció (default `$HOME/.m2=/home/icellmobilsoft/.m2`)
-* Telepített programok:
-** *maven* - $MAVEN_HOME-on belülre került kicsomagolásra.
-** *jdk* - /opt/java/openjdk belülre került kicsomagolásra.
+* Base: `icellmobilsoft/base-curl`
+* Purpose: Building a project with Maven based on Java 17 foundations
+* Used *argument*:
+** *BASE_IMAGE* - Specifies the base image, it has no default value
+** *JRE_TEMURIN_IMAGE* - A Temurin Java image, from which the JRE parts are copied into the final image
+** *DOWNLOAD_DIR_DEFAULT* - Default download directory (where the Maven tar.gz is downloaded) (default: `$HOME/download = /home/icellmobilsoft/download`)
+** *SHA* - SHA of the Maven file to be downloaded (default: `SHA of the current version from the website`)
+** *MAVEN_DOWNLOAD_URL* - Donwload URl of Maven (default: `https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries`)
+* Added *ENV*:
+** *MAVEN_VERSION* - Version number of the Maven used
+** *DOWNLOAD_DIR* - Used in scripts (default `$DOWNLOAD_DIR_DEFAULT$`)
+** *MAVEN_HOME* - Environment variable of MAVEN_HOME for Maven (default `$HOME/maven=/home/icellmobilsoft/maven`)
+** *MAVEN_CONFIG* - Maven configuration (default `$HOME/.m2=/home/icellmobilsoft/.m2`)
+* Installed programs:
+** *maven* - Extracted into $MAVEN_HOME
+** *jdk* - Extracted into /opt/java/openjdk 
 ** *git*
 ** *libxml2-utils*
 ** *jq*
@@ -69,22 +69,22 @@
 = builder/java21-maven
 
 * Image: `icellmobilsoft/builder-java21-maven`
-* Alapja: `icellmobilsoft/base-curl`
-* Célja: Java 21 alapokon Maven segítségével projekt buildelés
-* Használt *argumentum*:
-** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
-** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
-** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
-** *SHA* - Letöltendő maven fájl sha-ja (default: `aktuális verzió sha-ja weboldalról`)
-** *MAVEN_DOWNLOAD_URL* -Maven letöltési urlje(default: `https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries`)
-* Hozzáadott *ENV*:
-** *MAVEN_VERSION* - Használt maven verziószáma
-** *DOWNLOAD_DIR* - scriptekben van felhasználva (default `$DOWNLOAD_DIR_DEFAULT$`)
-** *MAVEN_HOME* - Maven MAVEN_HOME környezeti változója (default `$HOME/maven=/home/icellmobilsoft/maven`)
-** *MAVEN_CONFIG* - Maven configuráció (default `$HOME/.m2=/home/icellmobilsoft/.m2`)
-* Telepített programok:
-** *maven* - $MAVEN_HOME-on belülre került kicsomagolásra.
-** *jdk* - /opt/java/openjdk belülre került kicsomagolásra.
+* Base: `icellmobilsoft/base-curl`
+* Purpose: Building a project with Maven based on Java 21 foundations
+* Used *argument*:
+** *BASE_IMAGE* - Specifies the base image, it has no default value
+** *JRE_TEMURIN_IMAGE* - A Temurin Java image, from which the JRE parts are copied into the final image
+** *DOWNLOAD_DIR_DEFAULT* - Default download directory (where the Maven tar.gz is downloaded) (default: `$HOME/download = /home/icellmobilsoft/download`)
+** *SHA* - SHA of the Maven file to be downloaded (default: `SHA of the current version from the website`)
+** *MAVEN_DOWNLOAD_URL* - Donwload URl of Maven (default: `https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries`)
+* Added *ENV*:
+** *MAVEN_VERSION* - Version number of the Maven used
+** *DOWNLOAD_DIR* - Used in scripts (default `$DOWNLOAD_DIR_DEFAULT$`)
+** *MAVEN_HOME* - Environment variable of MAVEN_HOME for Maven (default `$HOME/maven=/home/icellmobilsoft/maven`)
+** *MAVEN_CONFIG* - Maven configuration (default `$HOME/.m2=/home/icellmobilsoft/.m2`)
+* Installed programs:
+** *maven* - Extracted into $MAVEN_HOME
+** *jdk* - Extracted into /opt/java/openjdk 
 ** *git*
 ** *libxml2-utils*
 ** *jq*
@@ -92,90 +92,90 @@
 = builder/java11-galleon
 
 * Image: `icellmobilsoft/builder-java11-galleon`
-* Alapja: `icellmobilsoft/builder-java11-maven`
-* Célja: Java 11 alapokon Maven támogatással Galleonnal wildfly buildelése
-* Használt *argumentum*:
-** *BASE_BUILDER_IMAGE* - Alap image megadása, nincs default értéke.
-** *GALLEON_VERSION* - Galleon verziószáma
-** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
-* Hozzáadott *ENV*:
-** *GALLEON_HOME* - Galleon mappája (default `$HOME/galleon=/home/icellmobilsoft/galleon`)
-** *GALLEON_VERSION* - scriptekben van felhasználva (default `GALLEON_VERSION` argumentum)
-** *DOWNLOAD_DIR* - Letöltési mappa ahova a galleon le fog töltődni (default `$HOME/download=/home/icellmobilsoft/download`)
-* Telepített programok:
-** *galleon* - $GALLEON_HOME-on belülre került kicsomagolásra.
+* Base: `icellmobilsoft/builder-java11-maven`
+* Purpose: Building WildFly with Galleon using Maven support on Java 11 foundations
+* Used *argument*:
+** *BASE_BUILDER_IMAGE* - Specifies the base image, it has no default value
+** *GALLEON_VERSION* - Version number of Galleon
+** *DOWNLOAD_DIR_DEFAULT* - Default download directory (where the Maven tar.gz is downloaded) (default: `$HOME/download = /home/icellmobilsoft/download`)
+* Added *ENV*:
+** *GALLEON_HOME* - Directory of Galleon (default `$HOME/galleon=/home/icellmobilsoft/galleon`)
+** *GALLEON_VERSION* - Used in scripts (default `GALLEON_VERSION` argumentum)
+** *DOWNLOAD_DIR* - Download directory where Galleon will be downloaded (default `$HOME/download=/home/icellmobilsoft/download`)
+* Installed programs:
+** *galleon* - Extracted into $GALLEON_HOME
 
 = builder/java17-galleon
 
 * Image: `icellmobilsoft/builder-java17-galleon`
-* Alapja: `icellmobilsoft/builder-java17-maven`
-* Célja: Java 17 alapokon Maven támogatással Galleonnal wildfly buildelése
-* Használt *argumentum*:
-** *BASE_BUILDER_IMAGE* - Alap image megadása, nincs default értéke.
-** *GALLEON_VERSION* - Galleon verziószáma
-** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
-* Hozzáadott *ENV*:
-** *GALLEON_HOME* - Galleon mappája (default `$HOME/galleon=/home/icellmobilsoft/galleon`)
-** *GALLEON_VERSION* - scriptekben van felhasználva (default `GALLEON_VERSION` argumentum)
-** *DOWNLOAD_DIR* - Letöltési mappa ahova a galleon le fog töltődni (default `$HOME/download=/home/icellmobilsoft/download`)
-* Telepített programok:
-** *galleon* - $GALLEON_HOME-on belülre került kicsomagolásra.
+* Base: `icellmobilsoft/builder-java17-maven`
+* Purpose: Building WildFly with Galleon using Maven support on Java 17 foundations
+* Used *argument*:
+** *BASE_BUILDER_IMAGE* - Specifies the base image, it has no default value
+** *GALLEON_VERSION* - Version number of Galleon
+** *DOWNLOAD_DIR_DEFAULT* - Default download directory (where the Maven tar.gz is downloaded) (default: `$HOME/download = /home/icellmobilsoft/download`)
+* Added *ENV*:
+** *GALLEON_HOME* - Directory of Galleon (default `$HOME/galleon=/home/icellmobilsoft/galleon`)
+** *GALLEON_VERSION* - Used in scripts (default `GALLEON_VERSION` argumentum)
+** *DOWNLOAD_DIR* - Download directory where Galleon will be downloaded (default `$HOME/download=/home/icellmobilsoft/download`)
+* Installed programs:
+** *galleon* - Extracted into $GALLEON_HOME
 
 = builder/java21-galleon
 
 * Image: `icellmobilsoft/builder-java21-galleon`
-* Alapja: `icellmobilsoft/builder-java21-maven`
-* Célja: Java 21 alapokon Maven támogatással Galleonnal wildfly buildelése
-* Használt *argumentum*:
-** *BASE_BUILDER_IMAGE* - Alap image megadása, nincs default értéke.
-** *GALLEON_VERSION* - Galleon verziószáma
-** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
-* Hozzáadott *ENV*:
-** *GALLEON_HOME* - Galleon mappája (default `$HOME/galleon=/home/icellmobilsoft/galleon`)
-** *GALLEON_VERSION* - scriptekben van felhasználva (default `GALLEON_VERSION` argumentum)
-** *DOWNLOAD_DIR* - Letöltési mappa ahova a galleon le fog töltődni (default `$HOME/download=/home/icellmobilsoft/download`)
-* Telepített programok:
-** *galleon* - $GALLEON_HOME-on belülre került kicsomagolásra.
+* Base: `icellmobilsoft/builder-java21-maven`
+* Purpose: Building WildFly with Galleon using Maven support on Java 21 foundations
+* Used *argument*:
+** *BASE_BUILDER_IMAGE* - Specifies the base image, it has no default value
+** *GALLEON_VERSION* - Version number of Galleon
+** *DOWNLOAD_DIR_DEFAULT* - Default download directory (where the Maven tar.gz is downloaded) (default: `$HOME/download = /home/icellmobilsoft/download`)
+* Added *ENV*:
+** *GALLEON_HOME* - Directory of Galleon (default `$HOME/galleon=/home/icellmobilsoft/galleon`)
+** *GALLEON_VERSION* - Used in scripts (default `GALLEON_VERSION` argumentum)
+** *DOWNLOAD_DIR* - Download directory where Galleon will be downloaded (default `$HOME/download=/home/icellmobilsoft/download`)
+* Installed programs:
+** *galleon* - Extracted into $GALLEON_HOME
 
 = builder/nexus-download
 
 * Image: `icellmobilsoft/builder-nexus-download`
-* Alapja: `icellmobilsoft/base-curl`
-* Célja: Céges nexusból / central repositoryból artifact letöltés megoldása
-* Használt *argumentum*:
-** *BASE_BUILDER_IMAGE* - Alap image megadása, nincs default értéke.
-** *DOWNLOAD_DIR_DEFAULT* - Alapértelmezett letöltési könyvtár (ide tötlődik le a maven tar.gz) (default: `$HOME/download = /home/icellmobilsoft/download`)
-** *NEXUS_USER* - Nexus felhasználó
-** *NEXUS_PASSWORD* - Nexus felhasználó jelszava (plain text)
+* Base: `icellmobilsoft/base-curl`
+* Purpose: Downloading artifacts from the company's Nexus or central repository
+* Used *argument*:
+** *BASE_BUILDER_IMAGE* - Specifies the base image, it has no default value
+** *DOWNLOAD_DIR_DEFAULT* - Default download directory (where the Maven tar.gz is downloaded) (default: `$HOME/download = /home/icellmobilsoft/download`)
+** *NEXUS_USER* - Nexus user
+** *NEXUS_PASSWORD* - Nexus user password (plain text)
 ** *NEXUS_REPOSITORY_URL* - Nexus repository url
-** *NEXUS_REPOSITORY* - Nexus repository a nexuson belül (pl.: public)
-** *NEXUS_OBJECT_GROUP_ID* - Artifact objektum groupId-ja
-** *NEXUS_OBJECT_ARTIFACT_ID* - Artifact objektum artifact-ja
-** *NEXUS_OBJECT_EXTENSION* - Artifact objektum extension-je (pl.: jar)
-** *NEXUS_OBJECT_VERSION* -Artifact objektum version-je
-** *NEXUS_OBJECT_CLASSIFIER* - Artifacet objektum classifier
-** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME* - Letöltendő fájl output neve
-** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1* - Letöltendő fájl sha1 lenyomata
+** *NEXUS_REPOSITORY* - Nexus repository within Nexus (e.g.: public)
+** *NEXUS_OBJECT_GROUP_ID* - The groupId of the artifact object
+** *NEXUS_OBJECT_ARTIFACT_ID* - The artifact of the artifact object
+** *NEXUS_OBJECT_EXTENSION* - The extension of the artifact object (e.g.: jar)
+** *NEXUS_OBJECT_VERSION* - The version of the artifact object
+** *NEXUS_OBJECT_CLASSIFIER* - The classifier of the artifact object
+** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME* - Output name of the file to be downloaded
+** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1* - SHA1 of the file to be downloaded
 ** *SONATYPE_URL* - Sonatype base url (default `https://oss.sonatype.org`) 
-** *SONATYPE_REPOSITORY* - A repository neve, ahonnan le akarjuk tölteni a fájlt (default `releases`) 
-** *DEBUG* - `true` esetén kiírásra kerülnek a kiadott download scriptekben kiadott parancsok a terminálra (default `false`) 
-* Hozzáadott *ENV*:
-** *DOWNLOAD_DIR* - Letöltési mappa ahova a galleon le fog töltődni (default `$HOME/download=/home/icellmobilsoft/download`)
-** *NEXUS_USER* - Nexus felhasználó argumentumból (default `$NEXUS_USER`)
-** *NEXUS_PASSWORD* - Nexus felhasználó jelszava argumentumból (default `$NEXUS_PASSWORD`)
-** *NEXUS_REPOSITORY_URL* - Nexus repository url argumentumból (default `$NEXUS_REPOSITORY_URL`)
-** *NEXUS_REPOSITORY* - Nexus repository a nexuson belül argumentumból (default `$NEXUS_REPOSITORY`)
-** *NEXUS_OBJECT_GROUP_ID* - Artifact objektum groupId-ja argumentumból (default `$NEXUS_OBJECT_GROUP_ID`)
-** *NEXUS_OBJECT_ARTIFACT_ID* - Artifact objektum artifact-ja argumentumból (default `$NEXUS_OBJECT_ARTIFACT_ID`)
-** *NEXUS_OBJECT_EXTENSION* - Artifact objektum extension-je argumentumból (default `$NEXUS_OBJECT_EXTENSION`)
-** *NEXUS_OBJECT_VERSION* - Artifact objektum version-je argumentumból (default `$NEXUS_OBJECT_VERSION`)
-** *NEXUS_OBJECT_CLASSIFIER* - Artifacet objektum classifier argumentumból (default `$NEXUS_OBJECT_CLASSIFIER`)
-** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME* - Letöltendő fájl output neve argumentumból (default `$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME`)
-** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1* - Letöltendő fájl sha1 lenyomata argumentumból (default `$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1`)
+** *SONATYPE_REPOSITORY* - The name of the repository from which we want to download the file (default `releases`) 
+** *DEBUG* - If set to `true` (or any value), the commands issued in the download scripts will be printed to the terminal (default is empty)
+* Added *ENV*:
+** *DOWNLOAD_DIR* - Download directory where Galleon will be downloaded (default `$HOME/download=/home/icellmobilsoft/download`)
+** *NEXUS_USER* - Nexus username from argument (default `$NEXUS_USER`)
+** *NEXUS_PASSWORD* - Nexus user password from argument (default `$NEXUS_PASSWORD`)
+** *NEXUS_REPOSITORY_URL* - Nexus repository URL from argument (default `$NEXUS_REPOSITORY_URL`)
+** *NEXUS_REPOSITORY* - Nexus repository within Nexus from argument (default `$NEXUS_REPOSITORY`)
+** *NEXUS_OBJECT_GROUP_ID* - Artifact object's groupId from argument (default `$NEXUS_OBJECT_GROUP_ID`)
+** *NEXUS_OBJECT_ARTIFACT_ID* - AArtifact object's artifactId from argument (default `$NEXUS_OBJECT_ARTIFACT_ID`)
+** *NEXUS_OBJECT_EXTENSION* - Artifact object's extension from argument (default `$NEXUS_OBJECT_EXTENSION`)
+** *NEXUS_OBJECT_VERSION* - Artifact object's version from argument (default `$NEXUS_OBJECT_VERSION`)
+** *NEXUS_OBJECT_CLASSIFIER* - Artifacet objektum classifier from argument (default `$NEXUS_OBJECT_CLASSIFIER`)
+** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME* - Output name of the file to be downloaded from argument (default `$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME`)
+** *NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1* - SHA1 of the file to be downloaded from argument (default `$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1`)
 ** *SONATYPE_URL* - Sonatype base url (default `https://oss.sonatype.org`) 
-** *SONATYPE_REPOSITORY* - A repository neve, ahonnan le akarjuk tölteni a fájlt (default `releases`) 
-** *DEBUG* - `true` esetén kiírásra kerülnek a kiadott download scriptekben kiadott parancsok a terminálra (default `false`) 
-* Telepített programok: -
+** *SONATYPE_REPOSITORY* - The name of the repository from which we want to download the file (default `releases`) 
+** *DEBUG* - If set to `true` (or any value), the commands issued in the download scripts will be printed to the terminal (default is empty)
+* Installed programs: -
 
-NOTE: A letöltött artifact a DOWNLOAD_DIR-ben található majd meg.
+NOTE: The downloaded artifact will be located in the DOWNLOAD_DIR.
 

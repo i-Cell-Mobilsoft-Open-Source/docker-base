@@ -1,17 +1,17 @@
 = v1.1.0
 
-Összes image 1:1 kompatibilis az 1.0.0 verzióval.
+All images are 1:1 compatible with version 1.0.0.
 
-.Tárhely optimalizálás:
+.Storage optimization:
 
-* apt csomagkezelő cache ürítése (csomagtelepítés előtt kell apt update parancsot futatni!)
-* csomagok dokumentációjának törlése (/usr/share/doc és /usr/share/doc-base)
-* manuál oldalak törlése (/usr/share/man)
+* Clearing the apt package manager cache (you must run `apt update` before installing packages!)
+* Deleting package documentation (/usr/share/doc and /usr/share/doc-base)
+* Deleting manual pages (/usr/share/man)
 
 .icellmobilsoft/builder-nexus-download
 
-* Image-be belekerült az összes artifact letöltő script
-* Összes script ezentúl loggolja a paramétereket és letöltött fájlok méreteit
-* Egységesítve lett a letöltött fájlok ENV neve a `common-nexus-download.sh` szerint:
-** `$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME` (korábban `$OUTPUT_FILE` a `sonatype-download.sh` és `maven-search-download.sh` scriptekben)
-** `$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1` (korábban `$OUTPUT_FILE.sha1`)
+* All artifact download scripts have been included in the image.
+* From now on, all scripts will log parameters and the sizes of downloaded files.
+* The ENV names for downloaded files have been standardized according to `common-nexus-download.sh`.
+** `$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME` (Previously, `$OUTPUT_FILE` was used in the `sonatype-download.sh` and `maven-search-download.sh` scripts.)
+** `$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1` (Previously `$OUTPUT_FILE.sha1`)

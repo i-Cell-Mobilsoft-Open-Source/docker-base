@@ -1,100 +1,100 @@
 = base
 
 * Image: `icellmobilsoft/base`
-* Alapja: https://hub.docker.com/_/debian official LTS release
-* Célja: Éles alkalmazások futtatása
-* Használt *argumentum*:
-** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
-** *USER_GID* - Létrehozott user groupjának gid-je (default `101`)
-** *USER_UID* - Létrehozott user uid-je (default `101`)
-** *SYSTEM_USER_DEFAULT* - Létrehozott user neve (default `icellmobilsoft`)
-** *SYSTEM_USER_GROUP_DEFAULT* - Létrehozott user groupjának neve (default `icellmobilsoft`)
-* Hozzáadott *ENV*:
-** *$SYSTEM_USER* - Nem `root` user, akivel fut az image (default: `icellmobilsoft`)
-** *$SYSTEM_USER_GROUP* - SYSTEM_USER linux csoportja (default: `icellmobilsoft`)
-** *$HOME* - SYSTEM_USER home könytára (WORKDIR $HOME)
-* Telepített programok: -
+* Base: https://hub.docker.com/_/debian official LTS release
+* Purpose: Running production applications
+* Used *argument*:
+** *BASE_IMAGE* - Specifies the base image, it has no default value.
+** *USER_GID* - The GID (Group ID) of the created user group (default `101`)
+** *USER_UID* - The UID (User ID) of the created user (default `101`)
+** *SYSTEM_USER_DEFAULT* - The name of the created user (default `icellmobilsoft`)
+** *SYSTEM_USER_GROUP_DEFAULT* - The name of the created user group (default `icellmobilsoft`)
+* Added *ENV*:
+** *$SYSTEM_USER* - Non 'root' user with which the image runs (default: `icellmobilsoft`)
+** *$SYSTEM_USER_GROUP* - The Linux group of the SYSTEM_USER (default: `icellmobilsoft`)
+** *$HOME* - The home directory of the SYSTEM_USER (WORKDIR $HOME)
+* Installed programs: -
 
-A image célja hogy létrehozzon egy system user-t akivel default fut az image.
+The purpose of the image is to create a system user who runs the image by default.
 
 = base-alpine
 
 * Image: `icellmobilsoft/base-alpine`
-* Alapja: https://hub.docker.com/_/alpine official release
-* Célja: Fejlesztés különböző fázisaihoz egy toolsetet tartalmazó base image
-* Használt *argumentum*:
-** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
-** *USER_GID* - Létrehozott user groupjának gid-je (default `101`)
-** *USER_UID* - Létrehozott user uid-je (default `101`)
-** *SYSTEM_USER_DEFAULT* - Létrehozott user neve (default `icellmobilsoft`)
-** *SYSTEM_USER_GROUP_DEFAULT* - Létrehozott user groupjának neve (default `icellmobilsoft`)
-* Hozzáadott *ENV*:
-** *$SYSTEM_USER* - Nem `root` user, akivel fut az image (default: `icellmobilsoft`)
-** *$SYSTEM_USER_GROUP* - SYSTEM_USER linux csoportja (default: `icellmobilsoft`)
-** *$HOME* - SYSTEM_USER home könytára (WORKDIR $HOME)
+* Base: https://hub.docker.com/_/alpine official release
+* Purpose: A base image containing a toolset for various stages of development
+* Used *argument*:
+** *BASE_IMAGE* - Specifies the base image, it has no default value
+** *USER_GID* - The GID (Group ID) of the created user group (default `101`)
+** *USER_UID* - The UID (User ID) of the created user (default `101`)
+** *SYSTEM_USER_DEFAULT* - The name of the created user (default `icellmobilsoft`)
+** *SYSTEM_USER_GROUP_DEFAULT* - The name of the created user group (default `icellmobilsoft`)
+* Added *ENV*:
+** *$SYSTEM_USER* - Non 'root' user with which the image runs (default: `icellmobilsoft`)
+** *$SYSTEM_USER_GROUP* - The Linux group of the SYSTEM_USER (default: `icellmobilsoft`)
+** *$HOME* - The home directory of the SYSTEM_USER (WORKDIR $HOME)
 
-A image célja hogy létrehozzon egy system user-t akivel default fut az image.
+The purpose of the image is to create a system user who runs the image by default.
 
 = curl
 
 * Image: `icellmobilsoft/base-curl`
-* Alapja: `icellmobilsoft/base`
-* Célja: éles alkalmazások futtatása
-* Használt *argumentum*:
-** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
-* Hozzáadott ENV: -
-* Telepített programok:
+* Base: `icellmobilsoft/base`
+* Purpose: To run live applications
+* Used *argument*:
+** *BASE_IMAGE* - Specifies the base image, it has no default value
+* Added *ENV*: -
+* Installed programs:
 ** *curl*
 
-Az image felhasználja és kibővíti a fenti <<base,base>> imaget `curl`-al.
+The image uses and extends the above <<base,base>> image with `curl`.
 
 = java11jre
 
 * Image: `icellmobilsoft/base-java11jre`
-* Alapja: `icellmobilsoft/base-curl`
-* Célja: Java 11 LTS verzión való alaklmazás futtatása
-* Használt *argumentum*:
-** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
-** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
-* Hozzáadott ENV:
-** *JAVA_HOME* - Eredeti jre image-ben a java mappájának a helye (default `/opt/java/openjdk`) https://github.com/adoptium/containers/blob/main/11/jre/alpine/Dockerfile#L22[Temurin image-be definiált JAVA_HOME]
-** *PATH* - Path kiegészítése a JAVA_HOM/bin -nel, hogy használható legyen a jre által nyújtott parancsok.
-* Telepített programok:
+* Base: `icellmobilsoft/base-curl`
+* Purpose: Running applications on Java 11 LTS version
+* Used *argument*:
+** *BASE_IMAGE* - Specifies the base image, it has no default value
+** *JRE_TEMURIN_IMAGE* - A Temurin Java image, from which the JRE parts are copied into the final image
+* Added *ENV*:
+** *JAVA_HOME* - The location of the java directory in the original JRE image (default `/opt/java/openjdk`) https://github.com/adoptium/containers/blob/main/11/jre/alpine/Dockerfile#L22[The JAVA_HOME defined in the Temurin image]
+** *PATH* - Appending the PATH with JAVA_HOME/bin to make the commands provided by JRE usable
+* Installed programs:
 ** *fontconfig*
 ** *fonts-dejavu*
 
-Az image felhasználja és kibővíti a fenti <<curl,curl>> imaget `jre11`-gyel.
+The image uses and extends the above <<curl,curl>> image with `jre11`.
 
 = java17jre
 
 * Image: `icellmobilsoft/base-java17jre`
-* Alapja: `icellmobilsoft/base-curl`
-* Célja: Java 17 LTS verzión való alaklmazás futtatása
-* Használt *argumentum*:
-** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
-** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
-* Hozzáadott ENV:
-** *JAVA_HOME* - Eredeti jre image-ben a java mappájának a helye (default `/opt/java/openjdk`) https://github.com/adoptium/containers/blob/main/17/jre/alpine/Dockerfile#L22[Temurin image-be definiált JAVA_HOME]
-** *PATH* - Path kiegészítése a JAVA_HOM/bin -nel, hogy használható legyen a jre által nyújtott parancsok.
-* Telepített programok:
+* Base: `icellmobilsoft/base-curl`
+* Purpose: Running applications on Java 17 LTS version
+* Used *argument*:
+** *BASE_IMAGE* - Specifies the base image, it has no default value
+** *JRE_TEMURIN_IMAGE* - A Temurin Java image, from which the JRE parts are copied into the final image
+* Added *ENV*:
+** *JAVA_HOME* - The location of the java directory in the original JRE image (default `/opt/java/openjdk`) https://github.com/adoptium/containers/blob/main/17/jre/alpine/Dockerfile#L22[The JAVA_HOME defined in the Temurin image]
+** *PATH* - Appending the PATH with JAVA_HOME/bin to make the commands provided by JRE usable
+* Installed programs:
 ** *fontconfig*
 ** *fonts-dejavu*
 
-Az image felhasználja és kibővíti a fenti <<curl,curl>> imaget `jre17`-gyel.
+The image uses and extends the above <<curl,curl>> image with `jre17`.
 
 = java21jre
 
 * Image: `icellmobilsoft/base-java21jre`
-* Alapja: `icellmobilsoft/base-curl`
-* Célja: Java 21 LTS verzión való alaklmazás futtatása
-* Használt *argumentum*:
-** *BASE_IMAGE* - Alap image megadása, nincs default értéke.
-** *JRE_TEMURIN_IMAGE* - Temurin java image melyből a jre részei vannak kimásolva a végső imagebe.
-* Hozzáadott ENV:
-** *JAVA_HOME* - Eredeti jre image-ben a java mappájának a helye (default `/opt/java/openjdk`) https://github.com/adoptium/containers/blob/main/21/jre/alpine/Dockerfile#L22[Temurin image-be definiált JAVA_HOME]
-** *PATH* - Path kiegészítése a JAVA_HOM/bin -nel, hogy használható legyen a jre által nyújtott parancsok.
-* Telepített programok:
+* Base: `icellmobilsoft/base-curl`
+* Purpose: Running applications on Java 21 LTS version
+* Used *argument*:
+** *BASE_IMAGE* - Specifies the base image, it has no default value
+** *JRE_TEMURIN_IMAGE* - A Temurin Java image, from which the JRE parts are copied into the final image
+* Added *ENV*:
+** *JAVA_HOME* - The location of the java directory in the original JRE image (default `/opt/java/openjdk`) https://github.com/adoptium/containers/blob/main/21/jre/alpine/Dockerfile#L22[The JAVA_HOME defined in the Temurin image]
+** *PATH* - Appending the PATH with JAVA_HOME/bin to make the commands provided by JRE usable
+* Installed programs:
 ** *fontconfig*
 ** *fonts-dejavu*
 
-Az image felhasználja és kibővíti a fenti <<curl,curl>> imaget `jre21`-gyel.
+The image uses and extends the above <<curl,curl>> image with `jre21`.
