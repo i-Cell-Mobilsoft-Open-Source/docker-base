@@ -6,4 +6,5 @@ All images are 1:1 compatible with version 1.4.0.
 * The *icellmobilsoft/builder-nexus-download* builder image:
 ** In the `sonatype-download.sh` script, the default value of the SONATYPE_REPOSITORY environment variable has been changed to `public`, allowing the Sonatype API to also find `-SNAPSHOT` versions.
 ** A new `DEBUG` variable has been added. In case of `true` it prints the issued commands to the terminal for easy debugging.
+** Debian image upgrade: debian:11.8-slim -> debian:12.8-slim
 ** Galleon upgrade: 5.2.2.Final -> 6.0.4.Final
