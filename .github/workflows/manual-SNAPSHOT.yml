@@ -86,7 +86,7 @@ jobs:
 # does not maintain the order
 #          targets: base-release,curl-release,base-alpine-release,alpine-runner-release,nexus-download-builder,java11jre-release,java11-maven-builder,java11-galleon-builder,java17jre-release,java17-maven-builder,java17-galleon-builder,java21jre-release,java21-maven-builder,java21-galleon-builder
       - name: docker buildx bake "#1"
-        uses: docker/bake-action@v4
+        uses: docker/bake-action@v5
         with:
           set: |
             *.platform=${{ env.DOCKER_BAKE_PLATFORM }}
@@ -95,7 +95,7 @@ jobs:
             docker-compose.yml
           targets: base-release,base-alpine-release
       - name: docker buildx bake "#2"
-        uses: docker/bake-action@v4
+        uses: docker/bake-action@v5
         with:
           set: |
             *.platform=${{ env.DOCKER_BAKE_PLATFORM }}
@@ -104,7 +104,7 @@ jobs:
             docker-compose.yml
           targets: curl-release,alpine-runner-release
       - name: docker buildx bake "#3"
-        uses: docker/bake-action@v4
+        uses: docker/bake-action@v5
         with:
           set: |
             *.platform=${{ env.DOCKER_BAKE_PLATFORM }}
@@ -113,7 +113,7 @@ jobs:
             docker-compose.yml
           targets: nexus-download-builder,java11jre-release,java17jre-release,java21jre-release
       - name: docker buildx bake "#4"
-        uses: docker/bake-action@v4
+        uses: docker/bake-action@v5
         with:
           set: |
             *.platform=${{ env.DOCKER_BAKE_PLATFORM }}
@@ -122,7 +122,7 @@ jobs:
             docker-compose.yml
           targets: java11-maven-builder,java17-maven-builder,java21-maven-builder
       - name: docker buildx bake "#5"
-        uses: docker/bake-action@v4
+        uses: docker/bake-action@v5
         with:
           set: |
             *.platform=${{ env.DOCKER_BAKE_PLATFORM }}
