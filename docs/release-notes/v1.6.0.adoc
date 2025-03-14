@@ -1,0 +1,8 @@
+= v1.5.0
+
+All images are 1:1 compatible with version 1.5.0.
+
+.Changes
+* The *builder-dind-runner* builder image introduced:
+** docker:28.0.0-dind based docker image with `bash git openssh curl libxml2-utils jq` packages installed.
+
