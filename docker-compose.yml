@@ -96,6 +96,15 @@ services:
       base-alpine-release: 
         condition: service_completed_successfully
 
+  # icellmobilsoft/builder-dind-runner
+  dind-runner-release:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/dind/Dockerfile
+      args:
+        BASE_IMAGE: $DIND_BASE
+    image: $DOCKER_IMAGE_DIND_RUNNER
+
   # icellmobilsoft/builder-java11-maven
   java11-maven-builder:
     build:
