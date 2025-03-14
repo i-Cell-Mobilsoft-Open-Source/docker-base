@@ -11,5 +11,5 @@ RUN apk add --purge --no-cache --no-interactive --no-progress bash git openssh c
 
 ARG BASE_IMAGE
 LABEL base.image=$BASE_IMAGE
-LABEL image.usage=release
+LABEL image.usage=$BASE_IMAGE
 LABEL apt-get.install=bash,git,openssh,curl,libxml2-utils,jq
