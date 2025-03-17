@@ -179,3 +179,17 @@
 
 NOTE: The downloaded artifact will be located in the DOWNLOAD_DIR.
 
+= dind
+
+* Image: `icellmobilsoft/builder-dind-runner`
+* Base: `docker:28.0.0-dind`
+* Purpose: A base image containing a toolset for various stages of development
+* Used *argument*:
+** *BASE_IMAGE* - Specifies the base image, it has no default value
+* Installed programs:
+** *bash*
+** *git*
+** *openssh*
+** *curl*
+** *libxml2-utils*
+** *jq*
