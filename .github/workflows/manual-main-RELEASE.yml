@@ -134,7 +134,7 @@ jobs:
           push: true
           files: |
             docker-compose.yml
-          targets: base-release,base-alpine-release
+          targets: base-release,base-alpine-release,dind-runner-release
       - name: docker buildx bake "#2"
         uses: docker/bake-action@v5
         with:
