@@ -193,3 +193,21 @@ NOTE: The downloaded artifact will be located in the DOWNLOAD_DIR.
 ** *curl*
 ** *libxml2-utils*
 ** *jq*
+
+= icellmobilsoft/builder-java17-maven-sonar
+
+* Image: `icellmobilsoft/icellmobilsoft/builder-java17-maven-sonar`
+* Base: `icellmobilsoft/builder-java17-maven`
+* Purpose: Run SonarQube with maven and java in one image to analys maven project with local sonar.
+* Used *argument*:
+** *MAVEN_BUILD_BASE_IMAGE* - Specifies the base image, it has no default value
+* Added *ENV*:
+** *SONAR_VERSION* - Sonarqube version (default `9.9.8.100196`)
+** *SONAR_HOME* - Sonarqube home directory (default `/opt/sonarqube`)
+* Installed programs:
+** *sonarqube*
+** *wget*
+** *unzip*
+** *procps*
+* *Expose port*:
+* 9000 (sonar default http port)
