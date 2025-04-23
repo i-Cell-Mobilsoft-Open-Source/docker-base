@@ -5,15 +5,19 @@ ARG MAVEN_BUILD_BASE_IMAGE
 ################################################################################
 FROM ${MAVEN_BUILD_BASE_IMAGE} AS base
 
-# SonarQube verzió
+# SonarQube version
 ENV SONAR_VERSION=9.9.8.100196
 ENV SONAR_HOME=/opt/sonarqube
 
 USER root
 
+# Wget, unzip for install sonarqube, procps for sonar.sh script
 RUN set -x; \
     apt-get update && \
-    apt-get -y install wget unzip procps
+    apt-get -y install wget unzip procps  && \
+    rm -Rf /var/lib/apt/lists/* && \
+    rm -Rf /usr/share/doc/* && rm -Rf /usr/share/doc-base/* && rm -Rf /usr/share/man/*
+
 
 # letöltés és kicsomagolás
 RUN wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-${SONAR_VERSION}.zip && \
@@ -28,7 +32,7 @@ EXPOSE 9000
 
 USER $SYSTEM_USER
 
-# induláskor futtassuk a SonarQube-ot
+# At startup, run SonarQube
 CMD ["sh", "-c", "${SONAR_HOME}/bin/linux-x86-64/sonar.sh console"]
 
 ARG MAVEN_BUILD_BASE_IMAGE
