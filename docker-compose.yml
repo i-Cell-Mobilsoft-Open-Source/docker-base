@@ -150,6 +150,19 @@ services:
       curl-release: 
         condition: service_completed_successfully
 
+
+  # icellmobilsoft/builder-java17-maven-sonar
+  java17-maven-sonar-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/javamavensonar/Dockerfile
+      args:
+        MAVEN_BUILD_BASE_IMAGE: $DOCKER_IMAGE_JAVA17_MAVEN
+    image: $DOCKER_IMAGE_JAVA17_MAVEN_SONAR
+    depends_on:
+      java17-maven-builder:
+        condition: service_completed_successfully
+
   # icellmobilsoft/builder-java11-galleon
   java11-galleon-builder:
     build:
