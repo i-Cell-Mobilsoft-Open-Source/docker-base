@@ -161,7 +161,7 @@ jobs:
           push: true
           files: |
             docker-compose.yml
-          targets: java11-maven-builder,java17-maven-builder,java21-maven-builder
+          targets: java11-maven-builder,java17-maven-builder,java21-maven-builder,builder-java17-maven-sonar
       - name: docker buildx bake "#5"
         uses: docker/bake-action@v5
         with:
