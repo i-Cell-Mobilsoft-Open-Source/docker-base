@@ -6,3 +6,5 @@ All images are 1:1 compatible with version 1.6.0.
 * The *icellmobilsoft/builder-java17-maven-sonar* builder image:
 ** dockerfile/builder/javamavensonar/Dockerfile
 * *maven* version increased to *3.9.9* for builder images
+* `sonatype-download.sh` enhanced to support downloading artifacts from the recommended and canonical URL: `https://repo1.maven.org/maven2`
+by setting the `NEXUS_REPOSITORY_TYPE=central` environment variable before running the script.
