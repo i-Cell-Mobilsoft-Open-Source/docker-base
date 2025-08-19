@@ -175,6 +175,7 @@
 ** *SONATYPE_URL* - Sonatype base url (default `https://oss.sonatype.org`) 
 ** *SONATYPE_REPOSITORY* - The name of the repository from which we want to download the file (default `releases`) 
 ** *DEBUG* - If set to `true` (or any value), the commands issued in the download scripts will be printed to the terminal (default is empty)
+** *NEXUS_REPOSITORY_TYPE* - Set it to `central` in your Dockerfile before running the `sonatype-download.sh` script to download artifacts from the Central Portal (default is empty). `SONATYPE_REPOSITORY` and `SONATYPE_URL` parameters will be ignored.
 * Installed programs: -
 
 NOTE: The downloaded artifact will be located in the DOWNLOAD_DIR.
