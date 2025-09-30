@@ -5,6 +5,13 @@ All images are 1:1 compatible with version 1.6.0.
 .Changes
 * The *icellmobilsoft/builder-java17-maven-sonar* builder image:
 ** dockerfile/builder/javamavensonar/Dockerfile
-* *maven* version increased to *3.9.9* for builder images
 * `sonatype-download.sh` enhanced to support downloading artifacts from the recommended and canonical URL: `https://repo1.maven.org/maven2`
 by setting the `NEXUS_REPOSITORY_TYPE=central` environment variable before running the script.
+* Patch upgrades:
+** `maven` `3.8.8` -> `3.9.11`
+** `galleon` `6.0.4.Final` -> `6.0.6.Final` (https://github.com/wildfly/galleon/releases[Changelog])
+** `debian` `12.8-slim` -> `12.11-slim` (NOTE: not the latest major version, there is `13.1-slim` already)
+** `alpine` `3.18.5` -> `3.18.12` (NOTE: not the latest minor version, there is `3.22.1` already)
+** `JRE` and `JDK` 11 `11.0.21_9` -> `11.0.27_6`
+** `JRE` and `JDK` 17 `17.0.9_9` -> `17.0.15_6`
+** `JRE` and `JDK` 21 `21.0.1_12` -> `21.0.7_6`
