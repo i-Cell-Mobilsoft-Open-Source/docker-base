@@ -26,11 +26,72 @@ echo "NEXUS_DOWNLOAD_OUTPUT_FILE_NAME=$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME"
 echo "NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1=$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1"
 
 if [ "$NEXUS_REPOSITORY_TYPE" = "central" ]; then
-  SONATYPE_URL=https://repo1.maven.org/maven2
-  echo "SONATYPE_URL=$SONATYPE_URL"
-  NEXUS_OBJECT_GROUP_ID_SLASHED=${NEXUS_OBJECT_GROUP_ID//./\/}
-  SONATYPE_DOWNLOAD="$SONATYPE_URL/$NEXUS_OBJECT_GROUP_ID_SLASHED/$NEXUS_OBJECT_ARTIFACT_ID/$NEXUS_OBJECT_VERSION/$NEXUS_OBJECT_ARTIFACT_ID-$NEXUS_OBJECT_VERSION$PATH_PARAM_CLASSIFIER.$NEXUS_OBJECT_EXTENSION"
-  SONATYPE_DOWNLOAD_SHA1="$SONATYPE_DOWNLOAD.sha1"
+  if [[ "$NEXUS_OBJECT_VERSION" == *"-SNAPSHOT"* ]]; then
+    echo "Snapshot version detected: $NEXUS_OBJECT_VERSION"
+    SONATYPE_URL=https://central.sonatype.com/repository/maven-snapshots
+    NEXUS_OBJECT_GROUP_ID_SLASHED=${NEXUS_OBJECT_GROUP_ID//./\/}
+    MAVEN_METADATA_URL="$SONATYPE_URL/$NEXUS_OBJECT_GROUP_ID_SLASHED/$NEXUS_OBJECT_ARTIFACT_ID/$NEXUS_OBJECT_VERSION/maven-metadata.xml"
+    echo "MAVEN_METADATA_URL=$MAVEN_METADATA_URL"
+    METADATA_CONTENT=$(curl -s "$MAVEN_METADATA_URL")
+
+    # Try exact match (extension + optional classifier)
+    SNAPSHOT_VALUE=$(echo "$METADATA_CONTENT" | awk -v ext="$NEXUS_OBJECT_EXTENSION" -v cls="$NEXUS_OBJECT_CLASSIFIER" '
+    /<snapshotVersion>/ {inside=1; e=""; c=""; v=""}
+    /<\/snapshotVersion>/ {
+      if(inside && e==ext && ((cls=="" && c=="") || c==cls)) {print v; exit}
+      inside=0
+    }
+    inside && /<extension>/ {gsub(/.*<extension>|<\/extension>.*/,""); e=$0}
+    inside && /<classifier>/ {gsub(/.*<classifier>|<\/classifier>.*/,""); c=$0}
+    inside && /<value>/ {gsub(/.*<value>|<\/value>.*/,""); v=$0}
+    ')
+
+    # Fallback: pick first pom without classifier
+    if [ -z "$SNAPSHOT_VALUE" ]; then
+      SNAPSHOT_VALUE=$(echo "$METADATA_CONTENT" | awk '
+      /<snapshotVersion>/ {inside=1; e=""; c=""; v=""}
+    /<\/snapshotVersion>/ {
+      if(inside && e=="pom" && c=="") {print v; exit}
+      inside=0
+    }
+    inside && /<extension>/ {gsub(/.*<extension>|<\/extension>.*/,""); e=$0}
+    inside && /<classifier>/ {gsub(/.*<classifier>|<\/classifier>.*/,""); c=$0}
+    inside && /<value>/ {gsub(/.*<value>|<\/value>.*/,""); v=$0}
+    ')
+    fi
+
+    echo "SNAPSHOT_VALUE=$SNAPSHOT_VALUE"
+
+    if [ -z "$SNAPSHOT_VALUE" ]; then
+      echo "Could not determine snapshot value" >&2
+      exit 1
+    fi
+
+    # Build artifact file name (snapshot replaces version; classifier comes last if present)
+    if [ -z "$NEXUS_OBJECT_CLASSIFIER" ]; then
+      SNAPSHOT_FILE_NAME="$NEXUS_OBJECT_ARTIFACT_ID-$SNAPSHOT_VALUE.$NEXUS_OBJECT_EXTENSION"
+    else
+      SNAPSHOT_FILE_NAME="$NEXUS_OBJECT_ARTIFACT_ID-$SNAPSHOT_VALUE-$NEXUS_OBJECT_CLASSIFIER.$NEXUS_OBJECT_EXTENSION"
+    fi
+
+    # ez a formátum kell:
+    # https://central.sonatype.com/repository/maven-snapshots/hu/icellmobilsoft/dookug/dookug-document-service/2.1.0-SNAPSHOT/dookug-document-service-2.1.0-20251119.090549-1.pom
+    echo "SONATYPE_URL=$SONATYPE_URL"
+    NEXUS_OBJECT_GROUP_ID_SLASHED=${NEXUS_OBJECT_GROUP_ID//./\/}
+    SONATYPE_DOWNLOAD="$SONATYPE_URL/$NEXUS_OBJECT_GROUP_ID_SLASHED/$NEXUS_OBJECT_ARTIFACT_ID/$NEXUS_OBJECT_VERSION/$SNAPSHOT_FILE_NAME"
+    echo "SONATYPE_DOWNLOAD=$SONATYPE_DOWNLOAD"
+    SONATYPE_DOWNLOAD_SHA1="$SONATYPE_DOWNLOAD.sha1"
+    echo "SONATYPE_DOWNLOAD_SHA1=$SONATYPE_DOWNLOAD_SHA1"
+  else
+    echo "Release version detected: $NEXUS_OBJECT_VERSION"
+    SONATYPE_URL=https://repo1.maven.org/maven2
+    echo "SONATYPE_URL=$SONATYPE_URL"
+    NEXUS_OBJECT_GROUP_ID_SLASHED=${NEXUS_OBJECT_GROUP_ID//./\/}
+    SONATYPE_DOWNLOAD="$SONATYPE_URL/$NEXUS_OBJECT_GROUP_ID_SLASHED/$NEXUS_OBJECT_ARTIFACT_ID/$NEXUS_OBJECT_VERSION/$NEXUS_OBJECT_ARTIFACT_ID-$NEXUS_OBJECT_VERSION$PATH_PARAM_CLASSIFIER.$NEXUS_OBJECT_EXTENSION"
+    echo "SONATYPE_DOWNLOAD=$SONATYPE_DOWNLOAD"
+    SONATYPE_DOWNLOAD_SHA1="$SONATYPE_DOWNLOAD.sha1"
+    echo "SONATYPE_DOWNLOAD_SHA1=$SONATYPE_DOWNLOAD_SHA1"
+  fi
 else
   SONATYPE_REPOSITORY=${SONATYPE_REPOSITORY:-public}
   echo "SONATYPE_REPOSITORY=$SONATYPE_REPOSITORY"
