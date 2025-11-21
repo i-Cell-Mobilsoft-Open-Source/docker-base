@@ -55,14 +55,14 @@ if [ "$NEXUS_REPOSITORY_TYPE" = "central" ]; then
     if [ -z "$SNAPSHOT_VALUE" ]; then
       SNAPSHOT_VALUE=$(echo "$METADATA_CONTENT" | awk '
       /<snapshotVersion>/ {inside=1; e=""; c=""; v=""}
-    /<\/snapshotVersion>/ {
-      if(inside && e=="pom" && c=="") {print v; exit}
-      inside=0
-    }
-    inside && /<extension>/ {gsub(/.*<extension>|<\/extension>.*/,""); e=$0}
-    inside && /<classifier>/ {gsub(/.*<classifier>|<\/classifier>.*/,""); c=$0}
-    inside && /<value>/ {gsub(/.*<value>|<\/value>.*/,""); v=$0}
-    ')
+      /<\/snapshotVersion>/ {
+        if(inside && e=="pom" && c=="") {print v; exit}
+        inside=0
+      }
+      inside && /<extension>/ {gsub(/.*<extension>|<\/extension>.*/,""); e=$0}
+      inside && /<classifier>/ {gsub(/.*<classifier>|<\/classifier>.*/,""); c=$0}
+      inside && /<value>/ {gsub(/.*<value>|<\/value>.*/,""); v=$0}
+      ')
     fi
 
     echo "SNAPSHOT_VALUE=$SNAPSHOT_VALUE"
