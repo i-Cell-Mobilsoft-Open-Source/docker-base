@@ -1,0 +1,6 @@
+= v1.7.0
+
+All images are 1:1 compatible with version 1.7.0.
+
+.Changes
+* `sonatype-download.sh` fix for snapshot artifacts downloading from Maven Central Portal.
