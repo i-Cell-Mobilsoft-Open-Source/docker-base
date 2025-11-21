@@ -1,4 +1,4 @@
-= v1.7.0
+= v1.8.0
 
 All images are 1:1 compatible with version 1.7.0.
 
