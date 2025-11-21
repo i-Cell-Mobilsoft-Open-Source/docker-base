@@ -26,10 +26,15 @@ echo "NEXUS_DOWNLOAD_OUTPUT_FILE_NAME=$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME"
 echo "NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1=$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1"
 
 if [ "$NEXUS_REPOSITORY_TYPE" = "central" ]; then
+  NEXUS_OBJECT_GROUP_ID_SLASHED=${NEXUS_OBJECT_GROUP_ID//./\/}
+  # New central repository handling
   if [[ "$NEXUS_OBJECT_VERSION" == *"-SNAPSHOT"* ]]; then
+    # Snapshot version handling
     echo "Snapshot version detected: $NEXUS_OBJECT_VERSION"
     SONATYPE_URL=https://central.sonatype.com/repository/maven-snapshots
-    NEXUS_OBJECT_GROUP_ID_SLASHED=${NEXUS_OBJECT_GROUP_ID//./\/}
+    echo "SONATYPE_URL=$SONATYPE_URL"
+
+    # get actual snapshot version from maven-metadata.xml
     MAVEN_METADATA_URL="$SONATYPE_URL/$NEXUS_OBJECT_GROUP_ID_SLASHED/$NEXUS_OBJECT_ARTIFACT_ID/$NEXUS_OBJECT_VERSION/maven-metadata.xml"
     echo "MAVEN_METADATA_URL=$MAVEN_METADATA_URL"
     METADATA_CONTENT=$(curl -s "$MAVEN_METADATA_URL")
@@ -74,25 +79,24 @@ if [ "$NEXUS_REPOSITORY_TYPE" = "central" ]; then
       SNAPSHOT_FILE_NAME="$NEXUS_OBJECT_ARTIFACT_ID-$SNAPSHOT_VALUE-$NEXUS_OBJECT_CLASSIFIER.$NEXUS_OBJECT_EXTENSION"
     fi
 
-    # ez a formátum kell:
-    # https://central.sonatype.com/repository/maven-snapshots/hu/icellmobilsoft/dookug/dookug-document-service/2.1.0-SNAPSHOT/dookug-document-service-2.1.0-20251119.090549-1.pom
-    echo "SONATYPE_URL=$SONATYPE_URL"
-    NEXUS_OBJECT_GROUP_ID_SLASHED=${NEXUS_OBJECT_GROUP_ID//./\/}
+    # create download url:
+    # e.g.: https://central.sonatype.com/repository/maven-snapshots/hu/icellmobilsoft/dookug/dookug-document-service/2.1.0-SNAPSHOT/dookug-document-service-2.1.0-20251119.090549-1.war
     SONATYPE_DOWNLOAD="$SONATYPE_URL/$NEXUS_OBJECT_GROUP_ID_SLASHED/$NEXUS_OBJECT_ARTIFACT_ID/$NEXUS_OBJECT_VERSION/$SNAPSHOT_FILE_NAME"
     echo "SONATYPE_DOWNLOAD=$SONATYPE_DOWNLOAD"
     SONATYPE_DOWNLOAD_SHA1="$SONATYPE_DOWNLOAD.sha1"
     echo "SONATYPE_DOWNLOAD_SHA1=$SONATYPE_DOWNLOAD_SHA1"
   else
+    # Release version handling
     echo "Release version detected: $NEXUS_OBJECT_VERSION"
     SONATYPE_URL=https://repo1.maven.org/maven2
     echo "SONATYPE_URL=$SONATYPE_URL"
-    NEXUS_OBJECT_GROUP_ID_SLASHED=${NEXUS_OBJECT_GROUP_ID//./\/}
     SONATYPE_DOWNLOAD="$SONATYPE_URL/$NEXUS_OBJECT_GROUP_ID_SLASHED/$NEXUS_OBJECT_ARTIFACT_ID/$NEXUS_OBJECT_VERSION/$NEXUS_OBJECT_ARTIFACT_ID-$NEXUS_OBJECT_VERSION$PATH_PARAM_CLASSIFIER.$NEXUS_OBJECT_EXTENSION"
     echo "SONATYPE_DOWNLOAD=$SONATYPE_DOWNLOAD"
     SONATYPE_DOWNLOAD_SHA1="$SONATYPE_DOWNLOAD.sha1"
     echo "SONATYPE_DOWNLOAD_SHA1=$SONATYPE_DOWNLOAD_SHA1"
   fi
 else
+  # Old sonatype repository handling
   SONATYPE_REPOSITORY=${SONATYPE_REPOSITORY:-public}
   echo "SONATYPE_REPOSITORY=$SONATYPE_REPOSITORY"
   SONATYPE_URL=${SONATYPE_URL:-https://oss.sonatype.org}
