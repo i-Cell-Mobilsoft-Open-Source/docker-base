@@ -1,0 +1,2116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<title>Icellmobilsoft base dockerimage</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ul.square{list-style-type:square}
+ul.circle ul:not([class]),ul.disc ul:not([class]),ul.square ul:not([class]){list-style:inherit}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;outline:none;-webkit-tap-highlight-color:transparent}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:first-child,.sidebarblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child,.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos,pre.pygments .linenos{border-right:1px solid;opacity:.35;padding-right:.5em;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+pre.pygments span.linenos{display:inline-block;margin-right:.75em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all>*>tr,table.stripes-odd>*>tr:nth-of-type(odd),table.stripes-even>*>tr:nth-of-type(even),table.stripes-hover>*>tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+li>p:empty:only-child::before{content:"";display:inline-block}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,td.hdlist1,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Icellmobilsoft base dockerimage</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#index">1. Általános</a></li>
+<li><a href="#architecture">2. Architecture</a></li>
+<li><a href="#project-structure">3. Projekt struktúra</a>
+<ul class="sectlevel2">
+<li><a href="#_dockerfile">3.1. /dockerfile</a>
+<ul class="sectlevel3">
+<li><a href="#_base_images_dockerfilebases">3.1.1. base images - /dockerfile/bases</a>
+<ul class="sectlevel4">
+<li><a href="#_base">base</a></li>
+<li><a href="#_base_alpine">base-alpine</a></li>
+<li><a href="#_curl">curl</a></li>
+<li><a href="#_java11jre">java11jre</a></li>
+<li><a href="#_java17jre">java17jre</a></li>
+<li><a href="#_java21jre">java21jre</a></li>
+</ul>
+</li>
+<li><a href="#_builder_images_dockerfilebuilder">3.1.2. builder images - /dockerfile/builder</a>
+<ul class="sectlevel4">
+<li><a href="#_alpine_runner">alpine-runner</a></li>
+<li><a href="#_builderjava11_maven">builder/java11-maven</a></li>
+<li><a href="#_builderjava17_maven">builder/java17-maven</a></li>
+<li><a href="#_builderjava21_maven">builder/java21-maven</a></li>
+<li><a href="#_builderjava11_galleon">builder/java11-galleon</a></li>
+<li><a href="#_builderjava17_galleon">builder/java17-galleon</a></li>
+<li><a href="#_builderjava21_galleon">builder/java21-galleon</a></li>
+<li><a href="#_buildernexus_download">builder/nexus-download</a></li>
+<li><a href="#_dind">dind</a></li>
+<li><a href="#_icellmobilsoftbuilder_java17_maven_sonar">icellmobilsoft/builder-java17-maven-sonar</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_script">3.2. /script</a>
+<ul class="sectlevel3">
+<li><a href="#_artifact_download">3.2.1. Artifact download</a>
+<ul class="sectlevel4">
+<li><a href="#_artifactmaven_search_download_sh">artifact/maven-search-download.sh</a></li>
+<li><a href="#_artifactsonatype_download_sh_nexus_2">artifact/sonatype-download.sh (Nexus 2)</a></li>
+<li><a href="#_artifactcommon_nexus_download_sh_nexus_3">artifact/common-nexus-download.sh (Nexus 3)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#release-notes">4. Release notes</a>
+<ul class="sectlevel2">
+<li><a href="#_v1_0_0">4.1. v1.0.0</a></li>
+<li><a href="#_v1_1_0">4.2. v1.1.0</a></li>
+<li><a href="#_v1_2_0">4.3. v1.2.0</a></li>
+<li><a href="#_v1_3_0">4.4. v1.3.0</a></li>
+<li><a href="#_v1_4_0">4.5. v1.4.0</a></li>
+<li><a href="#_v1_5_0">4.6. v1.5.0</a></li>
+<li><a href="#_v1_6_0">4.7. v1.6.0</a></li>
+<li><a href="#_v1_7_0">4.8. v1.7.0</a></li>
+<li><a href="#_v1_8_0">4.9. v1.8.0</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="index">1. Általános</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A repository az icellmobilsoft-ban használt base docker image-k gyűjtését szolgálja,
+hogy azonos alapon működjenek a projektek és azok buildjei.</p>
+</div>
+<div class="paragraph">
+<p>A projekt több részre osztható,
+egymást kiegészítik.
+Alapvetően 2 csoportra oszthatóak az image-k:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>parent (base image)</strong> - ezek azok az docker imagek,
+melyeket a cél termékeknél base image-nek használunk.
+Csak a feltétlenül szükséges funkció és tartalom lehet bennük.</p>
+</li>
+<li>
+<p><strong>builder</strong> - tartalom hordozásra használjuk őket,ű
+sosem szabad base image-re használni.
+A funkciója a multi-stage dockerfile-ban van,
+ahol például driver tárhelyként van felhasználva.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="architecture">2. Architecture</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images/architecture.drawio.svg" alt="architecture.drawio">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="project-structure">3. Projekt struktúra</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_dockerfile">3.1. /dockerfile</h3>
+<div class="paragraph">
+<p>Detailed description of the created Docker image.</p>
+</div>
+<div class="sect3">
+<h4 id="_base_images_dockerfilebases">3.1.1. base images - /dockerfile/bases</h4>
+<div class="sect4">
+<h5 id="_base">base</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/base</code></p>
+</li>
+<li>
+<p>Base: <a href="https://hub.docker.com/_/debian" class="bare">https://hub.docker.com/_/debian</a> official LTS release</p>
+</li>
+<li>
+<p>Purpose: Running production applications</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_IMAGE</strong> - Specifies the base image, it has no default value.</p>
+</li>
+<li>
+<p><strong>USER_GID</strong> - The GID (Group ID) of the created user group (default <code>101</code>)</p>
+</li>
+<li>
+<p><strong>USER_UID</strong> - The UID (User ID) of the created user (default <code>101</code>)</p>
+</li>
+<li>
+<p><strong>SYSTEM_USER_DEFAULT</strong> - The name of the created user (default <code>icellmobilsoft</code>)</p>
+</li>
+<li>
+<p><strong>SYSTEM_USER_GROUP_DEFAULT</strong> - The name of the created user group (default <code>icellmobilsoft</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added <strong>ENV</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>$SYSTEM_USER</strong> - Non 'root' user with which the image runs (default: <code>icellmobilsoft</code>)</p>
+</li>
+<li>
+<p><strong>$SYSTEM_USER_GROUP</strong> - The Linux group of the SYSTEM_USER (default: <code>icellmobilsoft</code>)</p>
+</li>
+<li>
+<p><strong>$HOME</strong> - The home directory of the SYSTEM_USER (WORKDIR $HOME)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Installed programs: -</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The purpose of the image is to create a system user who runs the image by default.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_base_alpine">base-alpine</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/base-alpine</code></p>
+</li>
+<li>
+<p>Base: <a href="https://hub.docker.com/_/alpine" class="bare">https://hub.docker.com/_/alpine</a> official release</p>
+</li>
+<li>
+<p>Purpose: A base image containing a toolset for various stages of development</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+<li>
+<p><strong>USER_GID</strong> - The GID (Group ID) of the created user group (default <code>101</code>)</p>
+</li>
+<li>
+<p><strong>USER_UID</strong> - The UID (User ID) of the created user (default <code>101</code>)</p>
+</li>
+<li>
+<p><strong>SYSTEM_USER_DEFAULT</strong> - The name of the created user (default <code>icellmobilsoft</code>)</p>
+</li>
+<li>
+<p><strong>SYSTEM_USER_GROUP_DEFAULT</strong> - The name of the created user group (default <code>icellmobilsoft</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added <strong>ENV</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>$SYSTEM_USER</strong> - Non 'root' user with which the image runs (default: <code>icellmobilsoft</code>)</p>
+</li>
+<li>
+<p><strong>$SYSTEM_USER_GROUP</strong> - The Linux group of the SYSTEM_USER (default: <code>icellmobilsoft</code>)</p>
+</li>
+<li>
+<p><strong>$HOME</strong> - The home directory of the SYSTEM_USER (WORKDIR $HOME)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The purpose of the image is to create a system user who runs the image by default.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_curl">curl</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/base-curl</code></p>
+</li>
+<li>
+<p>Base: <code>icellmobilsoft/base</code></p>
+</li>
+<li>
+<p>Purpose: To run live applications</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added <strong>ENV</strong>: -</p>
+</li>
+<li>
+<p>Installed programs:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>curl</strong></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The image uses and extends the above <a href="#base">base</a> image with <code>curl</code>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_java11jre">java11jre</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/base-java11jre</code></p>
+</li>
+<li>
+<p>Base: <code>icellmobilsoft/base-curl</code></p>
+</li>
+<li>
+<p>Purpose: Running applications on Java 11 LTS version</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+<li>
+<p><strong>JRE_TEMURIN_IMAGE</strong> - A Temurin Java image, from which the JRE parts are copied into the final image</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added <strong>ENV</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>JAVA_HOME</strong> - The location of the java directory in the original JRE image (default <code>/opt/java/openjdk</code>) <a href="https://github.com/adoptium/containers/blob/main/11/jre/alpine/Dockerfile#L22">The JAVA_HOME defined in the Temurin image</a></p>
+</li>
+<li>
+<p><strong>PATH</strong> - Appending the PATH with JAVA_HOME/bin to make the commands provided by JRE usable</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Installed programs:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>fontconfig</strong></p>
+</li>
+<li>
+<p><strong>fonts-dejavu</strong></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The image uses and extends the above <a href="#curl">curl</a> image with <code>jre11</code>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_java17jre">java17jre</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/base-java17jre</code></p>
+</li>
+<li>
+<p>Base: <code>icellmobilsoft/base-curl</code></p>
+</li>
+<li>
+<p>Purpose: Running applications on Java 17 LTS version</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+<li>
+<p><strong>JRE_TEMURIN_IMAGE</strong> - A Temurin Java image, from which the JRE parts are copied into the final image</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added <strong>ENV</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>JAVA_HOME</strong> - The location of the java directory in the original JRE image (default <code>/opt/java/openjdk</code>) <a href="https://github.com/adoptium/containers/blob/main/17/jre/alpine/Dockerfile#L22">The JAVA_HOME defined in the Temurin image</a></p>
+</li>
+<li>
+<p><strong>PATH</strong> - Appending the PATH with JAVA_HOME/bin to make the commands provided by JRE usable</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Installed programs:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>fontconfig</strong></p>
+</li>
+<li>
+<p><strong>fonts-dejavu</strong></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The image uses and extends the above <a href="#curl">curl</a> image with <code>jre17</code>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_java21jre">java21jre</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/base-java21jre</code></p>
+</li>
+<li>
+<p>Base: <code>icellmobilsoft/base-curl</code></p>
+</li>
+<li>
+<p>Purpose: Running applications on Java 21 LTS version</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+<li>
+<p><strong>JRE_TEMURIN_IMAGE</strong> - A Temurin Java image, from which the JRE parts are copied into the final image</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added <strong>ENV</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>JAVA_HOME</strong> - The location of the java directory in the original JRE image (default <code>/opt/java/openjdk</code>) <a href="https://github.com/adoptium/containers/blob/main/21/jre/alpine/Dockerfile#L22">The JAVA_HOME defined in the Temurin image</a></p>
+</li>
+<li>
+<p><strong>PATH</strong> - Appending the PATH with JAVA_HOME/bin to make the commands provided by JRE usable</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Installed programs:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>fontconfig</strong></p>
+</li>
+<li>
+<p><strong>fonts-dejavu</strong></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The image uses and extends the above <a href="#curl">curl</a> image with <code>jre21</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_builder_images_dockerfilebuilder">3.1.2. builder images - /dockerfile/builder</h4>
+<div class="sect4">
+<h5 id="_alpine_runner">alpine-runner</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/builder-alpine-runner</code></p>
+</li>
+<li>
+<p>Base: <code>icellmobilsoft/base-alpine</code></p>
+</li>
+<li>
+<p>Purpose: A base image containing a toolset for various stages of development</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+<li>
+<p><strong>USER_GID</strong> - The GID (Group ID) of the created user group (default <code>101</code>)</p>
+</li>
+<li>
+<p><strong>USER_UID</strong> - The UID (User ID) of the created user (default <code>101</code>)</p>
+</li>
+<li>
+<p><strong>SYSTEM_USER_DEFAULT</strong> - The name of the created user (default <code>icellmobilsoft</code>)</p>
+</li>
+<li>
+<p><strong>SYSTEM_USER_GROUP_DEFAULT</strong> - The name of the created user group (default <code>icellmobilsoft</code>)</p>
+</li>
+<li>
+<p><strong>$SYSTEM_USER</strong> - Non 'root' user with which the image runs (default: <code>icellmobilsoft</code>)</p>
+</li>
+<li>
+<p><strong>$SYSTEM_USER_GROUP</strong> - The Linux group of the SYSTEM_USER (default: <code>icellmobilsoft</code>)</p>
+</li>
+<li>
+<p><strong>$HOME</strong> - The home directory of the SYSTEM_USER (WORKDIR $HOME)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Installed programs:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>bash</strong></p>
+</li>
+<li>
+<p><strong>git</strong></p>
+</li>
+<li>
+<p><strong>openssh</strong></p>
+</li>
+<li>
+<p><strong>curl</strong></p>
+</li>
+<li>
+<p><strong>libxml2-utils</strong></p>
+</li>
+<li>
+<p><strong>jq</strong></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_builderjava11_maven">builder/java11-maven</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/builder-java11-maven</code></p>
+</li>
+<li>
+<p>Base: <code>icellmobilsoft/base-curl</code></p>
+</li>
+<li>
+<p>Purpose: Building a project with Maven based on Java 11 foundations</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+<li>
+<p><strong>JRE_TEMURIN_IMAGE</strong> - A Temurin Java image, from which the JRE parts are copied into the final image</p>
+</li>
+<li>
+<p><strong>DOWNLOAD_DIR_DEFAULT</strong> - Default download directory (where the Maven tar.gz is downloaded) (default: <code>$HOME/download = /home/icellmobilsoft/download</code>)</p>
+</li>
+<li>
+<p><strong>SHA</strong> - SHA of the Maven file to be downloaded (default: <code>SHA of the current version from the website</code>)</p>
+</li>
+<li>
+<p><strong>MAVEN_DOWNLOAD_URL</strong> - Donwload URl of Maven (default: <code><a href="https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries" class="bare">https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries</a></code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added <strong>ENV</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>MAVEN_VERSION</strong> - Version number of the Maven used</p>
+</li>
+<li>
+<p><strong>DOWNLOAD_DIR</strong> - Used in scripts (default <code>$DOWNLOAD_DIR_DEFAULT$</code>)</p>
+</li>
+<li>
+<p><strong>MAVEN_HOME</strong> - Environment variable of MAVEN_HOME for Maven (default <code>$HOME/maven=/home/icellmobilsoft/maven</code>)</p>
+</li>
+<li>
+<p><strong>MAVEN_CONFIG</strong> - Maven configuration (default <code>$HOME/.m2=/home/icellmobilsoft/.m2</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Installed programs:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>maven</strong> - Extracted into $MAVEN_HOME</p>
+</li>
+<li>
+<p><strong>jdk</strong> - Extracted into /opt/java/openjdk</p>
+</li>
+<li>
+<p><strong>git</strong></p>
+</li>
+<li>
+<p><strong>libxml2-utils</strong></p>
+</li>
+<li>
+<p><strong>jq</strong></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_builderjava17_maven">builder/java17-maven</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/builder-java17-maven</code></p>
+</li>
+<li>
+<p>Base: <code>icellmobilsoft/base-curl</code></p>
+</li>
+<li>
+<p>Purpose: Building a project with Maven based on Java 17 foundations</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+<li>
+<p><strong>JRE_TEMURIN_IMAGE</strong> - A Temurin Java image, from which the JRE parts are copied into the final image</p>
+</li>
+<li>
+<p><strong>DOWNLOAD_DIR_DEFAULT</strong> - Default download directory (where the Maven tar.gz is downloaded) (default: <code>$HOME/download = /home/icellmobilsoft/download</code>)</p>
+</li>
+<li>
+<p><strong>SHA</strong> - SHA of the Maven file to be downloaded (default: <code>SHA of the current version from the website</code>)</p>
+</li>
+<li>
+<p><strong>MAVEN_DOWNLOAD_URL</strong> - Donwload URl of Maven (default: <code><a href="https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries" class="bare">https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries</a></code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added <strong>ENV</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>MAVEN_VERSION</strong> - Version number of the Maven used</p>
+</li>
+<li>
+<p><strong>DOWNLOAD_DIR</strong> - Used in scripts (default <code>$DOWNLOAD_DIR_DEFAULT$</code>)</p>
+</li>
+<li>
+<p><strong>MAVEN_HOME</strong> - Environment variable of MAVEN_HOME for Maven (default <code>$HOME/maven=/home/icellmobilsoft/maven</code>)</p>
+</li>
+<li>
+<p><strong>MAVEN_CONFIG</strong> - Maven configuration (default <code>$HOME/.m2=/home/icellmobilsoft/.m2</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Installed programs:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>maven</strong> - Extracted into $MAVEN_HOME</p>
+</li>
+<li>
+<p><strong>jdk</strong> - Extracted into /opt/java/openjdk</p>
+</li>
+<li>
+<p><strong>git</strong></p>
+</li>
+<li>
+<p><strong>libxml2-utils</strong></p>
+</li>
+<li>
+<p><strong>jq</strong></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_builderjava21_maven">builder/java21-maven</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/builder-java21-maven</code></p>
+</li>
+<li>
+<p>Base: <code>icellmobilsoft/base-curl</code></p>
+</li>
+<li>
+<p>Purpose: Building a project with Maven based on Java 21 foundations</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+<li>
+<p><strong>JRE_TEMURIN_IMAGE</strong> - A Temurin Java image, from which the JRE parts are copied into the final image</p>
+</li>
+<li>
+<p><strong>DOWNLOAD_DIR_DEFAULT</strong> - Default download directory (where the Maven tar.gz is downloaded) (default: <code>$HOME/download = /home/icellmobilsoft/download</code>)</p>
+</li>
+<li>
+<p><strong>SHA</strong> - SHA of the Maven file to be downloaded (default: <code>SHA of the current version from the website</code>)</p>
+</li>
+<li>
+<p><strong>MAVEN_DOWNLOAD_URL</strong> - Donwload URl of Maven (default: <code><a href="https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries" class="bare">https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries</a></code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added <strong>ENV</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>MAVEN_VERSION</strong> - Version number of the Maven used</p>
+</li>
+<li>
+<p><strong>DOWNLOAD_DIR</strong> - Used in scripts (default <code>$DOWNLOAD_DIR_DEFAULT$</code>)</p>
+</li>
+<li>
+<p><strong>MAVEN_HOME</strong> - Environment variable of MAVEN_HOME for Maven (default <code>$HOME/maven=/home/icellmobilsoft/maven</code>)</p>
+</li>
+<li>
+<p><strong>MAVEN_CONFIG</strong> - Maven configuration (default <code>$HOME/.m2=/home/icellmobilsoft/.m2</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Installed programs:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>maven</strong> - Extracted into $MAVEN_HOME</p>
+</li>
+<li>
+<p><strong>jdk</strong> - Extracted into /opt/java/openjdk</p>
+</li>
+<li>
+<p><strong>git</strong></p>
+</li>
+<li>
+<p><strong>libxml2-utils</strong></p>
+</li>
+<li>
+<p><strong>jq</strong></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_builderjava11_galleon">builder/java11-galleon</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/builder-java11-galleon</code></p>
+</li>
+<li>
+<p>Base: <code>icellmobilsoft/builder-java11-maven</code></p>
+</li>
+<li>
+<p>Purpose: Building WildFly with Galleon using Maven support on Java 11 foundations</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_BUILDER_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+<li>
+<p><strong>GALLEON_VERSION</strong> - Version number of Galleon</p>
+</li>
+<li>
+<p><strong>DOWNLOAD_DIR_DEFAULT</strong> - Default download directory (where the Maven tar.gz is downloaded) (default: <code>$HOME/download = /home/icellmobilsoft/download</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added <strong>ENV</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GALLEON_HOME</strong> - Directory of Galleon (default <code>$HOME/galleon=/home/icellmobilsoft/galleon</code>)</p>
+</li>
+<li>
+<p><strong>GALLEON_VERSION</strong> - Used in scripts (default <code>GALLEON_VERSION</code> argumentum)</p>
+</li>
+<li>
+<p><strong>DOWNLOAD_DIR</strong> - Download directory where Galleon will be downloaded (default <code>$HOME/download=/home/icellmobilsoft/download</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Installed programs:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>galleon</strong> - Extracted into $GALLEON_HOME</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_builderjava17_galleon">builder/java17-galleon</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/builder-java17-galleon</code></p>
+</li>
+<li>
+<p>Base: <code>icellmobilsoft/builder-java17-maven</code></p>
+</li>
+<li>
+<p>Purpose: Building WildFly with Galleon using Maven support on Java 17 foundations</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_BUILDER_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+<li>
+<p><strong>GALLEON_VERSION</strong> - Version number of Galleon</p>
+</li>
+<li>
+<p><strong>DOWNLOAD_DIR_DEFAULT</strong> - Default download directory (where the Maven tar.gz is downloaded) (default: <code>$HOME/download = /home/icellmobilsoft/download</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added <strong>ENV</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GALLEON_HOME</strong> - Directory of Galleon (default <code>$HOME/galleon=/home/icellmobilsoft/galleon</code>)</p>
+</li>
+<li>
+<p><strong>GALLEON_VERSION</strong> - Used in scripts (default <code>GALLEON_VERSION</code> argumentum)</p>
+</li>
+<li>
+<p><strong>DOWNLOAD_DIR</strong> - Download directory where Galleon will be downloaded (default <code>$HOME/download=/home/icellmobilsoft/download</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Installed programs:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>galleon</strong> - Extracted into $GALLEON_HOME</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_builderjava21_galleon">builder/java21-galleon</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/builder-java21-galleon</code></p>
+</li>
+<li>
+<p>Base: <code>icellmobilsoft/builder-java21-maven</code></p>
+</li>
+<li>
+<p>Purpose: Building WildFly with Galleon using Maven support on Java 21 foundations</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_BUILDER_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+<li>
+<p><strong>GALLEON_VERSION</strong> - Version number of Galleon</p>
+</li>
+<li>
+<p><strong>DOWNLOAD_DIR_DEFAULT</strong> - Default download directory (where the Maven tar.gz is downloaded) (default: <code>$HOME/download = /home/icellmobilsoft/download</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added <strong>ENV</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>GALLEON_HOME</strong> - Directory of Galleon (default <code>$HOME/galleon=/home/icellmobilsoft/galleon</code>)</p>
+</li>
+<li>
+<p><strong>GALLEON_VERSION</strong> - Used in scripts (default <code>GALLEON_VERSION</code> argumentum)</p>
+</li>
+<li>
+<p><strong>DOWNLOAD_DIR</strong> - Download directory where Galleon will be downloaded (default <code>$HOME/download=/home/icellmobilsoft/download</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Installed programs:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>galleon</strong> - Extracted into $GALLEON_HOME</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_buildernexus_download">builder/nexus-download</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/builder-nexus-download</code></p>
+</li>
+<li>
+<p>Base: <code>icellmobilsoft/base-curl</code></p>
+</li>
+<li>
+<p>Purpose: Downloading artifacts from the company&#8217;s Nexus or central repository</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_BUILDER_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+<li>
+<p><strong>DOWNLOAD_DIR_DEFAULT</strong> - Default download directory (where the Maven tar.gz is downloaded) (default: <code>$HOME/download = /home/icellmobilsoft/download</code>)</p>
+</li>
+<li>
+<p><strong>NEXUS_USER</strong> - Nexus user</p>
+</li>
+<li>
+<p><strong>NEXUS_PASSWORD</strong> - Nexus user password (plain text)</p>
+</li>
+<li>
+<p><strong>NEXUS_REPOSITORY_URL</strong> - Nexus repository url</p>
+</li>
+<li>
+<p><strong>NEXUS_REPOSITORY</strong> - Nexus repository within Nexus (e.g.: public)</p>
+</li>
+<li>
+<p><strong>NEXUS_OBJECT_GROUP_ID</strong> - The groupId of the artifact object</p>
+</li>
+<li>
+<p><strong>NEXUS_OBJECT_ARTIFACT_ID</strong> - The artifact of the artifact object</p>
+</li>
+<li>
+<p><strong>NEXUS_OBJECT_EXTENSION</strong> - The extension of the artifact object (e.g.: jar)</p>
+</li>
+<li>
+<p><strong>NEXUS_OBJECT_VERSION</strong> - The version of the artifact object</p>
+</li>
+<li>
+<p><strong>NEXUS_OBJECT_CLASSIFIER</strong> - The classifier of the artifact object</p>
+</li>
+<li>
+<p><strong>NEXUS_DOWNLOAD_OUTPUT_FILE_NAME</strong> - Output name of the file to be downloaded</p>
+</li>
+<li>
+<p><strong>NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1</strong> - SHA1 of the file to be downloaded</p>
+</li>
+<li>
+<p><strong>SONATYPE_URL</strong> - Sonatype base url (default <code><a href="https://oss.sonatype.org" class="bare">https://oss.sonatype.org</a></code>)</p>
+</li>
+<li>
+<p><strong>SONATYPE_REPOSITORY</strong> - The name of the repository from which we want to download the file (default <code>releases</code>)</p>
+</li>
+<li>
+<p><strong>DEBUG</strong> - If set to <code>true</code> (or any value), the commands issued in the download scripts will be printed to the terminal (default is empty)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added <strong>ENV</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>DOWNLOAD_DIR</strong> - Download directory where Galleon will be downloaded (default <code>$HOME/download=/home/icellmobilsoft/download</code>)</p>
+</li>
+<li>
+<p><strong>NEXUS_USER</strong> - Nexus username from argument (default <code>$NEXUS_USER</code>)</p>
+</li>
+<li>
+<p><strong>NEXUS_PASSWORD</strong> - Nexus user password from argument (default <code>$NEXUS_PASSWORD</code>)</p>
+</li>
+<li>
+<p><strong>NEXUS_REPOSITORY_URL</strong> - Nexus repository URL from argument (default <code>$NEXUS_REPOSITORY_URL</code>)</p>
+</li>
+<li>
+<p><strong>NEXUS_REPOSITORY</strong> - Nexus repository within Nexus from argument (default <code>$NEXUS_REPOSITORY</code>)</p>
+</li>
+<li>
+<p><strong>NEXUS_OBJECT_GROUP_ID</strong> - Artifact object&#8217;s groupId from argument (default <code>$NEXUS_OBJECT_GROUP_ID</code>)</p>
+</li>
+<li>
+<p><strong>NEXUS_OBJECT_ARTIFACT_ID</strong> - AArtifact object&#8217;s artifactId from argument (default <code>$NEXUS_OBJECT_ARTIFACT_ID</code>)</p>
+</li>
+<li>
+<p><strong>NEXUS_OBJECT_EXTENSION</strong> - Artifact object&#8217;s extension from argument (default <code>$NEXUS_OBJECT_EXTENSION</code>)</p>
+</li>
+<li>
+<p><strong>NEXUS_OBJECT_VERSION</strong> - Artifact object&#8217;s version from argument (default <code>$NEXUS_OBJECT_VERSION</code>)</p>
+</li>
+<li>
+<p><strong>NEXUS_OBJECT_CLASSIFIER</strong> - Artifacet objektum classifier from argument (default <code>$NEXUS_OBJECT_CLASSIFIER</code>)</p>
+</li>
+<li>
+<p><strong>NEXUS_DOWNLOAD_OUTPUT_FILE_NAME</strong> - Output name of the file to be downloaded from argument (default <code>$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME</code>)</p>
+</li>
+<li>
+<p><strong>NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1</strong> - SHA1 of the file to be downloaded from argument (default <code>$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1</code>)</p>
+</li>
+<li>
+<p><strong>SONATYPE_URL</strong> - Sonatype base url (default <code><a href="https://oss.sonatype.org" class="bare">https://oss.sonatype.org</a></code>)</p>
+</li>
+<li>
+<p><strong>SONATYPE_REPOSITORY</strong> - The name of the repository from which we want to download the file (default <code>releases</code>)</p>
+</li>
+<li>
+<p><strong>DEBUG</strong> - If set to <code>true</code> (or any value), the commands issued in the download scripts will be printed to the terminal (default is empty)</p>
+</li>
+<li>
+<p><strong>NEXUS_REPOSITORY_TYPE</strong> - Set it to <code>central</code> in your Dockerfile before running the <code>sonatype-download.sh</code> script to download artifacts from the Central Portal (default is empty). <code>SONATYPE_REPOSITORY</code> and <code>SONATYPE_URL</code> parameters will be ignored.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Installed programs: -</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The downloaded artifact will be located in the DOWNLOAD_DIR.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_dind">dind</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/builder-dind-runner</code></p>
+</li>
+<li>
+<p>Base: <code>docker:28.0.0-dind</code></p>
+</li>
+<li>
+<p>Purpose: A base image containing a toolset for various stages of development</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BASE_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Installed programs:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>bash</strong></p>
+</li>
+<li>
+<p><strong>git</strong></p>
+</li>
+<li>
+<p><strong>openssh</strong></p>
+</li>
+<li>
+<p><strong>curl</strong></p>
+</li>
+<li>
+<p><strong>libxml2-utils</strong></p>
+</li>
+<li>
+<p><strong>jq</strong></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_icellmobilsoftbuilder_java17_maven_sonar">icellmobilsoft/builder-java17-maven-sonar</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Image: <code>icellmobilsoft/icellmobilsoft/builder-java17-maven-sonar</code></p>
+</li>
+<li>
+<p>Base: <code>icellmobilsoft/builder-java17-maven</code></p>
+</li>
+<li>
+<p>Purpose: Run SonarQube with maven and java in one image to analys maven project with local sonar.</p>
+</li>
+<li>
+<p>Used <strong>argument</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>MAVEN_BUILD_BASE_IMAGE</strong> - Specifies the base image, it has no default value</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added <strong>ENV</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>SONAR_VERSION</strong> - Sonarqube version (default <code>9.9.8.100196</code>)</p>
+</li>
+<li>
+<p><strong>SONAR_HOME</strong> - Sonarqube home directory (default <code>/opt/sonarqube</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Installed programs:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>sonarqube</strong></p>
+</li>
+<li>
+<p><strong>wget</strong></p>
+</li>
+<li>
+<p><strong>unzip</strong></p>
+</li>
+<li>
+<p><strong>procps</strong></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Expose port</strong>:</p>
+</li>
+<li>
+<p>9000 (sonar default http port)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_script">3.2. /script</h3>
+<div class="paragraph">
+<p>Itt gyülekeznek azok a scriptek melyeket a dockerimage-k felhasználnak.</p>
+</div>
+<div class="sect3">
+<h4 id="_artifact_download">3.2.1. Artifact download</h4>
+<div class="paragraph">
+<p>Maven central/Sonatype artifact lehúzására szolgáló scriptek</p>
+</div>
+<div class="sect4">
+<h5 id="_artifactmaven_search_download_sh">artifact/maven-search-download.sh</h5>
+<div class="paragraph">
+<p>Célja a központi maven public repository-ból (<a href="https://search.maven.org/" class="bare">https://search.maven.org/</a> az oldala)
+artifact lehúzása API-n keresztül (<a href="https://central.sonatype.org/search/example-urls/" class="bare">https://central.sonatype.org/search/example-urls/</a>)
+Az objektum útvonalának van egy standardizált képzési algoritmusa,
+ami a maven package rendszere állít elő.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_artifactsonatype_download_sh_nexus_2">artifact/sonatype-download.sh (Nexus 2)</h5>
+<div class="paragraph">
+<p>A Sonatype Nexus 2 szervernek (public vagy privát) van saját API-ja,
+ahol szintén le lehet kérdezni az artifactokat.
+Így nem szükséges a maven dependency plugin használata (önmagában kell hozzá java és sok maven dependency)
+és közvetlen, gyorsan, egyszerű http hívásokkal lehúzható az a artifact ami kell.
+A struktúra a maven G-A-V alapon működik.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_artifactcommon_nexus_download_sh_nexus_3">artifact/common-nexus-download.sh (Nexus 3)</h5>
+<div class="paragraph">
+<p>A Sonatype Nexus 3 új API-ja (<a href="https://stackoverflow.com/questions/47653338/sonatype-nexus-3-rest-api-backward-compatibility" class="bare">https://stackoverflow.com/questions/47653338/sonatype-nexus-3-rest-api-backward-compatibility</a>),
+ahol többek között le is lehet kérdezni az artifactokat.
+Így nem szükséges a maven dependency plugin használata (önmagában kell hozzá java és sok maven dependency)
+és közvetlen, gyorsan, egyszerű http hívásokkal lehúzható az a artifact ami kell.
+A struktúra a maven G-A-V alapon működik.
+A script konkrétan a
+<a href="https://help.sonatype.com/repomanager3/integrations/rest-and-integration-api/search-api#SearchAPI-SearchandDownloadAsset" class="bare">https://help.sonatype.com/repomanager3/integrations/rest-and-integration-api/search-api#SearchAPI-SearchandDownloadAsset</a>
+leírást implementálja.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="release-notes">4. Release notes</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_v1_0_0">4.1. v1.0.0</h3>
+<div class="paragraph">
+<p>The project has moved out of the internal repository and, excluding updates, it is 1:1 compatible with version 0.7.0.</p>
+</div>
+<div class="ulist">
+<div class="title">Changes compared to the internal version</div>
+<ul>
+<li>
+<p>bump base image debian:11.2-slim &#8594; debian:11.7-slim</p>
+</li>
+<li>
+<p>Component upgrade:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Java 11.0.14.1_1-jre &#8594; 11.0.19_7-jre</p>
+</li>
+<li>
+<p>Java 11.0.14.1_1-jdk &#8594; 11.0.19_7-jdk</p>
+</li>
+<li>
+<p>Java 17.0.2_8-jre &#8594; 17.0.7_7-jre</p>
+</li>
+<li>
+<p>Java 17.0.2_8-jdk &#8594; 17.0.7_7-jdk</p>
+</li>
+<li>
+<p>Maven 3.8.5 &#8594; 3.8.8</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Docker image renaming:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>base &#8594; icellmobilsoft/base</p>
+</li>
+<li>
+<p>curl &#8594; icellmobilsoft/base-curl</p>
+</li>
+<li>
+<p>java11jre &#8594; icellmobilsoft/base-java11jre</p>
+</li>
+<li>
+<p>java17jre &#8594; icellmobilsoft/base-java17jre</p>
+</li>
+<li>
+<p>builder/java11-maven &#8594; icellmobilsoft/builder-java11-maven</p>
+</li>
+<li>
+<p>builder/java17-maven &#8594; icellmobilsoft/builder-java17-maven</p>
+</li>
+<li>
+<p>builder/java11-galleon &#8594; icellmobilsoft/builder-java11-galleon</p>
+</li>
+<li>
+<p>builder/java17-galleon &#8594; icellmobilsoft/builder-java17-galleon</p>
+</li>
+<li>
+<p>builder/nexus-download &#8594; icellmobilsoft/builder-nexus-download</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">What&#8217;s new</div>
+<ul>
+<li>
+<p>New image:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>icellmobilsoft/base - Base image with default settings</p>
+</li>
+<li>
+<p>icellmobilsoft/base-alpine - Alpine base image with toolsets</p>
+</li>
+<li>
+<p>icellmobilsoft/base-curl - Base image containing curl</p>
+</li>
+<li>
+<p>icellmobilsoft/base-java11jre - Handles Java 11 LTS version</p>
+</li>
+<li>
+<p>icellmobilsoft/base-java17jre - Handles Java 17 LTS version</p>
+</li>
+<li>
+<p>icellmobilsoft/builder-java11-maven - Image used for Maven building with jdk 11</p>
+</li>
+<li>
+<p>icellmobilsoft/builder-java17-maven - Image used for Maven building with jdk 17</p>
+</li>
+<li>
+<p>icellmobilsoft/builder-java11-galleon - <a href="https://docs.wildfly.org/galleon">Galleon</a> Image based on JDK 11 and Maven</p>
+</li>
+<li>
+<p>icellmobilsoft/builder-java17-galleon - <a href="https://docs.wildfly.org/galleon">Galleon</a> Image based on JDK 17 and Maven</p>
+</li>
+<li>
+<p>icellmobilsoft/builder-nexus-download - Builder image for downloading Nexus artifacts</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_v1_1_0">4.2. v1.1.0</h3>
+<div class="paragraph">
+<p>All images are 1:1 compatible with version 1.0.0.</p>
+</div>
+<div class="ulist">
+<div class="title">Storage optimization:</div>
+<ul>
+<li>
+<p>Clearing the apt package manager cache (you must run <code>apt update</code> before installing packages!)</p>
+</li>
+<li>
+<p>Deleting package documentation (/usr/share/doc and /usr/share/doc-base)</p>
+</li>
+<li>
+<p>Deleting manual pages (/usr/share/man)</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">icellmobilsoft/builder-nexus-download</div>
+<ul>
+<li>
+<p>All artifact download scripts have been included in the image.</p>
+</li>
+<li>
+<p>From now on, all scripts will log parameters and the sizes of downloaded files.</p>
+</li>
+<li>
+<p>The ENV names for downloaded files have been standardized according to <code>common-nexus-download.sh</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME</code> (Previously, <code>$OUTPUT_FILE</code> was used in the <code>sonatype-download.sh</code> and <code>maven-search-download.sh</code> scripts.)</p>
+</li>
+<li>
+<p><code>$NEXUS_DOWNLOAD_OUTPUT_FILE_NAME_SHA1</code> (Previously <code>$OUTPUT_FILE.sha1</code>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_v1_2_0">4.3. v1.2.0</h3>
+<div class="paragraph">
+<p>All images are 1:1 compatible with version 1.1.0.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>bump base image debian:11.7-slim &#8594; debian:11.8-slim</p>
+</li>
+<li>
+<p>bump base image alpine:3.18.? &#8594; alpine:3.18.4</p>
+</li>
+<li>
+<p>Component upgrade:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Java 11.0.19_7-jre &#8594; 11.0.20.1_1-jre</p>
+</li>
+<li>
+<p>Java 11.0.19_7-jdk &#8594; 11.0.20.1_1-jdk</p>
+</li>
+<li>
+<p>Java 17.0.7_7-jre &#8594; 17.0.8.1_1-jre</p>
+</li>
+<li>
+<p>Java 17.0.7_7-jdk &#8594; 17.0.8.1_1-jdk</p>
+</li>
+<li>
+<p>Galleon 5.1.0.Final &#8594; 5.2.1.Final</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">What&#8217;s new</div>
+<ul>
+<li>
+<p><strong>Multiarch build</strong> - In addition to linux/amd64 images, linux/arm64 images will also be produced from now on.</p>
+</li>
+<li>
+<p>New image:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>icellmobilsoft/base-java21jre - Handles Java 21 LTS version</p>
+</li>
+<li>
+<p>icellmobilsoft/builder-java21-maven - Image used for Maven building with jdk 21</p>
+</li>
+<li>
+<p>icellmobilsoft/builder-java21-galleon - <a href="https://docs.wildfly.org/galleon">Galleon</a> Image based on JDK 21 and Maven</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_v1_3_0">4.4. v1.3.0</h3>
+<div class="paragraph">
+<p>All images are 1:1 compatible with version 1.2.0.</p>
+</div>
+<div class="ulist">
+<div class="title">Changes</div>
+<ul>
+<li>
+<p>icellmobilsoft/builder-java* -maven builder images have been supplemented with:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>apk install libxml2-utils git jq</p>
+</li>
+<li>
+<p>user change: $SYSTEM_USER &#8594; root</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_v1_4_0">4.5. v1.4.0</h3>
+<div class="paragraph">
+<p>All images are 1:1 compatible with version 1.3.0.</p>
+</div>
+<div class="ulist">
+<div class="title">Changes</div>
+<ul>
+<li>
+<p>The <strong>icellmobilsoft/builder-nexus-download</strong> builder image has changed:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Starting from this version, the environment variable NEXUS_OBJECT_CLASSIFIER is also used by the images.</p>
+</li>
+<li>
+<p>Improvement in resolving NEXUS_OBJECT_GROUP if it contains a dot (<code>.</code>) in the artifact groupId</p>
+</li>
+<li>
+<p>Enhancing sonatype-download.sh script with handling of SONATYPE_URL and SONATYPE_REPOSITORY environment variables</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The <strong>icellmobilsoft/builder-nexus-download</strong> builder image has changed:</p>
+</li>
+<li>
+<p>In the case of Curl, URLs are now enclosed in double quotes to prevent the runtime environment from attempting to evaluate the download address. This fix has been added to all shell scripts.</p>
+</li>
+<li>
+<p>bump base image alpine:3.18.4 &#8594; alpine:3.18.5</p>
+</li>
+<li>
+<p>Component upgrade:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Java 11.0.20.1_1-jre &#8594; 11.0.21_9-jre</p>
+</li>
+<li>
+<p>Java 11.0.20.1_1-jdk &#8594; 11.0.21_9-jdk</p>
+</li>
+<li>
+<p>Java 17.0.8.1_1-jre &#8594; 17.0.9_9-jre</p>
+</li>
+<li>
+<p>Java 17.0.8.1_1-jdk &#8594; 17.0.9_9-jdk</p>
+</li>
+<li>
+<p>Java 21_35-jre &#8594; 21.0.1_12-jre</p>
+</li>
+<li>
+<p>Java 21_35-jdk &#8594; 21.0.1_12-jdk</p>
+</li>
+<li>
+<p>Galleon 5.1.0.Final &#8594; 5.2.1.Final</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_v1_5_0">4.6. v1.5.0</h3>
+<div class="paragraph">
+<p>All images are 1:1 compatible with version 1.4.0.</p>
+</div>
+<div class="ulist">
+<div class="title">Changes</div>
+<ul>
+<li>
+<p>The <strong>icellmobilsoft/builder-nexus-download</strong> builder image:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>In the <code>sonatype-download.sh</code> script, the default value of the SONATYPE_REPOSITORY environment variable has been changed to <code>public</code>, allowing the Sonatype API to also find <code>-SNAPSHOT</code> versions.</p>
+</li>
+<li>
+<p>A new <code>DEBUG</code> variable has been added. In case of <code>true</code> it prints the issued commands to the terminal for easy debugging.</p>
+</li>
+<li>
+<p>Debian image upgrade: debian:11.8-slim &#8594; debian:12.8-slim</p>
+</li>
+<li>
+<p>Galleon upgrade: 5.2.2.Final &#8594; 6.0.4.Final</p>
+</li>
+<li>
+<p>bake-action upgrade docker/bake-action@v4 &#8594; docker/bake-action@v5</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_v1_6_0">4.7. v1.6.0</h3>
+<div class="paragraph">
+<p>All images are 1:1 compatible with version 1.5.0.</p>
+</div>
+<div class="ulist">
+<div class="title">Changes</div>
+<ul>
+<li>
+<p>The <strong>builder-dind-runner</strong> builder image introduced:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>dockerfile/builder/dind/Dockerfile</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_v1_7_0">4.8. v1.7.0</h3>
+<div class="paragraph">
+<p>All images are 1:1 compatible with version 1.6.0.</p>
+</div>
+<div class="ulist">
+<div class="title">Changes</div>
+<ul>
+<li>
+<p>The <strong>icellmobilsoft/builder-java17-maven-sonar</strong> builder image:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>dockerfile/builder/javamavensonar/Dockerfile</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>sonatype-download.sh</code> enhanced to support downloading artifacts from the recommended and canonical URL: <code><a href="https://repo1.maven.org/maven2" class="bare">https://repo1.maven.org/maven2</a></code>
+by setting the <code>NEXUS_REPOSITORY_TYPE=central</code> environment variable before running the script.</p>
+</li>
+<li>
+<p>Patch upgrades:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>maven</code> <code>3.8.8</code> &#8594; <code>3.9.11</code></p>
+</li>
+<li>
+<p><code>galleon</code> <code>6.0.4.Final</code> &#8594; <code>6.0.6.Final</code> (<a href="https://github.com/wildfly/galleon/releases">Changelog</a>)</p>
+</li>
+<li>
+<p><code>debian</code> <code>12.8-slim</code> &#8594; <code>12.11-slim</code> (NOTE: not the latest major version, there is <code>13.1-slim</code> already)</p>
+</li>
+<li>
+<p><code>alpine</code> <code>3.18.5</code> &#8594; <code>3.18.12</code> (NOTE: not the latest minor version, there is <code>3.22.1</code> already)</p>
+</li>
+<li>
+<p><code>JRE</code> and <code>JDK</code> 11 <code>11.0.21_9</code> &#8594; <code>11.0.27_6</code></p>
+</li>
+<li>
+<p><code>JRE</code> and <code>JDK</code> 17 <code>17.0.9_9</code> &#8594; <code>17.0.15_6</code></p>
+</li>
+<li>
+<p><code>JRE</code> and <code>JDK</code> 21 <code>21.0.1_12</code> &#8594; <code>21.0.7_6</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_v1_8_0">4.9. v1.8.0</h3>
+<div class="paragraph">
+<p>All images are 1:1 compatible with version 1.7.0.</p>
+</div>
+<div class="ulist">
+<div class="title">Changes</div>
+<ul>
+<li>
+<p><code>sonatype-download.sh</code> fix for snapshot artifacts downloading from Maven Central Portal.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2025-11-24 09:28:33 UTC
+</div>
+</div>
+</body>
+</html>
