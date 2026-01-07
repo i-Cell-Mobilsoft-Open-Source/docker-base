@@ -4,3 +4,9 @@ All images are 1:1 compatible with version 1.7.0.
 
 .Changes
 * `sonatype-download.sh` fix for snapshot artifacts downloading from Maven Central Portal.
+* Upgrades:
+** `maven` `3.9.11` -> `3.9.12`
+** `debian` `12.11-slim` -> `12.12-slim` (NOTE: not the latest major version, there is `13.2-slim` already)
+** `JRE` and `JDK` 11 `11.0.27_6` -> `11.0.29_7`
+** `JRE` and `JDK` 17 `17.0.15_6` -> `17.0.17_10`
+** `JRE` and `JDK` 21 `21.0.7_6` -> `21.0.9_10`
