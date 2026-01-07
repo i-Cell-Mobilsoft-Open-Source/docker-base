@@ -10,3 +10,4 @@ All images are 1:1 compatible with version 1.7.0.
 ** `JRE` and `JDK` 11 `11.0.27_6` -> `11.0.29_7`
 ** `JRE` and `JDK` 17 `17.0.15_6` -> `17.0.17_10`
 ** `JRE` and `JDK` 21 `21.0.7_6` -> `21.0.9_10`
+** `galleon` `6.0.4.Final` -> `6.1.1.Final` (https://github.com/wildfly/galleon/releases[Changelog])
