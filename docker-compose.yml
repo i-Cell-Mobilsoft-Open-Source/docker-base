@@ -48,6 +48,8 @@ services:
       dockerfile: dockerfile/bases/deployment/Dockerfile
       args:
         BASE_IMAGE: $DOCKER_IMAGE_BASE
+        KUBECTL_VERSION: $KUBECTL_VERSION
+        HELM_VERSION: $HELM_VERSION
     image: $DOCKER_IMAGE_DEPLOYMENT
     depends_on:
       base-release: 
