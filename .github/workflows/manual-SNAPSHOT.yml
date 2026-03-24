@@ -102,7 +102,7 @@ jobs:
           push: true
           files: |
             docker-compose.yml
-          targets: curl-release,alpine-runner-release
+          targets: curl-release,alpine-runner-release,deployment-release
       - name: docker buildx bake "#3"
         uses: docker/bake-action@v5
         with:
