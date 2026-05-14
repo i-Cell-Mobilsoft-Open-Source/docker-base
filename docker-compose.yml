@@ -40,7 +40,21 @@ services:
     depends_on:
       base-release: 
         condition: service_completed_successfully
-        
+
+  # icellmobilsoft/base-deployment
+  deployment-release:
+    build:
+      context: .
+      dockerfile: dockerfile/bases/deployment/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_BASE
+        KUBECTL_VERSION: $KUBECTL_VERSION
+        HELM_VERSION: $HELM_VERSION
+    image: $DOCKER_IMAGE_DEPLOYMENT
+    depends_on:
+      base-release: 
+        condition: service_completed_successfully
+
   # icellmobilsoft/base-java11jre
   java11jre-release:
     build:

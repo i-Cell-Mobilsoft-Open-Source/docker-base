@@ -4,6 +4,7 @@ All images are 1:1 compatible with version 1.7.0.
 
 .Changes
 * `sonatype-download.sh` fix for snapshot artifacts downloading from Maven Central Portal.
+* deployment docker image added for CD stages.
 * Upgrades:
 ** `maven` `3.9.11` -> `3.9.12`
 ** `debian` `12.11-slim` -> `12.12-slim` (NOTE: not the latest major version, there is `13.2-slim` already)
