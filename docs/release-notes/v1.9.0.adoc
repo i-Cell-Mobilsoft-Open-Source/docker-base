@@ -1,0 +1,9 @@
+= v1.9.0
+
+All images are 1:1 compatible with version 1.8.0.
+
+.Changes
+* Upgrades:
+** `JRE` and `JDK` 11 `11.0.29_7` -> `11.0.31_11`
+** `JRE` and `JDK` 17 `17.0.17_10` -> `17.0.19_10`
+** `JRE` and `JDK` 21 `21.0.9_10` -> `21.0.11_10`
