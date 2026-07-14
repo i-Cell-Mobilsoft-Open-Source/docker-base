@@ -7,3 +7,5 @@ include::base-images.adoc[leveloffset=+2]
 
 == builder images - /dockerfile/builder
 include::builder-images.adoc[leveloffset=+2]
+
+include::build.adoc[leveloffset=+2]

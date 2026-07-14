@@ -1,0 +1,21 @@
+= Docker build
+
+* `docker-compose.yml` services are separated by profiles, so the build order can be deterministic.
+Build order suggestion:
+** *base*: os and dind images without dependencies
+** *base2*: base images with dependencies to the `base` profile images (e.g. curl and alpine-runner)
+** *jre*: jre images
+** *maven*: maven and nexus images
+** *sonar*: sonar images
+** *galleon*: galleon images
+
+.Build example
+[source,sh]
+----
+docker compose -f ./docker-compose.yml --profile base build --no-cache
+docker compose -f ./docker-compose.yml --profile base2 build --no-cache
+docker compose -f ./docker-compose.yml --profile jre build --no-cache
+docker compose -f ./docker-compose.yml --profile maven build --no-cache
+docker compose -f ./docker-compose.yml --profile sonar build --no-cache
+docker compose -f ./docker-compose.yml --profile galleon build --no-cache
+----

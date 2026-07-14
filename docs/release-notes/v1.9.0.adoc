@@ -10,4 +10,14 @@ All images are 1:1 compatible with version 1.8.0.
 ** `JRE` and `JDK` 21 `21.0.9_10` -> `21.0.11_10`
 ** Introduced `JRE` and `JDK` 25 `25.0.3_9`
 ** galleon upgraded from `6.1.1.Final` -> `7.0.8.Final`
-** galleon upgraded from `3.9.12` -> `3.9.16`
+** maven upgraded from `3.9.12` -> `3.9.16`
+
+.Maintenance
+* `docker-compose.yml` services got separated by profiles, so the build order can be deterministic.
+Build order suggestion:
+** base
+** base2
+** jre
+** maven
+** sonar
+** galleon
