@@ -4,6 +4,10 @@ All images are 1:1 compatible with version 1.8.0.
 
 .Changes
 * Upgrades:
-** `JRE` and `JDK` 11 `11.0.29_7` -> `11.0.31_11`
+** base image is upgraded from `debian:12.12-slim` to `debian:12.15-slim`
+** `JRE` and `JDK` 11 are removed.
 ** `JRE` and `JDK` 17 `17.0.17_10` -> `17.0.19_10`
 ** `JRE` and `JDK` 21 `21.0.9_10` -> `21.0.11_10`
+** Introduced `JRE` and `JDK` 25 `25.0.3_9`
+** galleon upgraded from `6.1.1.Final` -> `7.0.8.Final`
+** galleon upgraded from `3.9.12` -> `3.9.16`
