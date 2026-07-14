@@ -14,4 +14,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Run docker-compose
         run: |
-          docker compose -f ./docker-compose.yml build --no-cache
+          docker compose -f ./docker-compose.yml --profile base build --no-cache
+          docker compose -f ./docker-compose.yml --profile base2 build --no-cache
+          docker compose -f ./docker-compose.yml --profile jre build --no-cache
+          docker compose -f ./docker-compose.yml --profile maven build --no-cache
+          docker compose -f ./docker-compose.yml --profile sonar build --no-cache
+          docker compose -f ./docker-compose.yml --profile galleon build --no-cache

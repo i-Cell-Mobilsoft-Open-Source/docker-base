@@ -19,6 +19,8 @@ services:
       args:
         BASE_IMAGE: $BASE_IMAGE
     image: $DOCKER_IMAGE_BASE
+    profiles:
+      - base
 
   # icellmobilsoft/base-alpine
   base-alpine-release:
@@ -28,6 +30,8 @@ services:
       args:
         ALPINE_BASE_IMAGE: $ALPINE_BASE_IMAGE
     image: $DOCKER_IMAGE_BASE_ALPINE
+    profiles:
+      - base
 
   # icellmobilsoft/base-curl
   curl-release:
@@ -37,9 +41,8 @@ services:
       args:
         BASE_IMAGE: $DOCKER_IMAGE_BASE
     image: $DOCKER_IMAGE_CURL
-    depends_on:
-      base-release: 
-        condition: service_completed_successfully
+    profiles:
+      - base2
 
   # icellmobilsoft/base-deployment
   deployment-release:
@@ -51,22 +54,8 @@ services:
         KUBECTL_VERSION: $KUBECTL_VERSION
         HELM_VERSION: $HELM_VERSION
     image: $DOCKER_IMAGE_DEPLOYMENT
-    depends_on:
-      base-release: 
-        condition: service_completed_successfully
-
-  # icellmobilsoft/base-java11jre
-  java11jre-release:
-    build:
-      context: .
-      dockerfile: dockerfile/bases/javajre/Dockerfile
-      args:
-        BASE_IMAGE: $DOCKER_IMAGE_CURL
-        JRE_TEMURIN_IMAGE: $JRE_11_TEMURIN_IMAGE
-    image: $DOCKER_IMAGE_JAVA11JRE
-    depends_on:
-      curl-release: 
-        condition: service_completed_successfully
+    profiles:
+      - base2
   
   # icellmobilsoft/base-java17jre
   java17jre-release:
@@ -77,9 +66,8 @@ services:
         BASE_IMAGE: $DOCKER_IMAGE_CURL
         JRE_TEMURIN_IMAGE: $JRE_17_TEMURIN_IMAGE
     image: $DOCKER_IMAGE_JAVA17JRE
-    depends_on:
-      curl-release: 
-        condition: service_completed_successfully
+    profiles:
+      - jre
 
   # icellmobilsoft/base-java21jre
   java21jre-release:
@@ -90,9 +78,20 @@ services:
         BASE_IMAGE: $DOCKER_IMAGE_CURL
         JRE_TEMURIN_IMAGE: $JRE_21_TEMURIN_IMAGE
     image: $DOCKER_IMAGE_JAVA21JRE
-    depends_on:
-      curl-release: 
-        condition: service_completed_successfully
+    profiles:
+      - jre
+
+  # icellmobilsoft/base-java25jre
+  java25jre-release:
+    build:
+      context: .
+      dockerfile: dockerfile/bases/javajre/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_CURL
+        JRE_TEMURIN_IMAGE: $JRE_25_TEMURIN_IMAGE
+    image: $DOCKER_IMAGE_JAVA25JRE
+    profiles:
+      - jre
 
 ##################################
   # builder images
@@ -106,9 +105,8 @@ services:
       args:
         BASE_IMAGE: $DOCKER_IMAGE_BASE_ALPINE
     image: $DOCKER_IMAGE_ALPINE_RUNNER
-    depends_on:
-      base-alpine-release: 
-        condition: service_completed_successfully
+    profiles:
+      - base2
 
   # icellmobilsoft/builder-dind-runner
   dind-runner-release:
@@ -118,21 +116,8 @@ services:
       args:
         BASE_IMAGE: $DIND_BASE
     image: $DOCKER_IMAGE_DIND_RUNNER
-
-  # icellmobilsoft/builder-java11-maven
-  java11-maven-builder:
-    build:
-      context: .
-      dockerfile: dockerfile/builder/javamaven/Dockerfile
-      args:
-        BASE_IMAGE: $DOCKER_IMAGE_CURL
-        JDK_TEMURIN_IMAGE: $JDK_11_TEMURIN_IMAGE
-        MAVEN_VERSION: $MAVEN_VERSION
-        MAVEN_SHA: $MAVEN_SHA
-    image: $DOCKER_IMAGE_JAVA11_MAVEN
-    depends_on:
-      curl-release: 
-        condition: service_completed_successfully
+    profiles:
+      - base
 
   # icellmobilsoft/builder-java17-maven
   java17-maven-builder:
@@ -145,9 +130,8 @@ services:
         MAVEN_VERSION: $MAVEN_VERSION
         MAVEN_SHA: $MAVEN_SHA
     image: $DOCKER_IMAGE_JAVA17_MAVEN
-    depends_on:
-      curl-release: 
-        condition: service_completed_successfully
+    profiles:
+      - maven
 
   # icellmobilsoft/builder-java21-maven
   java21-maven-builder:
@@ -160,10 +144,22 @@ services:
         MAVEN_VERSION: $MAVEN_VERSION
         MAVEN_SHA: $MAVEN_SHA
     image: $DOCKER_IMAGE_JAVA21_MAVEN
-    depends_on:
-      curl-release: 
-        condition: service_completed_successfully
+    profiles:
+      - maven
 
+  # icellmobilsoft/builder-java25-maven
+  java25-maven-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/javamaven/Dockerfile
+      args:
+        BASE_IMAGE: $DOCKER_IMAGE_CURL
+        JDK_TEMURIN_IMAGE: $JDK_25_TEMURIN_IMAGE
+        MAVEN_VERSION: $MAVEN_VERSION
+        MAVEN_SHA: $MAVEN_SHA
+    image: $DOCKER_IMAGE_JAVA25_MAVEN
+    profiles:
+      - maven
 
   # icellmobilsoft/builder-java17-maven-sonar
   java17-maven-sonar-builder:
@@ -173,22 +169,8 @@ services:
       args:
         MAVEN_BUILD_BASE_IMAGE: $DOCKER_IMAGE_JAVA17_MAVEN
     image: $DOCKER_IMAGE_JAVA17_MAVEN_SONAR
-    depends_on:
-      java17-maven-builder:
-        condition: service_completed_successfully
-
-  # icellmobilsoft/builder-java11-galleon
-  java11-galleon-builder:
-    build:
-      context: .
-      dockerfile: dockerfile/builder/galleon/Dockerfile
-      args:
-        BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA11_MAVEN
-        GALLEON_VERSION: $GALLEON_VERSION
-    image: $DOCKER_IMAGE_JAVA11_GALLEON
-    depends_on:
-      java11-maven-builder: 
-        condition: service_completed_successfully
+    profiles:
+      - sonar
 
   # icellmobilsoft/builder-java17-galleon
   java17-galleon-builder:
@@ -199,9 +181,8 @@ services:
         BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA17_MAVEN
         GALLEON_VERSION: $GALLEON_VERSION
     image: $DOCKER_IMAGE_JAVA17_GALLEON
-    depends_on:
-      java17-maven-builder: 
-        condition: service_completed_successfully
+    profiles:
+      - galleon
 
   # icellmobilsoft/builder-java21-galleon
   java21-galleon-builder:
@@ -212,9 +193,20 @@ services:
         BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA21_MAVEN
         GALLEON_VERSION: $GALLEON_VERSION
     image: $DOCKER_IMAGE_JAVA21_GALLEON
-    depends_on:
-      java21-maven-builder: 
-        condition: service_completed_successfully
+    profiles:
+      - galleon
+
+  # icellmobilsoft/builder-java25-galleon
+  java25-galleon-builder:
+    build:
+      context: .
+      dockerfile: dockerfile/builder/galleon/Dockerfile
+      args:
+        BASE_BUILDER_IMAGE: $DOCKER_IMAGE_JAVA25_MAVEN
+        GALLEON_VERSION: $GALLEON_VERSION
+    image: $DOCKER_IMAGE_JAVA25_GALLEON
+    profiles:
+      - galleon
 
   # icellmobilsoft/builder-nexus-download
   nexus-download-builder:
@@ -224,6 +216,5 @@ services:
       args:
         BASE_BUILDER_IMAGE: $DOCKER_IMAGE_CURL
     image: $DOCKER_IMAGE_NEXUS_DOWNLOAD
-    depends_on:
-      curl-release: 
-        condition: service_completed_successfully
+    profiles:
+      - maven
