@@ -14,15 +14,8 @@ ENV HOME=/home/$SYSTEM_USER
 ENV LC_ALL=C.UTF-8
 
 RUN set -x; \
-    addgroup --gid $USER_GID $SYSTEM_USER_GROUP && \
-# "--system": Create a system user
-# "--disabled-password": Don't assign a password
-# "--no-create-home": Don't create home directory
-# "--uid": User id
-# "--disabled-login": Login shell
-# "--gid": Group
-# "--gecos": GECOS field
-    adduser --system --disabled-password --uid ${USER_UID} --disabled-login --gecos ${SYSTEM_USER} --gid ${USER_GID} ${SYSTEM_USER_GROUP}
+    groupadd --gid $USER_GID $SYSTEM_USER_GROUP && \
+    useradd --system --uid ${USER_UID} --shell /usr/sbin/nologin --no-user-group --create-home --gid ${USER_GID} ${SYSTEM_USER_GROUP}
 
 USER $SYSTEM_USER
 WORKDIR $HOME
