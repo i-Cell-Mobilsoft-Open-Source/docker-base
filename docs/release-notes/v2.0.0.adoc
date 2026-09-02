@@ -1,0 +1,6 @@
+= v2.0.0
+
+.Changes
+* Upgrades:
+** base image is upgraded from `debian:12.15-slim` to `debian:13.6-slim`
+** alpine base image is upgraded from `alpine:3.18.12` to `alpine:3.23.5`
