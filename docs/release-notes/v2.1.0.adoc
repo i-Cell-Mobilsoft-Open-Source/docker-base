@@ -1,0 +1,4 @@
+= v2.1.0
+
+.Changes
+* Corrected `JDK_21_TEMURIN_IMAGE` to use JDK (`eclipse-temurin:21.0.12_8-jdk`) instead of JRE (`eclipse-temurin:21.0.12_8-jre`).
