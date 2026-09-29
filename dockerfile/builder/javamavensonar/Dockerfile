@@ -4,9 +4,10 @@ ARG MAVEN_BUILD_BASE_IMAGE
 # Create maven jdk sonar image
 ################################################################################
 FROM ${MAVEN_BUILD_BASE_IMAGE} AS base
+ARG SONAR_VERSION
 
 # SonarQube version
-ENV SONAR_VERSION=9.9.8.100196
+ENV SONAR_VERSION=${SONAR_VERSION}
 ENV SONAR_HOME=/opt/sonarqube
 
 USER root
