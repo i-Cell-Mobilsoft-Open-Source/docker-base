@@ -168,6 +168,7 @@ services:
       dockerfile: dockerfile/builder/javamavensonar/Dockerfile
       args:
         MAVEN_BUILD_BASE_IMAGE: $DOCKER_IMAGE_JAVA17_MAVEN
+        SONAR_VERSION: $SONAR_VERSION
     image: $DOCKER_IMAGE_JAVA17_MAVEN_SONAR
     profiles:
       - sonar
