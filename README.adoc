@@ -42,3 +42,12 @@ We basically handle 2 cases:
 
 The corresponding CI appears only on the appropriate branches.
 
+== Automatic patching
+https://docs.renovatebot.com/[Renovate] keeps the base images in `.env` up to date on the *main branch*.
+It opens one grouped PR (weekly) for:
+
+* `debian` slim point releases (`BASE_IMAGE`)
+* `alpine` patch releases (`ALPINE_BASE_IMAGE`)
+* `eclipse-temurin` JRE/JDK patch releases for the current Java majors (`JRE_*_TEMURIN_IMAGE`, `JDK_*_TEMURIN_IMAGE`)
+
+The configuration is in `renovate.json`. Release notes are not updated automatically.

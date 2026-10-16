@@ -2,5 +2,81 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "timezone": "Europe/Budapest",
+  "enabledManagers": [
+    "custom.regex"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Base images (debian, alpine, eclipse-temurin JRE/JDK) defined in .env",
+      "managerFilePatterns": [
+        "/(^|/)\\.env$/"
+      ],
+      "matchStrings": [
+        "^(?:BASE_IMAGE|ALPINE_BASE_IMAGE|J(?:RE|DK)_\\d+_TEMURIN_IMAGE)=(?<depName>[^:\\s]+):(?<currentValue>\\S+)$"
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Debian slim: versioning of tags like 13.7-slim",
+      "matchDepNames": [
+        "debian"
+      ],
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)(?<compatibility>-slim)$"
+    },
+    {
+      "description": "Alpine: versioning of tags like 3.24.2",
+      "matchDepNames": [
+        "alpine"
+      ],
+      "versioning": "semver"
+    },
+    {
+      "description": "Temurin JRE/JDK: versioning of tags like 17.0.20.1_1-jre",
+      "matchDepNames": [
+        "eclipse-temurin"
+      ],
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?:\\.(?<build>\\d+))?_(?<revision>\\d+)-(?<compatibility>jre|jdk)$"
+    },
+    {
+      "description": "Debian and Temurin: stay on the current major (point/patch releases only)",
+      "matchDepNames": [
+        "debian",
+        "eclipse-temurin"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Alpine: stay on the current minor (patch releases only)",
+      "matchDepNames": [
+        "alpine"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "One PR for all base image patches",
+      "matchDepNames": [
+        "debian",
+        "alpine",
+        "eclipse-temurin"
+      ],
+      "groupName": "base image patches",
+      "commitMessageTopic": "base image patches",
+      "labels": [
+        "dependencies"
+      ]
+    }
   ]
 }
