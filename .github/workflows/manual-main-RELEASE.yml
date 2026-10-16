@@ -225,7 +225,7 @@ jobs:
           echo next master branch version is $TARGET_BRANCH_NEXT_VERSION
       # This step pushes the previous steps to the specified branch, and writes the merge request to the base.
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4.2.3
+        uses: peter-evans/create-pull-request@v4.2.4
         with:
           commit-message: ${{steps.bumpbranch.outputs.COMMIT_MESSAGE}}
           branch:  ${{steps.bumpbranch.outputs.MR_BRANCH_NAME}}
