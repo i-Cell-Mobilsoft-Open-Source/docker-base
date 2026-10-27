@@ -1,0 +1,4 @@
+= v2.2.0
+
+.Changes
+* added eclipse-temurin:11.0.32.1_1 jre and jdk images
