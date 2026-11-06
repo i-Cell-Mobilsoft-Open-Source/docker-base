@@ -2,3 +2,7 @@
 
 .Changes
 * added eclipse-temurin:11.0.32.1_1 jre and jdk images
+
+== v2.2.1
+. Changes
+* added eclipse-temurin:11.0.32.1_1 jre and jdk images to release workflow
