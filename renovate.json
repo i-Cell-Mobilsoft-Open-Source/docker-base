@@ -1,0 +1,121 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": [
+    "Only the main branch is processed.",
+    "Default: only patch updates, grouped into one PR",
+    "Minor updates are enabled only for debian, alpine, sonarqube and galleon: grouped into one PR, created only after approval on the Dependency Dashboard.",
+    "Major updates are disabled."
+  ],
+  "extends": [
+    "config:recommended"
+  ],
+  "baseBranchPatterns": [
+    "main"
+  ],
+  "enabledManagers": [
+    "custom.regex"
+  ],
+  "semanticCommits": "enabled",
+  "semanticCommitType": "chore",
+  "semanticCommitScope": "deps",
+  "commitBodyTable": true,
+  "separateMinorPatch": true,
+  "labels": [
+    "dependencies"
+  ],
+  "major": {
+    "enabled": false
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Base images (debian, alpine, eclipse-temurin JRE/JDK) defined in .env",
+      "managerFilePatterns": [
+        ".env"
+      ],
+      "matchStrings": [
+        "\\b(?:BASE_IMAGE|ALPINE_BASE_IMAGE|J(?:RE|DK)_\\d+_TEMURIN_IMAGE)=(?<depName>[^:\\s]+):(?<currentValue>\\S+)"
+      ],
+      "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "description": "SonarQube Community Build version defined in .env",
+      "managerFilePatterns": [
+        ".env"
+      ],
+      "matchStrings": [
+        "\\bSONAR_VERSION=(?<currentValue>\\S+)"
+      ],
+      "depNameTemplate": "sonarqube",
+      "datasourceTemplate": "docker",
+      "extractVersionTemplate": "^(?<version>\\d+\\.\\d+\\.\\d+\\.\\d+)-community$",
+      "versioningTemplate": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)$"
+    },
+    {
+      "customType": "regex",
+      "description": "Galleon version defined in .env (GitHub releases of wildfly/galleon)",
+      "managerFilePatterns": [
+        ".env"
+      ],
+      "matchStrings": [
+        "\\bGALLEON_VERSION=(?<currentValue>\\S+)"
+      ],
+      "depNameTemplate": "wildfly/galleon",
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "maven"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Temurin JRE/JDK: versioning of tags like 17.0.20.1_1-jre",
+      "matchDepNames": [
+        "eclipse-temurin"
+      ],
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?:\\.(?<build>\\d+))?_(?<revision>\\d+)-(?<compatibility>jre|jdk)$"
+    },
+    {
+      "description": "Minor updates are disabled by default",
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Minor updates are enabled only for these dependencies (eclipse-temurin stays patch only)",
+      "matchDepNames": [
+        "debian",
+        "alpine",
+        "sonarqube",
+        "wildfly/galleon"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "enabled": true
+    },
+    {
+      "description": "All patch updates in one PR, created automatically",
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "groupName": "dependencies",
+      "groupSlug": "patch-updates",
+      "addLabels": [
+        "patch"
+      ]
+    },
+    {
+      "description": "All minor updates in one PR, created only after approval on the Dependency Dashboard",
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "groupName": "dependencies",
+      "groupSlug": "minor-updates",
+      "dependencyDashboardApproval": true,
+      "addLabels": [
+        "minor"
+      ]
+    }
+  ]
+}
