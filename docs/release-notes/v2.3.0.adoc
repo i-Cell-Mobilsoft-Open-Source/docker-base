@@ -1,0 +1,4 @@
+= v2.3.0
+
+.Changes
+* added https://docs.renovatebot.com/[Renovate] for automatic dependency updates.
