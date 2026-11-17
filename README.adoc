@@ -42,3 +42,26 @@ We basically handle 2 cases:
 
 The corresponding CI appears only on the appropriate branches.
 
+== Dependency updates
+
+Dependency versions in `.env` are updated by https://docs.renovatebot.com/[Renovate] (configuration: `renovate.json`).
+
+=== Branches
+
+Only the `main` branch is processed.
+
+=== Pull requests
+
+* *patch updates* - all patch updates in one PR, created automatically.
+* *minor updates* - all minor updates in one PR, created only after approval on the Dependency Dashboard.
+
+=== Dependency Dashboard
+
+Renovate keeps a single issue called *Dependency Dashboard* up to date. It lists:
+
+* open and pending updates,
+* updates waiting for approval (minor updates),
+* errors and warnings from the last run.
+
+To create the minor updates PR, tick the checkbox of the update under *Pending Approval*.
+To rerun Renovate immediately, tick the rerun checkbox at the bottom of the issue.
