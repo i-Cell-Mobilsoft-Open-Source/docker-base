@@ -1,0 +1,85 @@
+name: Renovate clear arch overrides
+
+permissions:
+  contents: write
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    paths:
+      - ".env"
+
+jobs:
+  clear-arch-overrides:
+    if: github.actor == 'renovate[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Import GPG key
+        # GPG private key, which is exported with armor (beginning: '-----BEGIN PGP PRIVATE KEY BLOCK-----') this entire content is encoded in base64, and it is loaded into the secrets content
+        # we decode the base64 encoded private key and load it
+        run: |
+          mkdir -p ~/.gnupg/
+          echo "${{ secrets.GPG_SIGNING_KEY_GITHUB_TECHUSER }}" | base64 --decode > ~/.gnupg/private.key
+          gpg --import ~/.gnupg/private.key
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          # The content is an SSH key in PEM format (beginning: '-----BEGIN RSA PRIVATE KEY-----')
+          key: ${{ secrets.SSH_PRIVATE_KEY_GITHUB_TECHUSER }}
+          name: id_rsa # optional
+          known_hosts: ${{ secrets.KNOWN_HOSTS }} # currently, its content is empty
+          # config: ${{ secrets.CONFIG }} # ssh_config; optional
+
+      - name: Configure GIT for signed commit
+        run: |
+          git config --global user.name "${{ env.TECH_USER_USERNAME }}"
+          git config --global user.email "${{ env.TECH_USER_EMAIL }}"
+          git config --global user.signingkey "${{ secrets.GPG_KEY_ID_GITHUB_TECHUSER }}"
+          git config --global commit.gpgsign true
+          git config --global tag.gpgSign true
+
+      - name: Comment out active arch override lines
+        id: clear
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          changed=false
+          files=(.env.amd64 .env.arm64)
+
+          for file in "${files[@]}"; do
+            if [ ! -f "$file" ]; then
+              continue
+            fi
+
+            if grep -Eq '^[[:space:]]*[^#[:space:]]' "$file"; then
+              awk '{
+                if ($0 ~ /^[[:space:]]*[^#[:space:]]/) {
+                  print "# AUTO-DISABLED-BY-RENOVATE: " $0
+                } else {
+                  print $0
+                }
+              }' "$file" > "$file.tmp"
+              mv "$file.tmp" "$file"
+              echo "- Commented active override lines in \`$file\`" >> "$GITHUB_STEP_SUMMARY"
+              changed=true
+            fi
+          done
+
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push override cleanup
+        if: steps.clear.outputs.changed == 'true'
+        shell: bash
+        run: |
+          git add .env.amd64 .env.arm64
+          git commit -m "chore(ci): disable manual arch overrides for renovate update"
+          git push origin "${{ github.head_ref }}"
+      - name: No cleanup needed
+        if: steps.clear.outputs.changed != 'true'
+        run: echo "No active arch override lines found." >> "$GITHUB_STEP_SUMMARY"
+
