@@ -1,0 +1,87 @@
+name: Platform arch .env override check
+
+permissions:
+  pull-requests: write
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    paths:
+      - ".env*"
+
+jobs:
+  arch-env-override-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ${{ github.event.ref }}
+        uses: actions/checkout@v4
+
+      - name: Check architecture override env files
+        id: check_overrides
+        shell: bash
+        run: |
+          has_override=false
+          override_files=""
+          files=(.env.amd64 .env.arm64)
+
+          for file in "${files[@]}"; do
+            if [ -f "$file" ] && grep -Eq '^[[:space:]]*[^#[:space:]]' "$file"; then
+              echo "::warning file=$file::Manual override detected in $file (contains non-commented line)."
+              echo "- ⚠️ Manual override detected in \`$file\`" >> "$GITHUB_STEP_SUMMARY"
+              has_override=true
+              if [ -z "$override_files" ]; then
+                override_files="$file"
+              else
+                override_files="$override_files, $file"
+              fi
+            fi
+          done
+
+          if [ "$has_override" = false ]; then
+            echo "- ✅ No manual architecture override found in \`.env.amd64\` or \`.env.arm64\`" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          echo "has_override=$has_override" >> "$GITHUB_OUTPUT"
+          echo "override_files=$override_files" >> "$GITHUB_OUTPUT"
+
+      - name: Comment on PR when override is active
+        if: steps.check_overrides.outputs.has_override == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = '<!-- arch-env-override-check -->';
+            const files = `${{ steps.check_overrides.outputs.override_files }}`;
+            const body = `${marker}
+            ⚠️ Manual arch override is active in: ${files}
+
+            This PR contains non-commented lines in \`.env.amd64\` and/or \`.env.arm64\`.
+            Please keep it only as temporary workaround and remove it when no longer needed.`;
+
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number,
+              per_page: 100
+            });
+
+            const existing = comments.find(c => c.user?.type === 'Bot' && c.body?.includes(marker));
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existing.id,
+                body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number,
+                body
+              });
+            }
+
