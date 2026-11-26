@@ -55,75 +55,76 @@ runs:
             ;;
         esac
 
+    - name: Render compose config
+      shell: bash
+      run: |
+        export COMPOSE_ENV_FILES="${{ steps.resolve_platform.outputs.compose_env_files }}"
+        export COMPOSE_PROFILES="base,base2,jre,maven,sonar,galleon"
+        rendered_file="docker-compose.rendered.${{ inputs.platform }}.yml"
+        docker compose -f docker-compose.yml config > "$rendered_file"
+
     - name: docker buildx bake "#1"
       uses: docker/bake-action@v5
-      env:
-        COMPOSE_ENV_FILES: ${{ steps.resolve_platform.outputs.compose_env_files }}
       with:
         set: |
           *.platform=${{ steps.resolve_platform.outputs.docker_platform }}
         push: true
         files: |
-          docker-compose.yml
+          docker-compose.rendered.${{ inputs.platform }}.yml
         targets: base-release,base-alpine-release,dind-runner-release
 
     - name: docker buildx bake "#2"
       uses: docker/bake-action@v5
-      env:
-        COMPOSE_ENV_FILES: ${{ steps.resolve_platform.outputs.compose_env_files }}
       with:
         set: |
           *.platform=${{ steps.resolve_platform.outputs.docker_platform }}
         push: true
         files: |
-          docker-compose.yml
+          docker-compose.rendered.${{ inputs.platform }}.yml
         targets: curl-release,alpine-runner-release,deployment-release
 
     - name: docker buildx bake "#3"
       uses: docker/bake-action@v5
-      env:
-        COMPOSE_ENV_FILES: ${{ steps.resolve_platform.outputs.compose_env_files }}
       with:
         set: |
           *.platform=${{ steps.resolve_platform.outputs.docker_platform }}
         push: true
         files: |
-          docker-compose.yml
+          docker-compose.rendered.${{ inputs.platform }}.yml
         targets: nexus-download-builder,java11jre-release,java17jre-release,java21jre-release,java25jre-release
 
     - name: docker buildx bake "#4"
       uses: docker/bake-action@v5
-      env:
-        COMPOSE_ENV_FILES: ${{ steps.resolve_platform.outputs.compose_env_files }}
       with:
         set: |
           *.platform=${{ steps.resolve_platform.outputs.docker_platform }}
         push: true
         files: |
-          docker-compose.yml
+          docker-compose.rendered.${{ inputs.platform }}.yml
         targets: java11-maven-builder,java17-maven-builder,java21-maven-builder,java25-maven-builder
 
     - name: docker buildx bake "#5"
       uses: docker/bake-action@v5
-      env:
-        COMPOSE_ENV_FILES: ${{ steps.resolve_platform.outputs.compose_env_files }}
       with:
         set: |
           *.platform=${{ steps.resolve_platform.outputs.docker_platform }}
         push: true
         files: |
-          docker-compose.yml
+          docker-compose.rendered.${{ inputs.platform }}.yml
         targets: java17-maven-sonar-builder
 
     - name: docker buildx bake "#6"
       uses: docker/bake-action@v5
-      env:
-        COMPOSE_ENV_FILES: ${{ steps.resolve_platform.outputs.compose_env_files }}
       with:
         set: |
           *.platform=${{ steps.resolve_platform.outputs.docker_platform }}
         push: true
         files: |
-          docker-compose.yml
+          docker-compose.rendered.${{ inputs.platform }}.yml
         targets: java11-galleon-builder,java17-galleon-builder,java21-galleon-builder,java25-galleon-builder
+
+    - name: Cleanup rendered compose config
+      if: ${{ always() }}
+      shell: bash
+      run: rm -f "docker-compose.rendered.${{ inputs.platform }}.yml"
 
