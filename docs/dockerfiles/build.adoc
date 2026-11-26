@@ -19,3 +19,28 @@ docker compose -f ./docker-compose.yml --profile maven build --no-cache
 docker compose -f ./docker-compose.yml --profile sonar build --no-cache
 docker compose -f ./docker-compose.yml --profile galleon build --no-cache
 ----
+
+== Release build flow
+
+Release image builds and pushes are executed by GitHub Actions workflows only.
+
+The shared action `./.github/actions/docker-bake-release` performs the release bake targets for one architecture per invocation.
+
+Action input contract:
+
+* `platform` is required.
+* Allowed values: `amd64`, `arm64`.
+* Alternative values (for example `linux/amd64` or `linux/arm64`) are rejected by validation.
+
+The action resolves architecture-specific settings in a dedicated step and then reuses them in all bake calls:
+
+* Docker target platform: `linux/amd64` or `linux/arm64`
+* Compose environment files: `.env,.env.amd64` or `.env,.env.arm64`
+
+Manual release workflows invoke the shared release action twice:
+
+* first with `platform: amd64`
+* then with `platform: arm64`
+
+This guarantees both architectures are built and pushed in the same release process.
+
