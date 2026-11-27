@@ -1,0 +1,45 @@
+name: Docker Manifest Release
+
+description: Merge the arch-specific image tags (<VERSION>-amd64, <VERSION>-arm64) pushed by docker-bake-release into multi-arch <VERSION> tags.
+
+inputs:
+  dockerhub_username:
+    description: Docker Hub username.
+    required: true
+  dockerhub_token:
+    description: Docker Hub access token.
+    required: true
+  platforms:
+    description: Space separated list of architectures to merge (each must have been pushed by docker-bake-release).
+    required: false
+    default: amd64 arm64
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ inputs.dockerhub_username }}
+        password: ${{ inputs.dockerhub_token }}
+
+    - name: Create multi-arch manifests
+      shell: bash
+      run: |
+        set -euo pipefail
+        export COMPOSE_ENV_FILES=".env"
+        export COMPOSE_PROFILES="base,base2,jre,maven,sonar,galleon"
+
+        mapfile -t images < <(docker compose -f docker-compose.yml config --format json | jq -r '.services[].image' | sort -u)
+
+        for image in "${images[@]}"; do
+          sources=()
+          for platform in ${{ inputs.platforms }}; do
+            sources+=("${image}-${platform}")
+          done
+          echo "Creating ${image} from: ${sources[*]}"
+          docker buildx imagetools create -t "${image}" "${sources[@]}"
+        done

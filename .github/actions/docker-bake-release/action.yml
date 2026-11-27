@@ -60,6 +60,12 @@ runs:
       run: |
         export COMPOSE_ENV_FILES="${{ steps.resolve_platform.outputs.compose_env_files }}"
         export COMPOSE_PROFILES="base,base2,jre,maven,sonar,galleon"
+        # Push arch-specific tags (e.g. 2.3.0-arm64) so the two arch runs do not overwrite each other.
+        # The shell env overrides VERSION for compose interpolation only, the .env files stay untouched.
+        # The multi-arch ${VERSION} tag is assembled afterwards by docker-manifest-release.
+        base_version="$(sed -nE 's/^VERSION=(.*)$/\1/p' .env)"
+        export VERSION="${base_version}-${{ inputs.platform }}"
+        echo "Arch-specific image version: ${VERSION}"
         rendered_file="docker-compose.rendered.${{ inputs.platform }}.yml"
         docker compose -f docker-compose.yml config > "$rendered_file"
 
