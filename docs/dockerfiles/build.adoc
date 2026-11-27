@@ -44,3 +44,11 @@ Manual release workflows invoke the shared release action twice:
 
 This guarantees both architectures are built and pushed in the same release process.
 
+=== Multi-arch tags
+
+The two architectures are baked separately (they may use different dependency versions), so they must not push to the same tag: the second push would overwrite the first one with a single-arch manifest.
+
+* `docker-bake-release` overrides `VERSION` in the shell environment of `docker compose config` to `<VERSION>-<platform>` (e.g. `2.3.0-arm64`). Shell variables take precedence over the env files during compose interpolation, so every image tag and every chained `BASE_IMAGE` build argument gets the arch-specific tag. The `.env` files are not modified.
+* After both architectures, `./.github/actions/docker-manifest-release` runs `docker buildx imagetools create` for every compose image and publishes the multi-arch `<VERSION>` tag from the `<VERSION>-amd64` and `<VERSION>-arm64` tags.
+* The arch-specific tags remain in the registry.
+
